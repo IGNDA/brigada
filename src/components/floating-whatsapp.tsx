@@ -11,7 +11,7 @@ export default function FloatingWhatsApp() {
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-24 right-6 z-40 group"
+      className="fixed bottom-6 right-4 sm:right-6 z-40 group"
       aria-label="Fale com a Brigada no WhatsApp"
     >
       <div className="flex items-center gap-3 bg-white rounded-full shadow-xl p-2 pr-5 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 border border-forest-100">
