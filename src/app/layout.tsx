@@ -18,6 +18,11 @@ export const metadata: Metadata = {
   },
   description:
     "Brigada IGNDA — Brigada voluntária de proteção ambiental no Rio de Janeiro. Resgate de fauna silvestre, combate a incêndios florestais, educação ambiental e retirada segura de enxames.",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
