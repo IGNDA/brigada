@@ -20,7 +20,7 @@ Sempre rode estes comandos após concluir tarefas de código:
 Build de produção: `npm run build` (gera exportação estática em `out/`).
 
 ## Stack
-- Next.js 16 (App Router) com exportação estática para GitHub Pages — `next.config.ts` já define `output: "export"`, `basePath` e `assetPrefix` para `/bof-rj`.
+- Next.js 16 (App Router) com exportação estática para GitHub Pages — `next.config.ts` já define `output: "export"`, `basePath` e `assetPrefix` para `/brigada`.
 - Código da aplicação em `src/` (`src/app`, `src/components`, `src/styles`, `src/tests`), com alias `@/` apontando para `./src/*`.
 - TypeScript estrito.
 - Tailwind CSS v4 com tema customizado (`forest-*`, `emergency-*`) em `src/styles/globals.css`.

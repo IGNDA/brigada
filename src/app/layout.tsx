@@ -12,11 +12,11 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 export const metadata: Metadata = {
   title: {
-    default: "1 Brigada de Operações Florestais RJ (Brigada Ivan Moraes)",
-    template: "%s | BOF-RJ",
+    default: "Brigada IGNDA — Instituto Guarda-Natureza de Defesa Ambiental",
+    template: "%s | Brigada IGNDA",
   },
   description:
-    "1 Brigada de Operações Florestais RJ (Brigada Ivan Moraes). Prevenção e combate a incêndios florestais, proteção da Mata Atlântica e resposta a emergências no Rio de Janeiro.",
+    "Brigada IGNDA — Brigada voluntária de proteção ambiental no Rio de Janeiro. Resgate de fauna silvestre, combate a incêndios florestais, educação ambiental e retirada segura de enxames.",
 };
 
 export default function RootLayout({

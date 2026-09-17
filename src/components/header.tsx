@@ -8,8 +8,8 @@ export default function Header() {
       <div className="mx-auto flex h-20 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
         <Link href="/" className="flex min-w-0 items-center gap-3">
           <Image
-            src="/bof-rj/assets/global/logo.jpg"
-            alt="Logotipo da 1 Brigada de Operações Florestais RJ (Brigada Ivan Moraes)"
+            src="/brigada/assets/global/logo.jpg"
+            alt="Logotipo da Brigada IGNDA"
             width={48}
             height={48}
             className="h-12 w-12 flex-shrink-0 rounded-lg object-cover"
@@ -17,9 +17,9 @@ export default function Header() {
           />
           <span className="hidden min-w-0 flex-col leading-tight md:flex">
             <span className="truncate text-sm font-bold text-forest-900">
-              1 Brigada de Operações Florestais RJ (Brigada Ivan Moraes)
+              Brigada IGNDA
             </span>
-            <span className="text-xs text-forest-600">Rio de Janeiro</span>
+            <span className="text-xs text-forest-600">Instituto Guarda-Natureza de Defesa Ambiental</span>
           </span>
         </Link>
 

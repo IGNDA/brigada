@@ -1,4 +1,4 @@
-const SESSION_KEY = "bof-rj-admin-token";
+const SESSION_KEY = "brigada-ignda-admin-token";
 
 export function getSessionToken(): string | null {
   if (typeof window === "undefined") return null;

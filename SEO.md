@@ -18,28 +18,28 @@ Esta é a regra mais importante desta tarefa.
 
 NÃO invente:
 
-- datas de fundação;
-- histórico da organização;
-- quantidade de voluntários;
-- número de atendimentos;
-- cidades atendidas;
-- bairros atendidos;
-- certificados;
-- autorizações;
-- órgãos parceiros;
-- números de emergência;
-- estatísticas;
-- resultados;
-- projetos;
-- serviços;
-- qualificações;
-- equipamentos;
-- estrutura operacional;
-- nomes de pessoas;
-- endereços;
-- horários;
-- informações jurídicas;
-- informações institucionais que não estejam comprovadas no projeto.
+* datas de fundação;
+* histórico da organização;
+* quantidade de voluntários;
+* número de atendimentos;
+* cidades atendidas;
+* bairros atendidos;
+* certificados;
+* autorizações;
+* órgãos parceiros;
+* números de emergência;
+* estatísticas;
+* resultados;
+* projetos;
+* serviços;
+* qualificações;
+* equipamentos;
+* estrutura operacional;
+* nomes de pessoas;
+* endereços;
+* horários;
+* informações jurídicas;
+* informações institucionais que não estejam comprovadas no projeto.
 
 Se uma informação necessária para um texto SEO não estiver disponível, NÃO crie uma informação fictícia.
 
@@ -67,22 +67,22 @@ Não faça substituição cega de texto.
 
 Analise cada ocorrência de:
 
-- BOF
-- Batalhão de Operações Florestais
-- Brigada de Operações Florestais RJ
-- bof-rj
-- referências técnicas ao nome antigo
+* BOF
+* Batalhão de Operações Florestais
+* Brigada de Operações Florestais RJ
+* bof-rj
+* referências técnicas ao nome antigo
 
 e determine se a ocorrência é:
 
-- conteúdo público;
-- SEO;
-- código;
-- configuração;
-- URL;
-- variável;
-- nome de arquivo;
-- nome de infraestrutura.
+* conteúdo público;
+* SEO;
+* código;
+* configuração;
+* URL;
+* variável;
+* nome de arquivo;
+* nome de infraestrutura.
 
 Preserve o que for tecnicamente necessário para não quebrar o sistema, mas atualize a identidade pública quando apropriado.
 
@@ -92,23 +92,23 @@ Preserve o que for tecnicamente necessário para não quebrar o sistema, mas atu
 
 O site deve ser semanticamente relevante para pesquisas relacionadas a:
 
-- Brigada IGNDA;
-- Brigada ambiental;
-- brigada florestal;
-- proteção ambiental;
-- incêndios florestais;
-- prevenção de incêndios florestais;
-- combate a incêndios florestais;
-- resgate de animais silvestres;
-- proteção da fauna;
-- proteção da flora;
-- retirada segura de enxames;
-- abelhas;
-- educação ambiental;
-- preservação ambiental;
-- Mata Atlântica;
-- Rio de Janeiro;
-- ações ambientais no Rio de Janeiro.
+* Brigada IGNDA;
+* Brigada ambiental;
+* brigada florestal;
+* proteção ambiental;
+* incêndios florestais;
+* prevenção de incêndios florestais;
+* combate a incêndios florestais;
+* resgate de animais silvestres;
+* proteção da fauna;
+* proteção da flora;
+* retirada segura de enxames;
+* abelhas;
+* educação ambiental;
+* preservação ambiental;
+* Mata Atlântica;
+* Rio de Janeiro;
+* ações ambientais no Rio de Janeiro.
 
 IMPORTANTE:
 
@@ -148,11 +148,11 @@ O texto final deve ser natural e coerente com a identidade da organização.
 
 Criar uma introdução curta apresentando:
 
-- quem é a Brigada IGNDA;
-- natureza da atuação, se confirmada;
-- proteção ambiental;
-- atuação no Rio de Janeiro, se confirmada;
-- principais áreas de atuação existentes no projeto.
+* quem é a Brigada IGNDA;
+* natureza da atuação, se confirmada;
+* proteção ambiental;
+* atuação no Rio de Janeiro, se confirmada;
+* principais áreas de atuação existentes no projeto.
 
 Não inventar informações.
 
@@ -174,14 +174,14 @@ O objetivo é criar contexto institucional.
 
 Abordar, quando houver informação disponível:
 
-- identidade da Brigada IGNDA;
-- missão;
-- atuação;
-- proteção ambiental;
-- voluntariado;
-- preservação da fauna e flora;
-- prevenção;
-- conscientização ambiental.
+* identidade da Brigada IGNDA;
+* missão;
+* atuação;
+* proteção ambiental;
+* voluntariado;
+* preservação da fauna e flora;
+* prevenção;
+* conscientização ambiental.
 
 Não criar uma história fictícia.
 
@@ -225,13 +225,13 @@ Criar uma seção própria:
 
 O texto deve abordar naturalmente:
 
-- incêndios florestais;
-- prevenção;
-- riscos para a vegetação;
-- riscos para a fauna;
-- importância da preservação;
-- resposta responsável;
-- conscientização da população.
+* incêndios florestais;
+* prevenção;
+* riscos para a vegetação;
+* riscos para a fauna;
+* importância da preservação;
+* resposta responsável;
+* conscientização da população.
 
 O conteúdo deve ser informativo e não deve prometer atendimento ou capacidade operacional que não esteja comprovada.
 
@@ -245,11 +245,11 @@ Criar uma seção:
 
 O conteúdo pode abordar:
 
-- animais silvestres em situação de risco;
-- importância de preservar a fauna;
-- cuidados ao encontrar animais;
-- evitar manipulação inadequada;
-- importância de procurar orientação adequada.
+* animais silvestres em situação de risco;
+* importância de preservar a fauna;
+* cuidados ao encontrar animais;
+* evitar manipulação inadequada;
+* importância de procurar orientação adequada.
 
 Não criar protocolos de emergência fictícios.
 
@@ -265,11 +265,11 @@ Criar uma seção:
 
 Explicar:
 
-- importância das abelhas;
-- papel dos polinizadores;
-- riscos de tentar remover enxames sem conhecimento;
-- importância da retirada segura quando esse procedimento fizer parte da atuação real da Brigada;
-- preservação ambiental.
+* importância das abelhas;
+* papel dos polinizadores;
+* riscos de tentar remover enxames sem conhecimento;
+* importância da retirada segura quando esse procedimento fizer parte da atuação real da Brigada;
+* preservação ambiental.
 
 O texto deve evitar linguagem que incentive matar abelhas.
 
@@ -283,12 +283,12 @@ Criar uma seção:
 
 Relacionar a atuação da Brigada a:
 
-- conscientização;
-- preservação;
-- prevenção de incêndios;
-- proteção da fauna;
-- proteção da flora;
-- participação da comunidade.
+* conscientização;
+* preservação;
+* prevenção de incêndios;
+* proteção da fauna;
+* proteção da flora;
+* participação da comunidade.
 
 Somente mencionar palestras, escolas, eventos ou projetos específicos se existirem informações confirmando essas atividades.
 
@@ -302,13 +302,13 @@ Avaliar a inclusão de uma seção:
 
 O conteúdo deve explicar de forma geral:
 
-- importância da Mata Atlântica;
-- biodiversidade;
-- fauna;
-- flora;
-- riscos dos incêndios;
-- preservação ambiental;
-- importância da participação da sociedade.
+* importância da Mata Atlântica;
+* biodiversidade;
+* fauna;
+* flora;
+* riscos dos incêndios;
+* preservação ambiental;
+* importância da participação da sociedade.
 
 Relacionar ao Rio de Janeiro somente quando isso for verdadeiro para a atuação da Brigada.
 
@@ -320,10 +320,10 @@ Criar uma seção educativa com situações relevantes.
 
 Exemplos de temas:
 
-- animal silvestre em situação de risco;
-- enxame de abelhas;
-- foco de incêndio;
-- situações relacionadas à preservação ambiental.
+* animal silvestre em situação de risco;
+* enxame de abelhas;
+* foco de incêndio;
+* situações relacionadas à preservação ambiental.
 
 ATENÇÃO:
 
@@ -343,9 +343,9 @@ Criar uma seção:
 
 Se a área oficialmente confirmada for o Rio de Janeiro, utilizar naturalmente termos como:
 
-- Rio de Janeiro;
-- atuação ambiental no Rio de Janeiro;
-- proteção ambiental no Rio de Janeiro.
+* Rio de Janeiro;
+* atuação ambiental no Rio de Janeiro;
+* proteção ambiental no Rio de Janeiro.
 
 Não criar uma lista de municípios ou bairros sem confirmação.
 
@@ -357,16 +357,16 @@ Criar uma seção de perguntas frequentes.
 
 Perguntas sugeridas:
 
-- O que é a Brigada IGNDA?
-- O que a Brigada IGNDA faz?
-- Como agir ao encontrar um animal silvestre em situação de risco?
-- O que fazer ao encontrar um enxame de abelhas?
-- Por que as abelhas são importantes para o meio ambiente?
-- Como prevenir incêndios florestais?
-- Qual é a importância da preservação da Mata Atlântica?
-- Onde a Brigada IGNDA atua?
-- Como apoiar o trabalho da Brigada IGNDA?
-- Como participar das ações da Brigada IGNDA?
+* O que é a Brigada IGNDA?
+* O que a Brigada IGNDA faz?
+* Como agir ao encontrar um animal silvestre em situação de risco?
+* O que fazer ao encontrar um enxame de abelhas?
+* Por que as abelhas são importantes para o meio ambiente?
+* Como prevenir incêndios florestais?
+* Qual é a importância da preservação da Mata Atlântica?
+* Onde a Brigada IGNDA atua?
+* Como apoiar o trabalho da Brigada IGNDA?
+* Como participar das ações da Brigada IGNDA?
 
 Responder somente aquilo que puder ser sustentado pelas informações existentes.
 
@@ -376,24 +376,24 @@ Responder somente aquilo que puder ser sustentado pelas informações existentes
 
 Realizar uma auditoria completa de:
 
-- `<title>`;
-- meta description;
-- H1;
-- H2;
-- H3;
-- headings duplicados;
-- hierarquia semântica;
-- canonical;
-- Open Graph;
-- Twitter/X metadata;
-- favicon;
-- robots;
-- sitemap;
-- URLs;
-- links internos;
-- alt text;
-- textos dos botões;
-- textos de navegação.
+* `<title>`;
+* meta description;
+* H1;
+* H2;
+* H3;
+* headings duplicados;
+* hierarquia semântica;
+* canonical;
+* Open Graph;
+* Twitter/X metadata;
+* favicon;
+* robots;
+* sitemap;
+* URLs;
+* links internos;
+* alt text;
+* textos dos botões;
+* textos de navegação.
 
 Criar títulos específicos para cada página.
 
@@ -429,10 +429,10 @@ Criar uma descrição natural e atrativa.
 
 Ela deve explicar:
 
-- quem é a Brigada IGNDA;
-- atuação ambiental;
-- principais áreas;
-- Rio de Janeiro, quando aplicável.
+* quem é a Brigada IGNDA;
+* atuação ambiental;
+* principais áreas;
+* Rio de Janeiro, quando aplicável.
 
 Não transformar a descrição em uma sequência de palavras-chave.
 
@@ -444,10 +444,10 @@ Auditar todas as imagens.
 
 Para cada imagem:
 
-- verificar se o `alt` descreve corretamente a imagem;
-- evitar `alt` genérico;
-- não repetir palavras-chave artificialmente;
-- não colocar informação que não aparece na imagem.
+* verificar se o `alt` descreve corretamente a imagem;
+* evitar `alt` genérico;
+* não repetir palavras-chave artificialmente;
+* não colocar informação que não aparece na imagem.
 
 Exemplo conceitual:
 
@@ -467,10 +467,10 @@ Revisar a galeria existente.
 
 Quando houver descrição ou legenda:
 
-- utilizar textos descritivos;
-- contextualizar a atividade;
-- utilizar Brigada IGNDA quando pertinente;
-- evitar descrições genéricas como "Foto 1", "Foto 2".
+* utilizar textos descritivos;
+* contextualizar a atividade;
+* utilizar Brigada IGNDA quando pertinente;
+* evitar descrições genéricas como "Foto 1", "Foto 2".
 
 Não inventar o que aconteceu na fotografia.
 
@@ -504,14 +504,14 @@ O site deve funcionar na raiz do domínio.
 
 Revisar configurações atuais do Next.js relacionadas a:
 
-- `basePath`;
-- `assetPrefix`;
-- URLs absolutas;
-- sitemap;
-- canonical;
-- Open Graph;
-- links internos;
-- caminhos de imagens.
+* `basePath`;
+* `assetPrefix`;
+* URLs absolutas;
+* sitemap;
+* canonical;
+* Open Graph;
+* links internos;
+* caminhos de imagens.
 
 A configuração atual relacionada ao `/bof-rj` não deve ser simplesmente removida sem verificar todas as dependências.
 
@@ -529,9 +529,9 @@ Manter a integração existente.
 
 Durante a migração:
 
-- verificar se o ID correto será utilizado;
-- não remover a configuração funcional sem necessidade;
-- garantir que o Analytics continue funcionando após a publicação no domínio definitivo.
+* verificar se o ID correto será utilizado;
+* não remover a configuração funcional sem necessidade;
+* garantir que o Analytics continue funcionando após a publicação no domínio definitivo.
 
 ---
 
@@ -543,10 +543,10 @@ O projeto já utiliza recursos da Cloudflare relacionados à galeria.
 
 Antes de modificar:
 
-- Worker;
-- R2;
-- URLs;
-- endpoints;
+* Worker;
+* R2;
+* URLs;
+* endpoints;
 
 verificar dependências existentes.
 
@@ -560,15 +560,15 @@ A otimização SEO não pode prejudicar performance.
 
 Verificar:
 
-- tamanho das imagens;
-- lazy loading;
-- fontes;
-- JavaScript desnecessário;
-- carregamento da Home;
-- imagens acima da dobra;
-- acessibilidade;
-- CLS;
-- carregamento de conteúdo.
+* tamanho das imagens;
+* lazy loading;
+* fontes;
+* JavaScript desnecessário;
+* carregamento da Home;
+* imagens acima da dobra;
+* acessibilidade;
+* CLS;
+* carregamento de conteúdo.
 
 Não adicionar bibliotecas pesadas somente para SEO.
 
@@ -578,13 +578,13 @@ Não adicionar bibliotecas pesadas somente para SEO.
 
 Durante a alteração do conteúdo:
 
-- manter contraste adequado;
-- headings hierárquicos;
-- textos alternativos;
-- botões compreensíveis;
-- links descritivos;
-- navegação por teclado;
-- labels quando necessários.
+* manter contraste adequado;
+* headings hierárquicos;
+* textos alternativos;
+* botões compreensíveis;
+* links descritivos;
+* navegação por teclado;
+* labels quando necessários.
 
 SEO e acessibilidade devem caminhar juntos.
 
@@ -598,11 +598,11 @@ Priorizar somente schemas que sejam verdadeiros para a organização.
 
 Avaliar:
 
-- Organization;
-- WebSite;
-- WebPage;
-- BreadcrumbList;
-- FAQPage, quando aplicável e permitido pelas práticas atuais do Google.
+* Organization;
+* WebSite;
+* WebPage;
+* BreadcrumbList;
+* FAQPage, quando aplicável e permitido pelas práticas atuais do Google.
 
 NÃO criar dados estruturados com informações fictícias.
 
@@ -648,11 +648,11 @@ Não redesenhar completamente a Home.
 
 Não trocar:
 
-- cores;
-- tipografia;
-- layout;
-- animações;
-- componentes;
+* cores;
+* tipografia;
+* layout;
+* animações;
+* componentes;
 
 sem necessidade.
 
@@ -690,17 +690,17 @@ Analise todo o projeto.
 
 Identifique:
 
-- todas as páginas;
-- componentes;
-- textos;
-- metadata;
-- imagens;
-- URLs;
-- configurações SEO;
-- referências ao BOF;
-- configurações do GitHub Pages;
-- Cloudflare;
-- Analytics.
+* todas as páginas;
+* componentes;
+* textos;
+* metadata;
+* imagens;
+* URLs;
+* configurações SEO;
+* referências ao BOF;
+* configurações do GitHub Pages;
+* Cloudflare;
+* Analytics.
 
 ### ETAPA 2 — MAPA DE ALTERAÇÕES
 
@@ -723,30 +723,30 @@ Implemente o conteúdo SEO e as melhorias técnicas.
 
 Execute:
 
-- build;
-- lint;
-- testes existentes;
-- verificação de links;
-- verificação de imagens;
-- verificação de metadata;
-- verificação de sitemap;
-- verificação de robots;
-- verificação de canonical;
-- verificação de URLs;
-- verificação mobile;
-- verificação desktop.
+* build;
+* lint;
+* testes existentes;
+* verificação de links;
+* verificação de imagens;
+* verificação de metadata;
+* verificação de sitemap;
+* verificação de robots;
+* verificação de canonical;
+* verificação de URLs;
+* verificação mobile;
+* verificação desktop.
 
 ### ETAPA 5 — AUDITORIA FINAL
 
 Procure novamente por:
 
-- BOF;
-- Batalhão de Operações Florestais;
-- `/bof-rj`;
-- URLs antigas;
-- metadata antiga;
-- titles antigos;
-- textos antigos.
+* BOF;
+* Batalhão de Operações Florestais;
+* `/bof-rj`;
+* URLs antigas;
+* metadata antiga;
+* titles antigos;
+* textos antigos.
 
 Classifique cada ocorrência restante como:
 
@@ -760,26 +760,26 @@ Não simplesmente apague tudo.
 
 A tarefa será considerada concluída quando:
 
-- a identidade pública estiver alinhada à Brigada IGNDA;
-- o conteúdo estiver semanticamente mais completo;
-- a Home explicar claramente quem é a organização;
-- as principais áreas de atuação estiverem contextualizadas;
-- houver conteúdo relevante sobre incêndios florestais;
-- houver conteúdo relevante sobre fauna silvestre;
-- houver conteúdo relevante sobre abelhas;
-- houver conteúdo de educação ambiental;
-- houver FAQ;
-- SEO técnico estiver revisado;
-- metadata estiver revisada;
-- imagens estiverem com alt text adequado;
-- sitemap/robots estiverem corretos;
-- URLs estiverem preparadas para `brigadaignda.org.br`;
-- Analytics estiver preservado;
-- Cloudflare/galeria continuar funcionando;
-- build passar sem erros;
-- não existirem informações institucionais inventadas;
-- não houver keyword stuffing;
-- o design existente continuar consistente.
+* a identidade pública estiver alinhada à Brigada IGNDA;
+* o conteúdo estiver semanticamente mais completo;
+* a Home explicar claramente quem é a organização;
+* as principais áreas de atuação estiverem contextualizadas;
+* houver conteúdo relevante sobre incêndios florestais;
+* houver conteúdo relevante sobre fauna silvestre;
+* houver conteúdo relevante sobre abelhas;
+* houver conteúdo de educação ambiental;
+* houver FAQ;
+* SEO técnico estiver revisado;
+* metadata estiver revisada;
+* imagens estiverem com alt text adequado;
+* sitemap/robots estiverem corretos;
+* URLs estiverem preparadas para `brigadaignda.org.br`;
+* Analytics estiver preservado;
+* Cloudflare/galeria continuar funcionando;
+* build passar sem erros;
+* não existirem informações institucionais inventadas;
+* não houver keyword stuffing;
+* o design existente continuar consistente.
 
 ---
 

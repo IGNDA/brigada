@@ -1,9 +1,9 @@
 import Image from "next/image";
 
 const whatsappUrl =
-  "https://api.whatsapp.com/send/?phone=5521966956140&text=Ol%C3%A1%21+Vi+o+site+da+1+Brigada+de+Opera%C3%A7%C3%B5es+Florestais+RJ+%28Brigada+Ivan+Moraes%29+e+quero+saber+mais.&type=phone_number&app_absent=0";
+  "https://api.whatsapp.com/send/?phone=5521966956140&text=Ol%C3%A1%21+Vi+o+site+da+Brigada+IGNDA+e+quero+saber+mais.&type=phone_number&app_absent=0";
 
-const instagramUrl = "https://www.instagram.com/1_brigada_de_operacoes_florest";
+const instagramUrl = "https://www.instagram.com/brigada_ignda";
 
 const atuacao = [
   {
@@ -65,8 +65,8 @@ export default function Home() {
           <div className="mx-auto w-full max-w-md">
             <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border-4 border-forest-50/20 bg-forest-900 shadow-lg ring-1 ring-black/40">
               <Image
-                src="/bof-rj/assets/images/hero.jpg"
-                alt="Brigada voluntária ambiental no Rio de Janeiro"
+                src="/brigada/assets/images/hero.jpg"
+                alt="Brigada IGNDA em atuação no Rio de Janeiro"
                 width={800}
                 height={1000}
                 priority
@@ -112,19 +112,19 @@ export default function Home() {
             Quem somos
           </p>
           <h2 className="mt-2 text-2xl font-bold text-forest-900 sm:text-3xl">
-            1 Brigada de Operações Florestais RJ (Brigada Ivan Moraes)
+            Brigada IGNDA
           </h2>
           <p className="mt-3 text-base text-forest-700 sm:text-lg">
-            Equipe voluntária dedicada à proteção ambiental
+            Instituto Guarda-Natureza de Defesa Ambiental
           </p>
         </div>
 
         <div className="mt-8 grid gap-8 lg:grid-cols-2">
           <div className="space-y-4 text-forest-800">
             <p>
-              A 1 Brigada de Operações Florestais RJ, também conhecida como
-              Brigada Ivan Moraes, é uma brigada voluntária do Rio de Janeiro
-              dedicada à proteção ambiental.
+              A Brigada IGNDA (Instituto Guarda-Natureza de Defesa Ambiental)
+              é uma brigada voluntária do Rio de Janeiro dedicada à proteção
+              ambiental.
             </p>
             <p>
               A equipe atua em resgates de animais silvestres, combate a
@@ -218,8 +218,8 @@ export default function Home() {
         <div className="mt-8 grid gap-6 sm:grid-cols-2">
           <div className="overflow-hidden rounded-xl">
             <Image
-              src="/bof-rj/assets/images/nossos-trabalhos-1.jpg"
-              alt="Trabalho voluntário da brigada"
+              src="/brigada/assets/images/nossos-trabalhos-1.jpg"
+              alt="Trabalho voluntário da Brigada IGNDA"
               width={600}
               height={400}
               className="h-auto w-full object-cover"
@@ -227,8 +227,8 @@ export default function Home() {
           </div>
           <div className="overflow-hidden rounded-xl">
             <Image
-              src="/bof-rj/assets/images/nossos-trabalhos-2.jpg"
-              alt="Trabalho voluntário da brigada"
+              src="/brigada/assets/images/nossos-trabalhos-2.jpg"
+              alt="Trabalho voluntário da Brigada IGNDA"
               width={600}
               height={400}
               className="h-auto w-full object-cover"
@@ -295,7 +295,7 @@ export default function Home() {
                 </span>
               </span>
               <span className="mt-1 block text-sm text-forest-100">
-                @1_brigada_de_operacoes_florest
+                @brigada_ignda
               </span>
             </a>
           </div>

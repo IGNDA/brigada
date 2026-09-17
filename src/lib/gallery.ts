@@ -27,7 +27,7 @@ export const CATEGORIES: Record<GalleryCategory, { label: string }> = {
 
 export const WORKER_URL =
   process.env.NEXT_PUBLIC_GALLERY_WORKER_URL ??
-  "https://bof-rj-gallery.<your-worker-subdomain>.workers.dev";
+  "https://brigada-ignda-gallery.<your-worker-subdomain>.workers.dev";
 
 export const R2_PUBLIC_BASE = process.env.NEXT_PUBLIC_R2_PUBLIC_BASE ?? "";
 
