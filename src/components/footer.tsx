@@ -7,13 +7,14 @@ export default function Footer() {
         <div>
           <p>
             <span className="font-semibold text-forest-900">
-              1 Brigada de Operações Florestais RJ (Brigada Ivan Moraes)
+              Brigada IGNDA
             </span>
           </p>
-          <p className="mt-1 text-forest-600">Rio de Janeiro · Brasil</p>
+          <p className="mt-1 text-forest-600">Instituto Guarda-Natureza de Defesa Ambiental</p>
+          <p className="text-forest-600">Rio de Janeiro · Brasil</p>
         </div>
         <p>
-          © {year} 1 Brigada de Operações Florestais RJ (Brigada Ivan Moraes)
+          © {year} Brigada IGNDA
         </p>
       </div>
     </footer>
