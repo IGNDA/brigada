@@ -417,7 +417,7 @@ export default function AdminApp({
               >
                 <div
                   onClick={() => toggleAlbum(album.title)}
-                  className="w-full flex items-center justify-between gap-4 p-4 hover:bg-forest-50 transition-colors cursor-pointer"
+                  className="w-full p-4 hover:bg-forest-50 transition-colors cursor-pointer"
                   aria-expanded={expanded}
                   role="button"
                   tabIndex={0}
@@ -428,7 +428,7 @@ export default function AdminApp({
                     }
                   }}
                 >
-                  <div className="flex items-center gap-3 flex-1 min-w-0">
+                  <div className="flex items-center gap-3">
                     <div className="flex-shrink-0 h-14 w-14 rounded-lg overflow-hidden border border-forest-200 bg-forest-50">
                       <Image
                         src={album.coverUrl}
@@ -459,7 +459,7 @@ export default function AdminApp({
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 flex-shrink-0">
+                  <div className="mt-3 flex flex-wrap items-center gap-2">
                     <button
                       type="button"
                       onClick={(e) => {
@@ -474,8 +474,11 @@ export default function AdminApp({
                       }}
                       className="rounded-md border border-forest-300 px-3 py-1.5 text-xs font-medium text-forest-800 transition-colors hover:bg-forest-100"
                     >
-                      <Plus className="h-3.5 w-3.5 mr-1" aria-hidden="true" />
-                      Adicionar fotos
+                      <Plus
+                        className="h-3.5 w-3.5 sm:mr-1"
+                        aria-hidden="true"
+                      />
+                      <span className="hidden sm:inline">Adicionar fotos</span>
                     </button>
                     <button
                       type="button"
@@ -485,8 +488,11 @@ export default function AdminApp({
                       }}
                       className="rounded-md border border-forest-300 px-3 py-1.5 text-xs font-medium text-forest-800 transition-colors hover:bg-forest-100"
                     >
-                      <Edit2 className="h-3.5 w-3.5 mr-1" aria-hidden="true" />
-                      Editar álbum
+                      <Edit2
+                        className="h-3.5 w-3.5 sm:mr-1"
+                        aria-hidden="true"
+                      />
+                      <span className="hidden sm:inline">Editar álbum</span>
                     </button>
                     <button
                       type="button"
@@ -496,8 +502,11 @@ export default function AdminApp({
                       }}
                       className="rounded-md border border-emergency-600 px-3 py-1.5 text-xs font-medium text-emergency-600 transition-colors hover:bg-emergency-600 hover:text-white"
                     >
-                      <Trash2 className="h-3.5 w-3.5 mr-1" aria-hidden="true" />
-                      Excluir álbum
+                      <Trash2
+                        className="h-3.5 w-3.5 sm:mr-1"
+                        aria-hidden="true"
+                      />
+                      <span className="hidden sm:inline">Excluir álbum</span>
                     </button>
                     <button
                       type="button"
