@@ -12,6 +12,9 @@ const geistSans = Geist({
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
+const SITE_URL = "https://brigadaignda.org.br";
+const OG_IMAGE = `${SITE_URL}/assets/images/hero.jpg`;
+
 export const metadata: Metadata = {
   title: {
     default: BRIGADE_CONFIG.seo.defaultTitle,
@@ -19,9 +22,35 @@ export const metadata: Metadata = {
   },
   description: BRIGADE_CONFIG.seo.description,
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/favicon.ico",
+    icon: `${SITE_URL}/favicon.ico`,
+    shortcut: `${SITE_URL}/favicon.ico`,
+    apple: `${SITE_URL}/favicon.ico`,
+  },
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    title: BRIGADE_CONFIG.seo.defaultTitle,
+    description: BRIGADE_CONFIG.seo.description,
+    siteName: BRIGADE_CONFIG.name,
+    locale: "pt_BR",
+    images: [
+      {
+        url: OG_IMAGE,
+        width: 1200,
+        height: 630,
+        alt: BRIGADE_CONFIG.name,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: BRIGADE_CONFIG.seo.defaultTitle,
+    description: BRIGADE_CONFIG.seo.description,
+    images: [OG_IMAGE],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
@@ -36,6 +65,10 @@ export default function RootLayout({
       className={geistSans.variable}
       data-scroll-behavior="smooth"
     >
+      <head>
+        <link rel="preload" as="image" href={`${SITE_URL}/assets/global/logo.jpg`} />
+        <link rel="preload" as="image" href={`${SITE_URL}/assets/images/hero.jpg`} />
+      </head>
       <body className="flex min-h-screen flex-col antialiased">
         {children}
         <FloatingWhatsApp />

@@ -14,7 +14,7 @@ export default function Header() {
             alt={`Logotipo da ${BRIGADE_CONFIG.name}`}
             width={48}
             height={48}
-            className="h-12 w-12 flex-shrink-0 rounded-lg object-cover"
+            className="h-12 w-12 flex-shrink-0 object-contain"
             priority
           />
           <span className="hidden min-w-0 flex-col leading-tight md:flex">

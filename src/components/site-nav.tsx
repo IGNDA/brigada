@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { urls } from "@/lib/urls";
@@ -22,6 +23,7 @@ const whatsappUrl = BRIGADE_CONFIG.whatsappText.startsWith("http")
 
 export default function SiteNav() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     if (open) {
@@ -31,6 +33,11 @@ export default function SiteNav() {
       };
     }
   }, [open]);
+
+  const isActive = (href: string) => {
+    if (href === urls.home()) return pathname === urls.home() || pathname === "/";
+    return pathname.startsWith(href);
+  };
 
   const panel = open
     ? createPortal(
@@ -78,7 +85,11 @@ export default function SiteNav() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="rounded-md px-3 py-3 text-base font-medium text-forest-800 transition-colors hover:bg-forest-100 hover:text-forest-900"
+                  className={`rounded-md px-3 py-3 text-base font-medium transition-colors ${
+                    isActive(item.href)
+                      ? "bg-forest-700 text-white"
+                      : "text-forest-800 hover:bg-forest-100 hover:text-forest-900"
+                  }`}
                 >
                   {item.label}
                 </Link>
@@ -107,7 +118,11 @@ export default function SiteNav() {
             <li key={item.href}>
               <Link
                 href={item.href}
-                className="rounded-md px-3 py-2 text-forest-800 transition-colors hover:bg-forest-100 hover:text-forest-900"
+                className={`rounded-md px-3 py-2 transition-colors ${
+                  isActive(item.href)
+                    ? "bg-forest-700 text-white"
+                    : "text-forest-800 hover:bg-forest-100 hover:text-forest-900"
+                }`}
               >
                 {item.label}
               </Link>
