@@ -39,7 +39,7 @@ export default function FAQPage() {
         </div>
       </section>
 
-      <FAQ />
+      <FAQ defaultOpen />
 
       <section className="bg-forest-50 py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 text-center">
@@ -47,7 +47,7 @@ export default function FAQPage() {
             Ainda tem dúvidas?
           </h2>
           <p className="mt-3 max-w-2xl mx-auto text-forest-700">
-            Não hesite em nos chamar. Respondemos rápido pelo WhatsApp.
+            Não hesite em nos chamar pelo WhatsApp.
           </p>
           <div className="mt-8">
             <a
