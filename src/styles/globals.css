@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@source "../app";
+@source "../components";
+
+:root {
+  --background: #f8faf9;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --color-forest-50: #f0fdf4;
+  --color-forest-100: #dcfce7;
+  --color-forest-200: #bbf7d0;
+  --color-forest-300: #86efac;
+  --color-forest-400: #4ade80;
+  --color-forest-500: #22c55e;
+  --color-forest-600: #16a34a;
+  --color-forest-700: #15803d;
+  --color-forest-800: #166534;
+  --color-forest-900: #14532d;
+
+  --color-emergency-600: #dc2626;
+  --color-emergency-700: #b91c1c;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
+/* Galeria pública — fotos arredondadas com sombra e hover */
+.react-photo-album--button {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.05),
+    0 4px 12px rgb(0 0 0 / 0.08);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.react-photo-album--button:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 4px 8px rgb(0 0 0 / 0.08),
+    0 12px 24px rgb(0 0 0 / 0.16);
+}
+
+.react-photo-album--image {
+  border-radius: 0.75rem;
+  transition: transform 0.35s ease;
+}
+
+.react-photo-album--button:hover .react-photo-album--image {
+  transform: scale(1.04);
+}
