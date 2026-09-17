@@ -422,12 +422,24 @@ export default function AdminApp({
                           {CATEGORIES[album.category].label}
                         </span>
                       </div>
-                      <p className="mt-1 text-xs text-forest-600">
+                      <p className="mt-1 text-xs text-forest-600 text-left">
                         {album.items[0].description ? `${album.items[0].description.slice(0, 80)}...` : "Sem descrição"}
                       </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 flex-shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setTitle(album.title);
+                        setCategory(album.category);
+                        if (uploadRef.current) uploadRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+                      }}
+                      className="rounded-md border border-forest-300 px-3 py-1.5 text-xs font-medium text-forest-800 transition-colors hover:bg-forest-100"
+                    >
+                      <Plus className="h-3.5 w-3.5 mr-1" aria-hidden="true" />
+                      Adicionar fotos
+                    </button>
                     <button
                       type="button"
                       onClick={() => startEditAlbum(album)}
