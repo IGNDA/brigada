@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { urls, asset } from "@/lib/urls";
+import { BRIGADE_CONFIG } from "@/config/brigade";
 
 export const metadata: Metadata = {
-  title: "Quem somos — Brigada IGNDA",
+  title: `Quem somos — ${BRIGADE_CONFIG.name}`,
   description:
-    "Conheça a Brigada IGNDA: instituto voluntário de proteção ambiental no Rio de Janeiro. Missão, valores e atuação na preservação da fauna, flora e combate a incêndios florestais.",
+    `Conheça a ${BRIGADE_CONFIG.name}: instituto voluntário de proteção ambiental no Rio de Janeiro. Missão, valores e atuação na preservação da fauna, flora e combate a incêndios florestais.`,
 };
 
 export default function QuemSomos() {
@@ -21,7 +22,7 @@ export default function QuemSomos() {
             Quem somos
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-forest-100">
-            Brigada IGNDA — Instituto Guarda-Natureza de Defesa Ambiental. Uma
+            {BRIGADE_CONFIG.fullName}. Uma
             brigada voluntária dedicada à proteção ambiental no Rio de Janeiro.
           </p>
         </div>
@@ -34,8 +35,7 @@ export default function QuemSomos() {
               Nossa identidade
             </h2>
             <p>
-              A <strong>Brigada IGNDA</strong> (Instituto Guarda-Natureza de
-              Defesa Ambiental) é uma organização voluntária sediada no Rio de
+              A <strong>{BRIGADE_CONFIG.name}</strong> ({BRIGADE_CONFIG.instituteName}) é uma organização voluntária sediada no Rio de
               Janeiro, formada por pessoas comprometidas com a preservação do
               meio ambiente. Não temos fins lucrativos e atuamos de forma
               colaborativa com a comunidade, órgãos públicos e outras
@@ -77,14 +77,16 @@ export default function QuemSomos() {
           <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border-4 border-forest-50/20 bg-forest-900 shadow-lg">
             <Image
               src={asset("/assets/images/hero.jpg")}
-              alt="Equipe da Brigada IGNDA em ação de proteção ambiental no Rio de Janeiro"
+              alt={`Equipe da ${BRIGADE_CONFIG.name} em ação de proteção ambiental no Rio de Janeiro`}
               fill
               priority
               className="object-cover"
             />
           </div>
         </div>
+      </section>
 
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <div className="mt-16 grid gap-8 sm:grid-cols-3">
           <article className="rounded-xl border border-forest-100 bg-white p-6 shadow-sm">
             <h3 className="text-lg font-bold text-forest-900">Missão</h3>
@@ -134,7 +136,7 @@ export default function QuemSomos() {
               Ver nossos trabalhos
             </Link>
             <a
-              href="https://api.whatsapp.com/send/?phone=5521966956140&text=Ol%C3%A1%21+Quero+saber+como+participar+da+Brigada+IGNDA.&type=phone_number&app_absent=0"
+              href={`https://api.whatsapp.com/send/?phone=5521966956140&text=${encodeURIComponent(`Olá! Quero saber como participar da ${BRIGADE_CONFIG.name}.`)}&type=phone_number&app_absent=0`}
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-full bg-emergency-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-emergency-700"

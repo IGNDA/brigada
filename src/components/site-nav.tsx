@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { urls } from "@/lib/urls";
+import { BRIGADE_CONFIG } from "@/config/brigade";
 
 type NavItem = { label: string; href: string };
 
@@ -15,8 +16,9 @@ const navItems: NavItem[] = [
   { label: "Perguntas frequentes", href: urls.faq() },
 ];
 
-const whatsappUrl =
-  "https://api.whatsapp.com/send/?phone=5521966956140&text=Ol%C3%A1%21+Vi+o+site+da+Brigada+IGNDA+e+quero+saber+mais.&type=phone_number&app_absent=0";
+const whatsappUrl = BRIGADE_CONFIG.whatsappText.startsWith("http")
+  ? BRIGADE_CONFIG.whatsappText
+  : `https://api.whatsapp.com/send/?phone=5521966956140&text=${encodeURIComponent(BRIGADE_CONFIG.whatsappText)}&type=phone_number&app_absent=0`;
 
 export default function SiteNav() {
   const [open, setOpen] = useState(false);
@@ -45,7 +47,7 @@ export default function SiteNav() {
           >
             <div className="flex items-center justify-between border-b border-forest-100 px-4 py-3">
               <span className="text-sm font-bold text-forest-900">
-                Brigada IGNDA
+                {BRIGADE_CONFIG.name}
               </span>
               <button
                 type="button"

@@ -110,7 +110,7 @@ export default function GalleryVitrine() {
         </h2>
         <p className="mt-3 max-w-2xl text-forest-700">
           Um registro visual das ações de proteção ambiental realizadas pela
-          Brigada IGNDA. Cada imagem conta uma história de dedicação voluntária.
+          Brigada Ivan Moraes. Cada imagem conta uma história de dedicação voluntária.
         </p>
         <div className="mt-10 rounded-2xl bg-gradient-to-br from-forest-50 to-forest-100 p-10 sm:p-16 text-center">
           <div
@@ -146,10 +146,10 @@ export default function GalleryVitrine() {
       <h2 className="mt-2 text-2xl font-bold text-forest-900 sm:text-3xl">
         Nossos trabalhos
       </h2>
-      <p className="mt-3 max-w-2xl text-forest-700">
-        Um registro visual das ações de proteção ambiental realizadas pela
-        Brigada IGNDA. Cada imagem conta uma história de dedicação voluntária.
-      </p>
+<p className="mt-3 max-w-2xl text-forest-700">
+          Um registro visual das ações de proteção ambiental realizadas pela
+          Brigada Ivan Moraes. Cada imagem conta uma história de dedicação voluntária.
+        </p>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {items.map((item, index) => (

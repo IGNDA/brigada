@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { urls } from "@/lib/urls";
+import { BRIGADE_CONFIG } from "@/config/brigade";
 
 const areas = [
   {
@@ -62,10 +63,14 @@ const areas = [
 ];
 
 export const metadata: Metadata = {
-  title: "Nossa atuação — Brigada IGNDA",
+  title: `Nossa atuação — ${BRIGADE_CONFIG.name}`,
   description:
-    "Conheça as áreas de atuação da Brigada IGNDA: combate a incêndios florestais, resgate de fauna silvestre, preservação de abelhas e polinizadores, e educação ambiental no Rio de Janeiro.",
+    `Conheça as áreas de atuação da ${BRIGADE_CONFIG.name}: combate a incêndios florestais, resgate de fauna silvestre, preservação de abelhas e polinizadores, e educação ambiental no Rio de Janeiro.`,
 };
+
+const whatsappUrl = BRIGADE_CONFIG.whatsappText.startsWith("http")
+  ? BRIGADE_CONFIG.whatsappText
+  : `https://api.whatsapp.com/send/?phone=5521966956140&text=${encodeURIComponent(BRIGADE_CONFIG.whatsappText)}&type=phone_number&app_absent=0`;
 
 export default function Atuacao() {
   return (
@@ -151,7 +156,7 @@ export default function Atuacao() {
               <span aria-hidden="true">→</span>
             </Link>
             <a
-              href="https://api.whatsapp.com/send/?phone=5521966956140&text=Ol%C3%A1%21+Vi+a+atua%C3%A7%C3%A3o+da+Brigada+IGNDA+e+quero+colaborar.&type=phone_number&app_absent=0"
+              href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full bg-emergency-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-emergency-700"

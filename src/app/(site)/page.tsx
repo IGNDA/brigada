@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import GalleryVitrine from "@/components/gallery/gallery-vitrine";
 import { urls, asset } from "@/lib/urls";
+import { BRIGADE_CONFIG } from "@/config/brigade";
 import {
   Flame,
   PawPrint,
@@ -14,8 +15,9 @@ import {
   ArrowRight,
 } from "lucide-react";
 
-const whatsappUrl =
-  "https://api.whatsapp.com/send/?phone=5521966956140&text=Ol%C3%A1%21+Vi+o+site+da+Brigada+IGNDA+e+quero+saber+mais.&type=phone_number&app_absent=0";
+const whatsappUrl = BRIGADE_CONFIG.whatsappText.startsWith("http")
+  ? BRIGADE_CONFIG.whatsappText
+  : `https://api.whatsapp.com/send/?phone=5521966956140&text=${encodeURIComponent(BRIGADE_CONFIG.whatsappText)}&type=phone_number&app_absent=0`;
 
 const instagramUrl = "https://www.instagram.com/1_brigada_de_operacoes_florest/";
 
@@ -26,14 +28,13 @@ export default function Home() {
         <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-2">
           <div>
             <h1 className="max-w-2xl text-4xl font-bold leading-tight sm:text-5xl">
-              Brigada IGNDA — Proteção ambiental no Rio de Janeiro
+              {BRIGADE_CONFIG.name} — Proteção ambiental no Rio de Janeiro
             </h1>
             <p className="mt-4 text-lg font-medium text-forest-100">
-              Instituto Guarda-Natureza de Defesa Ambiental
+              {BRIGADE_CONFIG.instituteName}
             </p>
             <p className="mt-4 max-w-2xl text-base text-forest-50/90 sm:text-lg">
-              Brigada voluntária dedicada à preservação da fauna, flora e
-              combate a incêndios florestais no Rio de Janeiro. Resgate de
+              {BRIGADE_CONFIG.description}. Resgate de
               animais silvestres, retirada segura de enxames de abelhas e
               educação ambiental — trabalho voluntário em defesa do meio ambiente
               carioca.
@@ -59,7 +60,7 @@ export default function Home() {
             <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border-4 border-forest-50/20 bg-forest-900 shadow-lg ring-1 ring-black/40">
               <Image
                 src={asset("/assets/images/hero.jpg")}
-                alt="Equipe da Brigada IGNDA em ação de proteção ambiental no Rio de Janeiro"
+                alt={`Equipe da ${BRIGADE_CONFIG.name} em ação de proteção ambiental no Rio de Janeiro`}
                 width={800}
                 height={1000}
                 priority
@@ -71,55 +72,55 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
         <div className="grid gap-12 lg:grid-cols-2 items-start">
-          <div className="space-y-6 text-forest-800">
+          <div className="space-y-8 text-forest-800">
             <h2 className="text-2xl font-bold text-forest-900">
               O que fazemos
             </h2>
-            <p>
-              A <strong>Brigada IGNDA</strong> atua em quatro frentes
+            <p className="text-lg leading-relaxed">
+              A <strong>Brigada Ivan Moraes</strong> atua em quatro frentes
               integradas para a proteção ambiental no Rio de Janeiro:
             </p>
-            <ul className="space-y-3">
-              <li className="flex gap-3">
-                <span className="flex-shrink-0 text-forest-600 flex h-6 w-6 items-center justify-center">
+            <ul className="space-y-4">
+              <li className="flex gap-4">
+                <span className="flex-shrink-0 text-forest-600 flex h-7 w-7 items-center justify-center rounded-lg bg-forest-100">
                   <Flame className="h-5 w-5" aria-hidden="true" />
                 </span>
-                <span>
+                <span className="pt-0.5">
                   <strong>Combate e prevenção de incêndios florestais</strong> —
                   monitoramento, aceiros, combate direto e capacitação.
                 </span>
               </li>
-              <li className="flex gap-3">
-                <span className="flex-shrink-0 text-forest-600 flex h-6 w-6 items-center justify-center">
+              <li className="flex gap-4">
+                <span className="flex-shrink-0 text-forest-600 flex h-7 w-7 items-center justify-center rounded-lg bg-forest-100">
                   <PawPrint className="h-5 w-5" aria-hidden="true" />
                 </span>
-                <span>
+                <span className="pt-0.5">
                   <strong>Resgate de fauna silvestre</strong> — atendimento a
                   animais em risco, parceria com CETAS e centros de reabilitação.
                 </span>
               </li>
-              <li className="flex gap-3">
-                <span className="flex-shrink-0 text-forest-600 flex h-6 w-6 items-center justify-center">
+              <li className="flex gap-4">
+                <span className="flex-shrink-0 text-forest-600 flex h-7 w-7 items-center justify-center rounded-lg bg-forest-100">
                   <Flower2 className="h-5 w-5" aria-hidden="true" />
                 </span>
-                <span>
+                <span className="pt-0.5">
                   <strong>Preservação de polinizadores</strong> — retirada segura
                   de enxames de abelhas, destinação a apiários e mata nativa.
                 </span>
               </li>
-              <li className="flex gap-3">
-                <span className="flex-shrink-0 text-forest-600 flex h-6 w-6 items-center justify-center">
+              <li className="flex gap-4">
+                <span className="flex-shrink-0 text-forest-600 flex h-7 w-7 items-center justify-center rounded-lg bg-forest-100">
                   <BookOpen className="h-5 w-5" aria-hidden="true" />
                 </span>
-                <span>
+                <span className="pt-0.5">
                   <strong>Educação ambiental</strong> — palestras, trilhas,
                   oficinas e materiais para escolas e comunidades.
                 </span>
               </li>
             </ul>
-            <p>
+            <p className="mt-8 text-lg leading-relaxed">
               Atuamos em remanescentes de <strong>Mata Atlântica</strong>,
               parques urbanos (Tijuca, Pedra Branca, Mendanha), unidades de
               conservação e áreas de interface urbano-florestal do Rio de

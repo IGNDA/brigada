@@ -20,7 +20,7 @@ export default function FAQ({
         Dúvidas comuns
       </h2>
       <p className="mt-3 max-w-2xl text-forest-700">
-        Respostas rápidas para as principais dúvidas sobre a Brigada IGNDA e nossa
+        Respostas rápidas para as principais dúvidas sobre a Brigada Ivan Moraes e nossa
         atuação ambiental.
       </p>
 

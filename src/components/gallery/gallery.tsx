@@ -11,6 +11,7 @@ import {
   itemImageUrl,
 } from "@/lib/gallery";
 import { ChevronRight, Camera, Tag, Calendar } from "lucide-react";
+import { BRIGADE_CONFIG } from "@/config/brigade";
 
 type Filter = "todas" | GalleryCategory;
 
@@ -274,7 +275,7 @@ export default function Gallery() {
           </h1>
           <p className="mt-3 max-w-xl text-forest-600">
             Cursos, eventos, resgates e ações de proteção ambiental realizadas
-            pela Brigada IGNDA.
+            pela {BRIGADE_CONFIG.name}.
           </p>
         </div>
         {albums.length > 0 && (

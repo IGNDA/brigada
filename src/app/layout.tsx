@@ -3,6 +3,7 @@ import { Geist } from "next/font/google";
 import Script from "next/script";
 import "@/styles/globals.css";
 import FloatingWhatsApp from "@/components/floating-whatsapp";
+import { BRIGADE_CONFIG } from "@/config/brigade";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,11 +14,10 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 export const metadata: Metadata = {
   title: {
-    default: "Brigada IGNDA — Instituto Guarda-Natureza de Defesa Ambiental",
-    template: "%s | Brigada IGNDA",
+    default: BRIGADE_CONFIG.seo.defaultTitle,
+    template: BRIGADE_CONFIG.seo.template,
   },
-  description:
-    "Brigada IGNDA — Brigada voluntária de proteção ambiental no Rio de Janeiro. Resgate de fauna silvestre, combate a incêndios florestais, educação ambiental e retirada segura de enxames.",
+  description: BRIGADE_CONFIG.seo.description,
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
