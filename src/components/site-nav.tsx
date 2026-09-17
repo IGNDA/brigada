@@ -4,18 +4,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { urls } from "@/lib/urls";
 
 type NavItem = { label: string; href: string; anchor: boolean };
 
 const navItems: NavItem[] = [
-  { label: "Início", href: "/#inicio", anchor: true },
-  { label: "Quem somos", href: "/#quem-somos", anchor: true },
-  { label: "Programação", href: "/#programacao", anchor: true },
-  { label: "Nossos trabalhos", href: "/nossos-trabalhos", anchor: false },
+  { label: "Início", href: `${urls.home()}#inicio`, anchor: true },
+  { label: "Quem somos", href: `${urls.home()}#quem-somos`, anchor: true },
+  { label: "Programação", href: `${urls.home()}#programacao`, anchor: true },
+  { label: "Nossos trabalhos", href: urls.gallery(), anchor: false },
 ];
 
 const whatsappUrl =
-  "https://api.whatsapp.com/send/?phone=5521966956140&text=Ol%C3%A1%21+Vi+o+site+da+1+Brigada+de+Opera%C3%A7%C3%B5es+Florestais+RJ+%28Brigada+Ivan+Moraes%29+e+quero+saber+mais.&type=phone_number&app_absent=0";
+  "https://api.whatsapp.com/send/?phone=5521966956140&text=Ol%C3%A1%21+Vi+o+site+da+Brigada+IGNDA+e+quero+saber+mais.&type=phone_number&app_absent=0";
 
 function scrollToHash(hash: string) {
   const el = document.querySelector(hash);
@@ -28,7 +29,7 @@ export default function SiteNav() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  const isHome = pathname === "/";
+  const isHome = pathname === urls.home();
 
   useEffect(() => {
     if (open) {

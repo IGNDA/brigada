@@ -6,6 +6,7 @@ import Link from "next/link";
 import { fetchGallery } from "@/lib/api";
 import { itemImageUrl } from "@/lib/gallery";
 import type { GalleryItem } from "@/lib/gallery";
+import { urls } from "@/lib/urls";
 
 const VITRINE_LIMIT = 4;
 
@@ -72,8 +73,8 @@ export default function GalleryVitrine() {
           <p className="text-forest-600">
             Não foi possível carregar a prévia da galeria.
           </p>
-<Link
-            href="/nossos-trabalhos"
+          <Link
+            href={urls.gallery()}
             className="inline-flex items-center gap-2 rounded-full border border-forest-200 bg-white px-5 py-2 text-sm font-medium text-forest-700 shadow-sm transition-all hover:border-forest-300 hover:bg-forest-50"
           >
             Ver galeria completa
@@ -98,7 +99,10 @@ export default function GalleryVitrine() {
           Brigada IGNDA. Cada imagem conta uma história de dedicação voluntária.
         </p>
         <div className="mt-10 rounded-2xl bg-gradient-to-br from-forest-50 to-forest-100 p-10 sm:p-16 text-center">
-          <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-forest-100 text-forest-600 text-4xl sm:h-32 sm:w-32 sm:text-5xl" aria-hidden="true">
+          <div
+            className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-forest-100 text-forest-600 text-4xl sm:h-32 sm:w-32 sm:text-5xl"
+            aria-hidden="true"
+          >
             📷
           </div>
           <p className="mt-6 text-lg font-medium text-forest-800">
@@ -109,7 +113,7 @@ export default function GalleryVitrine() {
             automaticamente quando a equipe fizer os primeiros uploads.
           </p>
           <Link
-            href="/brigada/nossos-trabalhos"
+            href={urls.gallery()}
             className="mt-6 inline-flex items-center gap-2 rounded-full bg-forest-700 px-6 py-3 font-semibold text-white shadow-lg transition-all hover:bg-forest-600 hover:shadow-xl"
           >
             Acessar galeria
@@ -137,7 +141,7 @@ export default function GalleryVitrine() {
         {items.map((item) => (
           <Link
             key={item.id}
-            href="/nossos-trabalhos"
+            href={urls.gallery()}
             className="group relative overflow-hidden rounded-xl bg-forest-50 shadow-sm transition-all hover:shadow-lg"
             aria-label={`Ver ${item.title} na galeria completa`}
           >
@@ -153,7 +157,9 @@ export default function GalleryVitrine() {
             </div>
             <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
               <p className="font-semibold truncate">{item.title}</p>
-              <p className="text-xs text-forest-100 capitalize">{item.category}</p>
+              <p className="text-xs text-forest-100 capitalize">
+                {item.category}
+              </p>
             </div>
           </Link>
         ))}
@@ -166,13 +172,13 @@ export default function GalleryVitrine() {
             Galeria completa com todas as fotos organizadas por categoria
           </h3>
         </div>
-<Link
-            href="/nossos-trabalhos"
-            className="inline-flex items-center gap-2 rounded-full bg-forest-700 px-6 py-3 font-semibold text-white shadow-lg transition-all hover:bg-forest-600 hover:shadow-xl"
-          >
-            Acessar galeria
-            <span aria-hidden="true">→</span>
-          </Link>
+        <Link
+          href={urls.gallery()}
+          className="inline-flex items-center gap-2 rounded-full bg-forest-700 px-6 py-3 font-semibold text-white shadow-lg transition-all hover:bg-forest-600 hover:shadow-xl"
+        >
+          Acessar galeria
+          <span aria-hidden="true">→</span>
+        </Link>
       </div>
     </section>
   );

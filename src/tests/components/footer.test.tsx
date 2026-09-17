@@ -21,6 +21,8 @@ describe("Footer", () => {
 
   it("exibe o nome completo da instituição", () => {
     render(<Footer />);
-    expect(screen.getByText("Instituto Guarda-Natureza de Defesa Ambiental")).toBeInTheDocument();
+    expect(
+      screen.getByText("Instituto Guarda-Natureza de Defesa Ambiental")
+    ).toBeInTheDocument();
   });
 });

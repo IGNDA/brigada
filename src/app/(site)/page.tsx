@@ -123,8 +123,8 @@ export default function Home() {
         <div className="mt-8 grid gap-8 lg:grid-cols-2">
           <div className="space-y-4 text-forest-800">
             <p>
-              A Brigada IGNDA (Instituto Guarda-Natureza de Defesa Ambiental)
-              é uma brigada voluntária do Rio de Janeiro dedicada à proteção
+              A Brigada IGNDA (Instituto Guarda-Natureza de Defesa Ambiental) é
+              uma brigada voluntária do Rio de Janeiro dedicada à proteção
               ambiental.
             </p>
             <p>

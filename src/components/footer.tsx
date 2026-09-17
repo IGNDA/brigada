@@ -1,3 +1,5 @@
+import { urls } from "@/lib/urls";
+
 export default function Footer() {
   const year = new Date().getFullYear();
 
@@ -6,17 +8,17 @@ export default function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-2 px-4 py-8 text-center text-sm text-forest-700 sm:flex-row sm:justify-between sm:px-6 sm:text-left">
         <div>
           <p>
-            <span className="font-semibold text-forest-900">
-              Brigada IGNDA
-            </span>
+            <span className="font-semibold text-forest-900">Brigada IGNDA</span>
           </p>
-          <p className="mt-1 text-forest-600">Instituto Guarda-Natureza de Defesa Ambiental</p>
+          <p className="mt-1 text-forest-600">
+            Instituto Guarda-Natureza de Defesa Ambiental
+          </p>
           <p className="text-forest-600">Rio de Janeiro · Brasil</p>
         </div>
         <div className="flex items-center gap-4">
           <p>© {year} Brigada IGNDA</p>
           <a
-            href="/admin"
+            href={urls.admin()}
             className="text-xs text-forest-500 underline-offset-2 hover:text-forest-700"
             rel="noopener"
           >
