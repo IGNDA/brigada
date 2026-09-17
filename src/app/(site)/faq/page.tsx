@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import FAQ from "@/components/faq/faq";
+import { FAQPageJsonLd } from "@/components/json-ld";
+import { faqData } from "@/data/faq";
 import { urls } from "@/lib/urls";
 import Link from "next/link";
 import { MessageCircle, ArrowRight } from "lucide-react";
@@ -16,6 +18,7 @@ export default function FAQPage() {
 
   return (
     <>
+      <FAQPageJsonLd items={faqData} />
       <section className="bg-forest-800 text-white py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 text-center">
           <p className="text-sm font-semibold uppercase tracking-wide text-forest-200">
