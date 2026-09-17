@@ -1,4 +1,4 @@
-import { urls } from "@/lib/urls";
+import { urlsFull } from "@/lib/urls";
 import { BRIGADE_CONFIG } from "@/config/brigade";
 
 export default function Footer() {
@@ -21,7 +21,7 @@ export default function Footer() {
             © {year} {BRIGADE_CONFIG.name}
           </p>
           <a
-            href={urls.admin()}
+            href={urlsFull.admin()}
             className="text-xs text-forest-500 underline-offset-2 hover:text-forest-700"
             rel="noopener"
           >

@@ -3,6 +3,7 @@ import { Geist } from "next/font/google";
 import Script from "next/script";
 import "@/styles/globals.css";
 import FloatingWhatsApp from "@/components/floating-whatsapp";
+import { OrganizationJsonLd, WebSiteJsonLd } from "@/components/json-ld";
 import { BRIGADE_CONFIG } from "@/config/brigade";
 
 const geistSans = Geist({
@@ -66,6 +67,8 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
     >
       <head>
+        <OrganizationJsonLd />
+        <WebSiteJsonLd />
         <link
           rel="preload"
           as="image"

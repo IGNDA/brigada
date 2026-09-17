@@ -1,19 +1,22 @@
+const BASE_PATH = "/brigada";
+
 export function url(path: string): string {
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
   // Next.js <Link> automatically prepends basePath from next.config.ts,
-  // so we return plain paths here. Do NOT add basePath manually.
+  // so we return plain paths here.
   return cleanPath;
+}
+
+export function fullUrl(path: string): string {
+  const cleanPath = path.startsWith("/") ? path : `/${path}`;
+  // For non-Link contexts (<a> tags, meta tags, etc.), Next.js does NOT
+  // prepend basePath, so we add it manually.
+  return `${BASE_PATH}${cleanPath}`;
 }
 
 export function asset(path: string): string {
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
-  // For non-Link contexts (meta tags, OG images, etc.), Next.js does NOT
-  // prepend basePath, so we add it manually in production.
-  const isDev = process.env.NODE_ENV === "development";
-  if (isDev) {
-    return cleanPath;
-  }
-  return `/brigada${cleanPath}`;
+  return `${BASE_PATH}${cleanPath}`;
 }
 
 export const urls = {
@@ -25,4 +28,11 @@ export const urls = {
   admin: () => url("/admin"),
   adminLogin: () => url("/admin/login"),
   adminGallery: () => url("/admin/nossos-trabalhos"),
+} as const;
+
+export const urlsFull = {
+  home: () => fullUrl("/"),
+  admin: () => fullUrl("/admin"),
+  adminLogin: () => fullUrl("/admin/login"),
+  adminGallery: () => fullUrl("/admin/nossos-trabalhos"),
 } as const;
