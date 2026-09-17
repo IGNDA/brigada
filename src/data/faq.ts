@@ -7,7 +7,7 @@ export const faqData: FAQItem[] = [
   {
     question: "O que é a Brigada Ivan Moraes?",
     answer:
-      "A Brigada Ivan Moraes (Instituto Guarda-Natureza de Defesa Ambiental) é uma brigada voluntária de proteção ambiental sediada no Rio de Janeiro. Atuamos na preservação da fauna, flora e no combate a incêndios florestais, sempre de forma voluntária e em parceria com a comunidade.",
+      "A Brigada Ivan Moraes (Instituto Guarda Nacional de Defesa Ambiental) é uma brigada voluntária de proteção ambiental sediada no Rio de Janeiro. Atuamos na preservação da fauna, flora e no combate a incêndios florestais, sempre de forma voluntária e em parceria com a comunidade.",
   },
   {
     question: "O que a Brigada Ivan Moraes faz?",

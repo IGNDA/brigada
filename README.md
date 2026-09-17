@@ -1,4 +1,4 @@
-# Brigada IGNDA — Instituto Guarda-Natureza de Defesa Ambiental
+# Brigada IGNDA — Instituto Guarda Nacional de Defesa Ambiental
 
 Site da Brigada IGNDA, construído com **Next.js** (App Router), **TypeScript**, **Tailwind CSS**, com
 deploy automático no **GitHub Pages** e uma galeria de "Nossos trabalhos"

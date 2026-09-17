@@ -9,7 +9,7 @@ export function OrganizationJsonLd() {
     "@type": "Organization",
     name: BRIGADE_CONFIG.name,
     url: SITE_URL,
-    logo: `${SITE_URL}/assets/global/logo.jpg`,
+    logo: `${SITE_URL}/assets/global/logo.png`,
     description: BRIGADE_CONFIG.description,
     sameAs: ["https://www.instagram.com/1_brigada_de_operacoes_florest/"],
     contactPoint: {

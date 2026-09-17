@@ -72,7 +72,7 @@ export default function RootLayout({
         <link
           rel="preload"
           as="image"
-          href={`${SITE_URL}/assets/global/logo.jpg`}
+          href={`${SITE_URL}/assets/global/logo.png`}
         />
         <link
           rel="preload"
