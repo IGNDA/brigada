@@ -11,7 +11,9 @@ describe("Footer", () => {
   it("exibe a indicação de copyright com o ano atual", () => {
     render(<Footer />);
     const year = new Date().getFullYear();
-    expect(screen.getByText(`© ${year} Brigada Ivan Moraes`)).toBeInTheDocument();
+    expect(
+      screen.getByText(`© ${year} Brigada Ivan Moraes`)
+    ).toBeInTheDocument();
   });
 
   it("exibe a localização da brigada", () => {
