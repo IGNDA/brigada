@@ -10,6 +10,14 @@ export function url(path: string): string {
   return `${BASE_PATH}${cleanPath}`;
 }
 
+export function asset(path: string): string {
+  const cleanPath = path.startsWith("/") ? path : `/${path}`;
+  if (isDev) {
+    return cleanPath;
+  }
+  return `${BASE_PATH}${cleanPath}`;
+}
+
 export const urls = {
   home: () => url("/"),
   quemSomos: () => url("/quem-somos"),

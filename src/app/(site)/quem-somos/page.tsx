@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { urls } from "@/lib/urls";
+import { urls, asset } from "@/lib/urls";
 
 export const metadata: Metadata = {
   title: "Quem somos — Brigada IGNDA",
@@ -76,7 +76,7 @@ export default function QuemSomos() {
 
           <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border-4 border-forest-50/20 bg-forest-900 shadow-lg">
             <Image
-              src="/brigada/assets/images/hero.jpg"
+              src={asset("/assets/images/hero.jpg")}
               alt="Equipe da Brigada IGNDA em ação de proteção ambiental no Rio de Janeiro"
               fill
               priority

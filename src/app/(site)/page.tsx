@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import GalleryVitrine from "@/components/gallery/gallery-vitrine";
-import { urls } from "@/lib/urls";
+import { urls, asset } from "@/lib/urls";
 import {
   Flame,
   PawPrint,
@@ -58,7 +58,7 @@ export default function Home() {
           <div className="mx-auto w-full max-w-md">
             <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border-4 border-forest-50/20 bg-forest-900 shadow-lg ring-1 ring-black/40">
               <Image
-                src="/brigada/assets/images/hero.jpg"
+                src={asset("/assets/images/hero.jpg")}
                 alt="Equipe da Brigada IGNDA em ação de proteção ambiental no Rio de Janeiro"
                 width={800}
                 height={1000}

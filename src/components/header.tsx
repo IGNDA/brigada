@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import SiteNav from "./site-nav";
-import { urls } from "@/lib/urls";
+import { urls, asset } from "@/lib/urls";
 
 export default function Header() {
   return (
@@ -9,7 +9,7 @@ export default function Header() {
       <div className="mx-auto flex h-20 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
         <Link href={urls.home()} className="flex min-w-0 items-center gap-3">
           <Image
-            src="/brigada/assets/global/logo.jpg"
+            src={asset("/assets/global/logo.jpg")}
             alt="Logotipo da Brigada IGNDA"
             width={48}
             height={48}
