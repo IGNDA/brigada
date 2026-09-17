@@ -5,13 +5,13 @@ import Footer from "@/components/footer";
 describe("Footer", () => {
   it("exibe o nome da brigada", () => {
     render(<Footer />);
-    expect(screen.getByText("Brigada IGNDA")).toBeInTheDocument();
+    expect(screen.getByText("Brigada Ivan Moraes")).toBeInTheDocument();
   });
 
   it("exibe a indicação de copyright com o ano atual", () => {
     render(<Footer />);
     const year = new Date().getFullYear();
-    expect(screen.getByText(`© ${year} Brigada IGNDA`)).toBeInTheDocument();
+    expect(screen.getByText(`© ${year} Brigada Ivan Moraes`)).toBeInTheDocument();
   });
 
   it("exibe a localização da brigada", () => {
