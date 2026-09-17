@@ -23,13 +23,13 @@ da **galeria "Nossos trabalhos"** e da **área de upload (`/admin`)**.
 > oficial do projeto). Os valores aqui servem de referência no momento da
 > escrita — se você já tiver feito o setup, apenas confira/atualize esta seção.
 
-| Item               | Valor                                                                   |
-| ------------------ | ----------------------------------------------------------------------- |
-| **Worker**         | `brigada-ignda-gallery`                                                 |
-| **URL do Worker**  | `https://brigada-ignda-gallery.<subdominio>.workers.dev`               |
-| **Bucket R2**      | `brigada-ignda` (vinculado como `env.GALLERY_BUCKET`)                   |
-| **URL pública R2** | `https://pub-<hash>.r2.dev`                                             |
-| **Secret admin**   | `ADMIN_SECRET` (definido no Worker — senha do `/admin`)                 |
+| Item               | Valor                                                                          |
+| ------------------ | ------------------------------------------------------------------------------ |
+| **Worker**         | `brigada-ignda-gallery`                                                        |
+| **URL do Worker**  | `https://brigada-ignda-gallery.<subdominio>.workers.dev`                       |
+| **Bucket R2**      | `brigada-ignda` (vinculado como `env.GALLERY_BUCKET`)                          |
+| **URL pública R2** | `https://pub-<hash>.r2.dev`                                                    |
+| **Secret admin**   | `ADMIN_SECRET` (definido no Worker — senha do `/admin`)                        |
 | **Deploy CLI**     | `npx wrangler r2 bucket dev-url enable brigada-ignda` → habilitou o r2.dev URL |
 
 Verificações feitas:
