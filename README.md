@@ -97,7 +97,7 @@ Passos para ativar:
 
 1. Faça push das alterações para `main`.
 2. No GitHub: **Settings → Pages → Source: GitHub Actions**.
-3. O site ficará disponível em `https://Hoddzer-Freelas.github.io/brigada-ignda/`.
+3. O site ficará disponível em `https://IGNDA.github.io/brigada/`.
 
 > O Cloudflare Worker não é deployado pelo GitHub Actions — ele é deployado
 > manualmente via `npm run worker:deploy` (ver `docs/CLOUDFLARE_R2.md`).
