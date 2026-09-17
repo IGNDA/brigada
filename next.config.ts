@@ -1,11 +1,13 @@
 import type { NextConfig } from "next";
 
+const isDev = process.env.NODE_ENV === "development";
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   output: "export",
-  basePath: "/brigada",
-  assetPrefix: "/brigada",
-  trailingSlash: true,
+  basePath: isDev ? "" : "/brigada",
+  assetPrefix: isDev ? "" : "/brigada",
+  trailingSlash: !isDev,
   images: {
     unoptimized: true,
   },
