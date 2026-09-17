@@ -138,7 +138,7 @@ export default function GalleryVitrine() {
       </p>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {items.map((item) => (
+        {items.map((item, index) => (
           <Link
             key={item.id}
             href={urls.gallery()}
@@ -151,6 +151,7 @@ export default function GalleryVitrine() {
                 alt={item.title}
                 fill
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 25vw"
+                loading={index === 0 ? "eager" : "lazy"}
                 className="object-cover transition-transform duration-300 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
