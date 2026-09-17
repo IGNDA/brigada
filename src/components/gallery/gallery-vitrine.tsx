@@ -10,6 +10,19 @@ import { urls } from "@/lib/urls";
 
 const VITRINE_LIMIT = 4;
 
+function getFirstPhotoPerAlbum(items: GalleryItem[]): GalleryItem[] {
+  const albumMap = new Map<string, GalleryItem>();
+  for (const item of items) {
+    const key = item.title || "Sem título";
+    if (!albumMap.has(key) || item.createdAt > albumMap.get(key)!.createdAt) {
+      albumMap.set(key, item);
+    }
+  }
+  return Array.from(albumMap.values())
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+    .slice(0, VITRINE_LIMIT);
+}
+
 export default function GalleryVitrine() {
   const [items, setItems] = useState<GalleryItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -21,7 +34,8 @@ export default function GalleryVitrine() {
       try {
         const manifest = await fetchGallery();
         if (!cancelled) {
-          setItems(manifest.items.slice(0, VITRINE_LIMIT));
+          const firstPerAlbum = getFirstPhotoPerAlbum(manifest.items);
+          setItems(firstPerAlbum);
           setError(null);
         }
       } catch (err) {
@@ -143,12 +157,12 @@ export default function GalleryVitrine() {
             key={item.id}
             href={urls.gallery()}
             className="group relative overflow-hidden rounded-xl bg-forest-50 shadow-sm transition-all hover:shadow-lg"
-            aria-label={`Ver ${item.title} na galeria completa`}
+            aria-label={`Ver álbum "${item.title}" na galeria completa`}
           >
             <div className="relative aspect-[4/3] overflow-hidden">
               <Image
                 src={itemImageUrl(item)}
-                alt={item.title}
+                alt={`Capa do álbum ${item.title}`}
                 fill
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 25vw"
                 loading={index === 0 ? "eager" : "lazy"}
@@ -159,7 +173,7 @@ export default function GalleryVitrine() {
             <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
               <p className="font-semibold truncate">{item.title}</p>
               <p className="text-xs text-forest-100 capitalize">
-                {item.category}
+                {item.category} · {new Date(item.createdAt).toLocaleDateString("pt-BR")}
               </p>
             </div>
           </Link>
@@ -170,7 +184,7 @@ export default function GalleryVitrine() {
         <div>
           <p className="text-sm font-medium text-forest-600">Quer ver mais?</p>
           <h3 className="mt-1 text-lg font-bold text-forest-900">
-            Galeria completa com todas as fotos organizadas por categoria
+            Galeria completa com todos os álbuns organizados por categoria
           </h3>
         </div>
         <Link

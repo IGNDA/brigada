@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import Script from "next/script";
 import "@/styles/globals.css";
+import FloatingWhatsApp from "@/components/floating-whatsapp";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +33,7 @@ export default function RootLayout({
     >
       <body className="flex min-h-screen flex-col antialiased">
         {children}
+        <FloatingWhatsApp />
         {GA_ID ? (
           <>
             <Script

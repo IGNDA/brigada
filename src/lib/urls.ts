@@ -12,7 +12,10 @@ export function url(path: string): string {
 
 export const urls = {
   home: () => url("/"),
+  quemSomos: () => url("/quem-somos"),
+  atuacao: () => url("/atuacao"),
   gallery: () => url("/nossos-trabalhos"),
+  faq: () => url("/faq"),
   admin: () => url("/admin"),
   adminLogin: () => url("/admin/login"),
   adminGallery: () => url("/admin/nossos-trabalhos"),
