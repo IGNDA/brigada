@@ -19,7 +19,8 @@ const whatsappUrl = BRIGADE_CONFIG.whatsappText.startsWith("http")
   ? BRIGADE_CONFIG.whatsappText
   : `https://api.whatsapp.com/send/?phone=5521966956140&text=${encodeURIComponent(BRIGADE_CONFIG.whatsappText)}&type=phone_number&app_absent=0`;
 
-const instagramUrl = "https://www.instagram.com/1_brigada_de_operacoes_florest/";
+const instagramUrl =
+  "https://www.instagram.com/1_brigada_de_operacoes_florest/";
 
 export default function Home() {
   return (
@@ -34,10 +35,9 @@ export default function Home() {
               {BRIGADE_CONFIG.instituteName}
             </p>
             <p className="mt-4 max-w-2xl text-base text-forest-50/90 sm:text-lg">
-              {BRIGADE_CONFIG.description}. Resgate de
-              animais silvestres, retirada segura de enxames de abelhas e
-              educação ambiental — trabalho voluntário em defesa do meio ambiente
-              carioca.
+              {BRIGADE_CONFIG.description}. Resgate de animais silvestres,
+              retirada segura de enxames de abelhas e educação ambiental —
+              trabalho voluntário em defesa do meio ambiente carioca.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <a
@@ -98,7 +98,8 @@ export default function Home() {
                 </span>
                 <span className="pt-0.5">
                   <strong>Resgate de fauna silvestre</strong> — atendimento a
-                  animais em risco, parceria com CETAS e centros de reabilitação.
+                  animais em risco, parceria com CETAS e centros de
+                  reabilitação.
                 </span>
               </li>
               <li className="flex gap-4">
@@ -106,8 +107,9 @@ export default function Home() {
                   <Flower2 className="h-5 w-5" aria-hidden="true" />
                 </span>
                 <span className="pt-0.5">
-                  <strong>Preservação de polinizadores</strong> — retirada segura
-                  de enxames de abelhas, destinação a apiários e mata nativa.
+                  <strong>Preservação de polinizadores</strong> — retirada
+                  segura de enxames de abelhas, destinação a apiários e mata
+                  nativa.
                 </span>
               </li>
               <li className="flex gap-4">
@@ -129,13 +131,18 @@ export default function Home() {
           </div>
 
           <div className="rounded-2xl border border-forest-100 bg-white p-6 shadow-sm lg:sticky lg:top-24">
-            <h3 className="font-semibold text-forest-900 mb-4">Acesso rápido</h3>
+            <h3 className="font-semibold text-forest-900 mb-4">
+              Acesso rápido
+            </h3>
             <nav className="space-y-2">
               <Link
                 href={urls.quemSomos()}
                 className="flex gap-3 rounded-lg p-3 text-forest-700 transition-colors hover:bg-forest-50"
               >
-                <span aria-hidden="true" className="flex h-5 w-5 items-center justify-center">
+                <span
+                  aria-hidden="true"
+                  className="flex h-5 w-5 items-center justify-center"
+                >
                   <Info className="h-4 w-4" />
                 </span>
                 <span>Quem somos</span>
@@ -144,7 +151,10 @@ export default function Home() {
                 href={urls.atuacao()}
                 className="flex gap-3 rounded-lg p-3 text-forest-700 transition-colors hover:bg-forest-50"
               >
-                <span aria-hidden="true" className="flex h-5 w-5 items-center justify-center">
+                <span
+                  aria-hidden="true"
+                  className="flex h-5 w-5 items-center justify-center"
+                >
                   <Target className="h-4 w-4" />
                 </span>
                 <span>Nossa atuação</span>
@@ -153,7 +163,10 @@ export default function Home() {
                 href={urls.gallery()}
                 className="flex gap-3 rounded-lg p-3 text-forest-700 transition-colors hover:bg-forest-50"
               >
-                <span aria-hidden="true" className="flex h-5 w-5 items-center justify-center">
+                <span
+                  aria-hidden="true"
+                  className="flex h-5 w-5 items-center justify-center"
+                >
                   <ImageIcon className="h-4 w-4" />
                 </span>
                 <span>Galeria de trabalhos</span>
@@ -164,7 +177,10 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="flex gap-3 rounded-lg p-3 text-forest-700 transition-colors hover:bg-forest-50"
               >
-                <span aria-hidden="true" className="flex h-5 w-5 items-center justify-center">
+                <span
+                  aria-hidden="true"
+                  className="flex h-5 w-5 items-center justify-center"
+                >
                   <MessageCircle className="h-4 w-4" />
                 </span>
                 <span>Fale conosco (WhatsApp)</span>
@@ -198,7 +214,10 @@ export default function Home() {
               className="group inline-flex items-center gap-2 rounded-full bg-emergency-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-emergency-700"
             >
               <span>WhatsApp</span>
-              <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
+              <span
+                aria-hidden="true"
+                className="transition-transform group-hover:translate-x-1"
+              >
                 <ArrowRight className="h-4 w-4" />
               </span>
             </a>
@@ -209,7 +228,10 @@ export default function Home() {
               className="group inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-3 font-semibold text-white transition-colors hover:bg-white/10"
             >
               <span>Instagram</span>
-              <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
+              <span
+                aria-hidden="true"
+                className="transition-transform group-hover:translate-x-1"
+              >
                 <ArrowRight className="h-4 w-4" />
               </span>
             </a>
@@ -218,7 +240,10 @@ export default function Home() {
               className="group inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-3 font-semibold text-white transition-colors hover:bg-white/10"
             >
               <span>Como atuar</span>
-              <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
+              <span
+                aria-hidden="true"
+                className="transition-transform group-hover:translate-x-1"
+              >
                 <ArrowRight className="h-4 w-4" />
               </span>
             </Link>

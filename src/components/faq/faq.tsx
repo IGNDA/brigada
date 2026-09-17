@@ -6,7 +6,10 @@ import { faqData, type FAQItem } from "@/data/faq";
 export default function FAQ({
   items = faqData,
   defaultOpen = false,
-}: { items?: FAQItem[]; defaultOpen?: boolean }) {
+}: {
+  items?: FAQItem[];
+  defaultOpen?: boolean;
+}) {
   const [openIndex, setOpenIndex] = useState<number | null>(
     defaultOpen ? 0 : null
   );
@@ -20,8 +23,8 @@ export default function FAQ({
         Dúvidas comuns
       </h2>
       <p className="mt-3 max-w-2xl text-forest-700">
-        Respostas rápidas para as principais dúvidas sobre a Brigada Ivan Moraes e nossa
-        atuação ambiental.
+        Respostas rápidas para as principais dúvidas sobre a Brigada Ivan Moraes
+        e nossa atuação ambiental.
       </p>
 
       <dl className="mt-10 space-y-4">
@@ -34,9 +37,7 @@ export default function FAQ({
             >
               <button
                 type="button"
-                onClick={() =>
-                  setOpenIndex(openIndex === index ? null : index)
-                }
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
                 className="w-full flex items-center justify-between gap-4 p-5 text-left focus:outline-none focus:ring-2 focus:ring-forest-500 focus:ring-offset-1"
                 aria-expanded={isOpen}
               >

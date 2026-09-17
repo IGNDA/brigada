@@ -11,7 +11,16 @@ import {
 import { clearSessionToken, getSessionToken } from "@/lib/admin-session";
 import { itemImageUrl } from "@/lib/gallery";
 import { optimizeImage } from "@/lib/optimize-image";
-import { ChevronDown, ChevronUp, Trash2, Edit2, X, Image as ImageIcon, Plus, FolderOpen } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronUp,
+  Trash2,
+  Edit2,
+  X,
+  Image as ImageIcon,
+  Plus,
+  FolderOpen,
+} from "lucide-react";
 
 interface Album {
   title: string;
@@ -98,7 +107,9 @@ export default function AdminApp({
       setItems(manifest.items);
       setError(null);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Falha ao carregar galeria.");
+      setError(
+        err instanceof Error ? err.message : "Falha ao carregar galeria."
+      );
     } finally {
       setLoading(false);
     }
@@ -144,18 +155,23 @@ export default function AdminApp({
 
   async function handleDeleteAlbum(albumTitle: string) {
     if (!token) return;
-    if (!window.confirm(`Excluir o álbum "${albumTitle}" e todas as suas fotos?`)) return;
+    if (
+      !window.confirm(`Excluir o álbum "${albumTitle}" e todas as suas fotos?`)
+    )
+      return;
     try {
-      const album = groupByTitle(items).find(a => a.title === albumTitle);
+      const album = groupByTitle(items).find((a) => a.title === albumTitle);
       if (!album) return;
-      
+
       for (const item of album.items) {
         await deleteItem(token, item.id);
       }
       await load();
     } catch (err) {
       if (!handleAuthError(err)) {
-        setError(err instanceof Error ? err.message : "Falha ao excluir álbum.");
+        setError(
+          err instanceof Error ? err.message : "Falha ao excluir álbum."
+        );
       }
     }
   }
@@ -176,15 +192,16 @@ export default function AdminApp({
   const albums = groupByTitle(items);
 
   const term = search.trim().toLowerCase();
-  const filteredAlbums = albums
-    .filter((album) => {
-      if (albumFilter !== "all" && album.category !== albumFilter) return false;
-      if (term) {
-        return album.title.toLowerCase().includes(term) ||
-          album.items.some(i => i.description?.toLowerCase().includes(term));
-      }
-      return true;
-    });
+  const filteredAlbums = albums.filter((album) => {
+    if (albumFilter !== "all" && album.category !== albumFilter) return false;
+    if (term) {
+      return (
+        album.title.toLowerCase().includes(term) ||
+        album.items.some((i) => i.description?.toLowerCase().includes(term))
+      );
+    }
+    return true;
+  });
 
   const toggleAlbum = (title: string) => {
     const next = new Set(expandedAlbums);
@@ -242,7 +259,9 @@ export default function AdminApp({
           <h1 className="text-2xl font-bold text-forest-900">
             Nossos trabalhos
           </h1>
-          <p className="text-sm text-forest-700">Administração da galeria por álbuns.</p>
+          <p className="text-sm text-forest-700">
+            Administração da galeria por álbuns.
+          </p>
         </div>
         <button
           type="button"
@@ -324,7 +343,8 @@ export default function AdminApp({
 
         {files.length > 0 && (
           <p className="mt-2 text-xs text-forest-700">
-            {files.length} arquivo(s) — serão otimizados (redimensionados para 1600px, WebP, ~100–300KB).
+            {files.length} arquivo(s) — serão otimizados (redimensionados para
+            1600px, WebP, ~100–300KB).
           </p>
         )}
 
@@ -375,7 +395,9 @@ export default function AdminApp({
         </div>
 
         {error && <p className="mb-4 text-sm text-emergency-600">{error}</p>}
-        {loading && <p className="mb-4 text-sm text-forest-700">Carregando...</p>}
+        {loading && (
+          <p className="mb-4 text-sm text-forest-700">Carregando...</p>
+        )}
 
         {!loading && filteredAlbums.length === 0 && (
           <div className="text-center py-12 text-forest-700">
@@ -423,14 +445,17 @@ export default function AdminApp({
                         </h3>
                         <span className="inline-flex items-center gap-1 rounded-full bg-forest-100 px-2 py-0.5 text-xs font-semibold text-forest-700">
                           <FolderOpen className="h-3 w-3" aria-hidden="true" />
-                          {album.photoCount} {album.photoCount === 1 ? "foto" : "fotos"}
+                          {album.photoCount}{" "}
+                          {album.photoCount === 1 ? "foto" : "fotos"}
                         </span>
                         <span className="inline-flex items-center gap-1 rounded-full bg-forest-600/10 px-2 py-0.5 text-xs font-semibold text-forest-700">
                           {CATEGORIES[album.category].label}
                         </span>
                       </div>
                       <p className="mt-1 text-xs text-forest-600 text-left">
-                        {album.items[0].description ? `${album.items[0].description.slice(0, 80)}...` : "Sem descrição"}
+                        {album.items[0].description
+                          ? `${album.items[0].description.slice(0, 80)}...`
+                          : "Sem descrição"}
                       </p>
                     </div>
                   </div>
@@ -441,7 +466,11 @@ export default function AdminApp({
                         e.stopPropagation();
                         setTitle(album.title);
                         setCategory(album.category);
-                        if (uploadRef.current) uploadRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+                        if (uploadRef.current)
+                          uploadRef.current.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start",
+                          });
                       }}
                       className="rounded-md border border-forest-300 px-3 py-1.5 text-xs font-medium text-forest-800 transition-colors hover:bg-forest-100"
                     >
@@ -477,9 +506,15 @@ export default function AdminApp({
                         toggleAlbum(album.title);
                       }}
                       className="rounded-md p-1.5 text-forest-500 hover:bg-forest-100 transition-colors"
-                      aria-label={expanded ? "Recolher álbum" : "Expandir álbum"}
+                      aria-label={
+                        expanded ? "Recolher álbum" : "Expandir álbum"
+                      }
                     >
-                      {expanded ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
+                      {expanded ? (
+                        <ChevronUp className="h-5 w-5" />
+                      ) : (
+                        <ChevronDown className="h-5 w-5" />
+                      )}
                     </button>
                   </div>
                 </div>
@@ -502,9 +537,14 @@ export default function AdminApp({
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                           <div className="absolute bottom-2 left-2 right-2 text-white text-xs flex items-center justify-between px-2">
-                            <span className="truncate max-w-[80%]">{item.title}</span>
+                            <span className="truncate max-w-[80%]">
+                              {item.title}
+                            </span>
                             <span className="flex items-center gap-1 bg-black/50 px-1.5 py-0.5 rounded text-[10px]">
-                              <ImageIcon className="h-2.5 w-2.5" aria-hidden="true" />
+                              <ImageIcon
+                                className="h-2.5 w-2.5"
+                                aria-hidden="true"
+                              />
                               #{idx + 1}
                             </span>
                           </div>
@@ -525,7 +565,8 @@ export default function AdminApp({
                       ))}
                     </div>
                     <p className="mt-3 text-xs text-forest-600 text-center">
-                      {album.photoCount} {album.photoCount === 1 ? "foto" : "fotos"} neste álbum
+                      {album.photoCount}{" "}
+                      {album.photoCount === 1 ? "foto" : "fotos"} neste álbum
                     </p>
                   </div>
                 )}
@@ -557,7 +598,9 @@ export default function AdminApp({
             className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl"
           >
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-bold text-forest-900">Editar álbum</h2>
+              <h2 className="text-lg font-bold text-forest-900">
+                Editar álbum
+              </h2>
               <button
                 type="button"
                 onClick={cancelEdit}

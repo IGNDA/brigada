@@ -53,7 +53,11 @@ function groupByTitle(items: GalleryItem[]): Album[] {
   return albums;
 }
 
-function CategoryBadge({ category, isActive, onClick }: {
+function CategoryBadge({
+  category,
+  isActive,
+  onClick,
+}: {
   category: GalleryCategory | "todas";
   isActive: boolean;
   onClick: () => void;
@@ -75,7 +79,13 @@ function CategoryBadge({ category, isActive, onClick }: {
   );
 }
 
-function AlbumCard({ album, onOpenLightbox }: { album: Album; onOpenLightbox: (album: Album, startIndex?: number) => void }) {
+function AlbumCard({
+  album,
+  onOpenLightbox,
+}: {
+  album: Album;
+  onOpenLightbox: (album: Album, startIndex?: number) => void;
+}) {
   const coverImage = album.items[0];
   const date = new Date(coverImage.createdAt).toLocaleDateString("pt-BR", {
     day: "2-digit",
@@ -93,7 +103,7 @@ function AlbumCard({ album, onOpenLightbox }: { album: Album; onOpenLightbox: (a
           loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        
+
         <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
           <span className="rounded-full bg-forest-600/90 backdrop-blur-sm px-3 py-1 text-xs font-semibold text-white">
             {CATEGORIES[album.category].label}
@@ -120,7 +130,7 @@ function AlbumCard({ album, onOpenLightbox }: { album: Album; onOpenLightbox: (a
           <Tag className="h-3.5 w-3.5" aria-hidden="true" />
           {album.items.length} {album.items.length === 1 ? "foto" : "fotos"}
         </p>
-        
+
         {album.items.length > 0 && (
           <div className="mt-4 pt-4 border-t border-forest-100">
             <button
@@ -129,7 +139,9 @@ function AlbumCard({ album, onOpenLightbox }: { album: Album; onOpenLightbox: (a
               className="w-full inline-flex items-center justify-center gap-2 rounded-xl border border-forest-200 bg-white px-4 py-3 text-sm font-medium text-forest-700 shadow-sm transition-all hover:border-forest-300 hover:bg-forest-50 hover:shadow-md"
             >
               <span>
-                {album.items.length === 1 ? "Ver imagem em tamanho real" : "Ver álbum completo"}
+                {album.items.length === 1
+                  ? "Ver imagem em tamanho real"
+                  : "Ver álbum completo"}
               </span>
               <ChevronRight className="h-4 w-4" aria-hidden="true" />
             </button>
@@ -149,7 +161,9 @@ function EmptyState({ filter }: { filter: Filter }) {
           <Camera className="h-10 w-10" aria-hidden="true" />
         </div>
         <h3 className="text-xl font-bold text-forest-900 mb-2">
-          {isFiltered ? "Nenhuma imagem nesta categoria" : "A galeria está vazia"}
+          {isFiltered
+            ? "Nenhuma imagem nesta categoria"
+            : "A galeria está vazia"}
         </h3>
         <p className="text-forest-600 max-w-md mx-auto mb-6">
           {isFiltered
@@ -185,7 +199,10 @@ function LoadingState() {
       </div>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {[...Array(8)].map((_, i) => (
-          <article key={i} className="overflow-hidden rounded-2xl bg-white shadow-sm border border-forest-100 animate-pulse">
+          <article
+            key={i}
+            className="overflow-hidden rounded-2xl bg-white shadow-sm border border-forest-100 animate-pulse"
+          >
             <div className="aspect-[4/3] bg-forest-100/50" />
             <div className="p-5 sm:p-6 space-y-3">
               <div className="h-5 bg-forest-100 rounded w-3/4" />
@@ -225,7 +242,9 @@ export default function Gallery() {
       setItems(manifest.items);
       setError(null);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Falha ao carregar a galeria.");
+      setError(
+        err instanceof Error ? err.message : "Falha ao carregar a galeria."
+      );
     } finally {
       setLoading(false);
     }
@@ -233,7 +252,7 @@ export default function Gallery() {
 
   // Use a ref to track if component is mounted to avoid state updates after unmount
   const mountedRef = useRef(true);
-  
+
   useEffect(() => {
     mountedRef.current = true;
     const timeoutId = setTimeout(() => {
@@ -317,7 +336,11 @@ export default function Gallery() {
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {albums.map((album) => (
-          <AlbumCard key={album.title} album={album} onOpenLightbox={handleOpenLightbox} />
+          <AlbumCard
+            key={album.title}
+            album={album}
+            onOpenLightbox={handleOpenLightbox}
+          />
         ))}
       </div>
 

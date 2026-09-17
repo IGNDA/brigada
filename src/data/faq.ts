@@ -15,7 +15,8 @@ export const faqData: FAQItem[] = [
       "Nossas principais áreas de atuação são: resgate de animais silvestres em situação de risco, combate e prevenção a incêndios florestais, retirada segura de enxames de abelhas (preservando os polinizadores) e educação ambiental junto à comunidade carioca.",
   },
   {
-    question: "Como agir ao encontrar um animal silvestre em situação de risco?",
+    question:
+      "Como agir ao encontrar um animal silvestre em situação de risco?",
     answer:
       "Não tente capturar ou alimentar o animal. Mantenha distância, evite ruídos e entre em contato conosco pelo WhatsApp ou com os órgãos ambientais competentes (como o IBAMA ou a polícia ambiental) para orientação adequada.",
   },

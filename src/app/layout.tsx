@@ -66,8 +66,16 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
     >
       <head>
-        <link rel="preload" as="image" href={`${SITE_URL}/assets/global/logo.jpg`} />
-        <link rel="preload" as="image" href={`${SITE_URL}/assets/images/hero.jpg`} />
+        <link
+          rel="preload"
+          as="image"
+          href={`${SITE_URL}/assets/global/logo.jpg`}
+        />
+        <link
+          rel="preload"
+          as="image"
+          href={`${SITE_URL}/assets/images/hero.jpg`}
+        />
       </head>
       <body className="flex min-h-screen flex-col antialiased">
         {children}

@@ -35,7 +35,8 @@ export default function SiteNav() {
   }, [open]);
 
   const isActive = (href: string) => {
-    if (href === urls.home()) return pathname === urls.home() || pathname === "/";
+    if (href === urls.home())
+      return pathname === urls.home() || pathname === "/";
     return pathname.startsWith(href);
   };
 

@@ -6,8 +6,7 @@ import { BRIGADE_CONFIG } from "@/config/brigade";
 
 export const metadata: Metadata = {
   title: `Quem somos — ${BRIGADE_CONFIG.name}`,
-  description:
-    `Conheça a ${BRIGADE_CONFIG.name}: instituto voluntário de proteção ambiental no Rio de Janeiro. Missão, valores e atuação na preservação da fauna, flora e combate a incêndios florestais.`,
+  description: `Conheça a ${BRIGADE_CONFIG.name}: instituto voluntário de proteção ambiental no Rio de Janeiro. Missão, valores e atuação na preservação da fauna, flora e combate a incêndios florestais.`,
 };
 
 export default function QuemSomos() {
@@ -18,12 +17,10 @@ export default function QuemSomos() {
           <p className="text-sm font-semibold uppercase tracking-wide text-forest-200">
             Institucional
           </p>
-          <h1 className="mt-2 text-3xl font-bold sm:text-4xl">
-            Quem somos
-          </h1>
+          <h1 className="mt-2 text-3xl font-bold sm:text-4xl">Quem somos</h1>
           <p className="mt-4 max-w-2xl text-lg text-forest-100">
-            {BRIGADE_CONFIG.fullName}. Uma
-            brigada voluntária dedicada à proteção ambiental no Rio de Janeiro.
+            {BRIGADE_CONFIG.fullName}. Uma brigada voluntária dedicada à
+            proteção ambiental no Rio de Janeiro.
           </p>
         </div>
       </section>
@@ -35,10 +32,11 @@ export default function QuemSomos() {
               Nossa identidade
             </h2>
             <p>
-              A <strong>{BRIGADE_CONFIG.name}</strong> ({BRIGADE_CONFIG.instituteName}) é uma organização voluntária sediada no Rio de
-              Janeiro, formada por pessoas comprometidas com a preservação do
-              meio ambiente. Não temos fins lucrativos e atuamos de forma
-              colaborativa com a comunidade, órgãos públicos e outras
+              A <strong>{BRIGADE_CONFIG.name}</strong> (
+              {BRIGADE_CONFIG.instituteName}) é uma organização voluntária
+              sediada no Rio de Janeiro, formada por pessoas comprometidas com a
+              preservação do meio ambiente. Não temos fins lucrativos e atuamos
+              de forma colaborativa com a comunidade, órgãos públicos e outras
               instituições.
             </p>
             <p>
@@ -53,23 +51,35 @@ export default function QuemSomos() {
             <ul className="space-y-3">
               <li className="flex gap-3">
                 <span className="flex-shrink-0 text-forest-600">•</span>
-                <span><strong>Voluntariado:</strong> atuamos por vocação, não por obrigação.</span>
+                <span>
+                  <strong>Voluntariado:</strong> atuamos por vocação, não por
+                  obrigação.
+                </span>
               </li>
               <li className="flex gap-3">
                 <span className="flex-shrink-0 text-forest-600">•</span>
-                <span><strong>Respeito à vida:</strong> cada ser vivo importa.</span>
+                <span>
+                  <strong>Respeito à vida:</strong> cada ser vivo importa.
+                </span>
               </li>
               <li className="flex gap-3">
                 <span className="flex-shrink-0 text-forest-600">•</span>
-                <span><strong>Ciência e técnica:</strong> nossas ações baseiam-se em conhecimento.</span>
+                <span>
+                  <strong>Ciência e técnica:</strong> nossas ações baseiam-se em
+                  conhecimento.
+                </span>
               </li>
               <li className="flex gap-3">
                 <span className="flex-shrink-0 text-forest-600">•</span>
-                <span><strong>Transparência:</strong> prestamos contas à sociedade.</span>
+                <span>
+                  <strong>Transparência:</strong> prestamos contas à sociedade.
+                </span>
               </li>
               <li className="flex gap-3">
                 <span className="flex-shrink-0 text-forest-600">•</span>
-                <span><strong>Colaboração:</strong> unimos forças com parceiros.</span>
+                <span>
+                  <strong>Colaboração:</strong> unimos forças com parceiros.
+                </span>
               </li>
             </ul>
           </div>

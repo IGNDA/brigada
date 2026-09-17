@@ -64,8 +64,7 @@ const areas = [
 
 export const metadata: Metadata = {
   title: `Nossa atuação — ${BRIGADE_CONFIG.name}`,
-  description:
-    `Conheça as áreas de atuação da ${BRIGADE_CONFIG.name}: combate a incêndios florestais, resgate de fauna silvestre, preservação de abelhas e polinizadores, e educação ambiental no Rio de Janeiro.`,
+  description: `Conheça as áreas de atuação da ${BRIGADE_CONFIG.name}: combate a incêndios florestais, resgate de fauna silvestre, preservação de abelhas e polinizadores, e educação ambiental no Rio de Janeiro.`,
 };
 
 const whatsappUrl = BRIGADE_CONFIG.whatsappText.startsWith("http")
@@ -84,9 +83,9 @@ export default function Atuacao() {
             Nossas áreas de atuação
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-forest-100">
-            Quatro pilares integrados para a proteção ambiental no Rio de Janeiro.
-            Cada ação fortalece a outra na construção de um território mais
-            resiliente e biodiverso.
+            Quatro pilares integrados para a proteção ambiental no Rio de
+            Janeiro. Cada ação fortalece a outra na construção de um território
+            mais resiliente e biodiverso.
           </p>
         </div>
       </section>
@@ -100,7 +99,9 @@ export default function Atuacao() {
             >
               <div className="space-y-6">
                 <div className="flex items-center gap-3">
-                  <span className="text-3xl" aria-hidden="true">{area.icon}</span>
+                  <span className="text-3xl" aria-hidden="true">
+                    {area.icon}
+                  </span>
                   <h2 className="text-2xl font-bold text-forest-900">
                     {area.title}
                   </h2>
