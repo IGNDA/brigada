@@ -1,4 +1,5 @@
 const BASE_PATH = "/brigada";
+const isDev = process.env.NODE_ENV === "development";
 
 export function url(path: string): string {
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
@@ -9,6 +10,7 @@ export function url(path: string): string {
 
 export function fullUrl(path: string): string {
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
+  if (isDev) return cleanPath;
   // For non-Link contexts (<a> tags, meta tags, etc.), Next.js does NOT
   // prepend basePath, so we add it manually.
   return `${BASE_PATH}${cleanPath}`;
@@ -16,6 +18,7 @@ export function fullUrl(path: string): string {
 
 export function asset(path: string): string {
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
+  if (isDev) return cleanPath;
   return `${BASE_PATH}${cleanPath}`;
 }
 
