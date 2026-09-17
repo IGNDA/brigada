@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Gallery from "@/components/gallery/gallery";
 
 export const metadata: Metadata = {
-  title: "Nossos trabalhos",
+  title: "Nossos trabalhos — Galeria da Brigada IGNDA",
   description:
-    "Galeria de cursos, eventos, resgates e ações da 1 Brigada de Operações Florestais RJ (Brigada Ivan Moraes).",
+    "Galeria de fotos dos cursos, eventos, resgates de fauna e ações de proteção ambiental realizadas pela Brigada IGNDA no Rio de Janeiro.",
 };
 
 export default function NossosTrabalhosPage() {
