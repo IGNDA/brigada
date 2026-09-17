@@ -17,7 +17,8 @@
     "prepare": "husky",
     "worker:dev": "wrangler dev --config worker/wrangler.toml",
     "worker:deploy": "wrangler deploy --config worker/wrangler.toml",
-    "typecheck:worker": "tsc -p worker/tsconfig.json"
+    "typecheck:worker": "tsc -p worker/tsconfig.json",
+    "sitemap": "next-sitemap"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,mjs,cjs}": [
@@ -29,6 +30,7 @@
     ]
   },
   "dependencies": {
+    "lucide-react": "^1.47.0",
     "next": "16.3.4",
     "react": "19.2.8",
     "react-dom": "19.2.8",
@@ -53,6 +55,7 @@
     "husky": "^9.1.7",
     "jsdom": "^29.1.1",
     "lint-staged": "^16.4.0",
+    "next-sitemap": "^4.2.3",
     "prettier": "^3.9.6",
     "tailwindcss": "^4",
     "typescript": "^5",
