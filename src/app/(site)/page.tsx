@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import GalleryVitrine from "@/components/gallery/gallery-vitrine";
 
 const whatsappUrl =
   "https://api.whatsapp.com/send/?phone=5521966956140&text=Ol%C3%A1%21+Vi+o+site+da+Brigada+IGNDA+e+quero+saber+mais.&type=phone_number&app_absent=0";
@@ -205,68 +205,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section
-        id="nossa-gente"
-        className="mx-auto max-w-6xl scroll-mt-24 px-4 py-16 sm:px-6"
-      >
-        <p className="text-sm font-semibold uppercase tracking-wide text-forest-600">
-          Nossa gente
-        </p>
-        <h2 className="mt-2 text-2xl font-bold text-forest-900 sm:text-3xl">
-          Nossos trabalhos
-        </h2>
-        <p className="mt-3 max-w-2xl text-forest-700">
-          Um registro visual das ações de proteção ambiental realizadas pela
-          Brigada IGNDA. Cada imagem conta uma história de dedicação voluntária.
-        </p>
-
-        <div className="mt-10 grid gap-6 sm:grid-cols-3">
-          {[
-            { label: "Resgates", icon: "🐾", color: "emergency" },
-            { label: "Incêndios", icon: "🔥", color: "emergency" },
-            { label: "Educação", icon: "📚", color: "forest" },
-            { label: "Cursos", icon: "🎓", color: "forest" },
-            { label: "Eventos", icon: "🤝", color: "forest" },
-            { label: "Outros", icon: "📸", color: "forest" },
-          ].map((cat) => (
-            <Link
-              key={cat.label}
-              href="/brigada/nossos-trabalhos"
-              className="group rounded-2xl border border-forest-100 bg-white p-6 shadow-sm transition-all hover:border-forest-200 hover:shadow-md hover:-translate-y-1"
-            >
-              <div className="flex items-center gap-3">
-                <span
-                  className={`inline-flex h-12 w-12 items-center justify-center rounded-xl bg-${cat.color}-100 text-${cat.color}-700 text-2xl`}
-                  aria-hidden="true"
-                >
-                  {cat.icon}
-                </span>
-                <span className="font-semibold text-forest-900 group-hover:text-forest-700">
-                  {cat.label}
-                </span>
-              </div>
-              <p className="mt-3 text-sm text-forest-600">
-                Ver galeria de {cat.label.toLowerCase()}
-              </p>
-            </Link>
-          ))}
-        </div>
-
-        <div className="mt-10 flex items-center justify-between rounded-2xl bg-gradient-to-r from-forest-700 to-forest-900 px-6 py-6 text-white sm:px-8">
-          <div>
-            <p className="text-sm font-medium text-forest-100">Quer ver tudo?</p>
-            <h3 className="mt-1 text-xl font-bold">
-              Galeria completa com filtros, lightbox e muito mais
-            </h3>
-          </div>
-          <Link
-            href="/brigada/nossos-trabalhos"
-            className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-forest-700 shadow-lg transition-all hover:bg-forest-50 hover:shadow-xl"
-          >
-            Acessar galeria
-            <span aria-hidden="true">→</span>
-          </Link>
-        </div>
+      <section id="nossa-gente" className="scroll-mt-24">
+        <GalleryVitrine />
       </section>
 
       <section className="bg-forest-800 py-16 text-white">
