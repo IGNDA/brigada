@@ -294,7 +294,7 @@ export default function AdminApp({
         </div>
 
         <label className="mt-4 block text-sm font-medium text-forest-900">
-          Descrição (opcional - aplicada a todas as fotos do álbum)
+          Descrição (opcional)
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
