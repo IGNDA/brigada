@@ -1,21 +1,19 @@
-const BASE_PATH = "/brigada";
-const isDev = process.env.NODE_ENV === "development";
-
 export function url(path: string): string {
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
-  // In dev, basePath is not applied by next dev, so we return root-relative paths
-  if (isDev) {
-    return cleanPath === "/" ? "/" : cleanPath;
-  }
-  return `${BASE_PATH}${cleanPath}`;
+  // Next.js <Link> automatically prepends basePath from next.config.ts,
+  // so we return plain paths here. Do NOT add basePath manually.
+  return cleanPath;
 }
 
 export function asset(path: string): string {
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
+  // For non-Link contexts (meta tags, OG images, etc.), Next.js does NOT
+  // prepend basePath, so we add it manually in production.
+  const isDev = process.env.NODE_ENV === "development";
   if (isDev) {
     return cleanPath;
   }
-  return `${BASE_PATH}${cleanPath}`;
+  return `/brigada${cleanPath}`;
 }
 
 export const urls = {
