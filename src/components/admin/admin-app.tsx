@@ -486,17 +486,6 @@ export default function AdminApp({
                               type="button"
                               onClick={(e) => {
                                 e.stopPropagation();
-                                // Individual edit could be added here
-                              }}
-                              className="rounded p-1 bg-white/90 text-forest-600 hover:bg-white hover:text-forest-800 transition-colors"
-                              aria-label="Editar foto"
-                            >
-                              <Edit2 className="h-3.5 w-3.5" />
-                            </button>
-                            <button
-                              type="button"
-                              onClick={(e) => {
-                                e.stopPropagation();
                                 handleDeleteItem(item.id);
                               }}
                               className="rounded p-1 bg-white/90 text-emergency-600 hover:bg-white hover:text-emergency-800 transition-colors"
