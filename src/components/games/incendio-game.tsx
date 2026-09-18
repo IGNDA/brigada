@@ -5,20 +5,30 @@ import { useEffect, useRef, useState } from "react";
 const GRID_SIZE = 5;
 const TOTAL_CELLS = GRID_SIZE * GRID_SIZE;
 const GAME_SECONDS = 45;
-const TICK_MS = 400;
+const TICK_MS = 500;
+const FIRE_DURATION = 3;
+const SPREAD_CHANCE = 0.12;
+const RANDOM_FIRE_CHANCE = 0.08;
 
-type CellState = "tree" | "fire" | "safe";
+type CellState = "tree" | "fire" | "safe" | "ash";
 
 interface Cell {
   id: number;
   state: CellState;
+  burnTime: number;
 }
 
 function createGrid(): Cell[] {
   return Array.from({ length: TOTAL_CELLS }, (_, i) => ({
     id: i,
     state: "tree" as const,
+    burnTime: 0,
   }));
+}
+
+function ignite(target: Cell) {
+  target.state = "fire";
+  target.burnTime = FIRE_DURATION;
 }
 
 function neighborsOf(id: number): number[] {
@@ -49,21 +59,26 @@ export default function IncendioGame() {
   function step(prev: Cell[]): Cell[] {
     const next = prev.map((cell) => ({ ...cell }));
 
-    for (const cell of next) {
-      if (cell.state === "fire") {
-        for (const n of neighborsOf(cell.id)) {
-          if (next[n].state === "tree" && Math.random() < 0.4) {
-            next[n].state = "fire";
-          }
+    const burning = next.filter((c) => c.state === "fire");
+    for (const cell of burning) {
+      cell.burnTime -= 1;
+      if (cell.burnTime <= 0) {
+        cell.state = "ash";
+      }
+    }
+
+    for (const cell of next.filter((c) => c.state === "fire")) {
+      for (const n of neighborsOf(cell.id)) {
+        if (next[n].state === "tree" && Math.random() < SPREAD_CHANCE) {
+          ignite(next[n]);
         }
       }
     }
 
-    if (Math.random() < 0.3) {
+    if (Math.random() < RANDOM_FIRE_CHANCE) {
       const trees = next.filter((c) => c.state === "tree");
       if (trees.length > 0) {
-        const target = trees[Math.floor(Math.random() * trees.length)];
-        target.state = "fire";
+        ignite(trees[Math.floor(Math.random() * trees.length)]);
       }
     }
 
@@ -93,10 +108,10 @@ export default function IncendioGame() {
   }
 
   function tip() {
-    if (score >= 15) {
+    if (score >= 12) {
       return "Incrível! Você é um verdadeiro bombeiro da floresta. 🔥💧";
     }
-    if (score >= 8) {
+    if (score >= 6) {
       return "Muito bem! Regiões secas precisam de atenção redobrada. 🌿";
     }
     return "Lembre-se: nunca faça fogueiras em áreas de mata e denuncie queimadas pelo 193. 🚨";
@@ -140,8 +155,9 @@ export default function IncendioGame() {
             Apague o Incêndio
           </h2>
           <p className="mt-2 text-sm text-forest-700">
-            O fogo se espalha rápido pela floresta. Clique nos focos para apagá
-            -los antes que tudo vire cinzas. Você tem {GAME_SECONDS} segundos!
+            O fogo queima rápido e se espalha pela floresta. Clique nos focos
+            para apagá-los com água antes que tudo vire cinzas. Você tem{" "}
+            {GAME_SECONDS} segundos!
           </p>
           <button
             type="button"
@@ -166,7 +182,13 @@ export default function IncendioGame() {
               const label =
                 cell.state === "fire"
                   ? `Foco de incêndio no bloco ${row + 1}, ${col + 1}`
-                  : `Bloco ${row + 1}, ${col + 1} (${cell.state === "safe" ? "área apagada" : "árvore"})`;
+                  : `Bloco ${row + 1}, ${col + 1} (${
+                      cell.state === "safe"
+                        ? "área apagada"
+                        : cell.state === "ash"
+                          ? "área queimada"
+                          : "árvore"
+                    })`;
               return (
                 <button
                   key={cell.id}
@@ -179,14 +201,18 @@ export default function IncendioGame() {
                       ? "border-emergency-600 bg-emergency-500 hover:bg-emergency-600"
                       : cell.state === "safe"
                         ? "border-forest-300 bg-forest-100"
-                        : "border-forest-700 bg-forest-600"
+                        : cell.state === "ash"
+                          ? "border-forest-800 bg-forest-900 text-forest-500"
+                          : "border-forest-700 bg-forest-600"
                   }`}
                 >
                   {cell.state === "fire"
                     ? "🔥"
                     : cell.state === "safe"
                       ? "💧"
-                      : "🌳"}
+                      : cell.state === "ash"
+                        ? "·"
+                        : "🌳"}
                 </button>
               );
             })}
