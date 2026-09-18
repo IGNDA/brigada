@@ -155,31 +155,27 @@ function AlbumCard({
 function EmptyState({ filter }: { filter: Filter }) {
   const isFiltered = filter !== "todas";
   return (
-    <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-      <div className="rounded-3xl border-2 border-dashed border-forest-200 bg-forest-50/50 p-12 sm:p-16 text-center">
-        <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-forest-100 text-forest-500">
-          <Camera className="h-10 w-10" aria-hidden="true" />
-        </div>
-        <h3 className="text-xl font-bold text-forest-900 mb-2">
-          {isFiltered
-            ? "Nenhuma imagem nesta categoria"
-            : "A galeria está vazia"}
-        </h3>
-        <p className="text-forest-600 max-w-md mx-auto mb-6">
-          {isFiltered
-            ? "Tente selecionar outra categoria ou volte mais tarde."
-            : "As fotos dos resgates, cursos, eventos e operações aparecerão aqui automaticamente quando a equipe fizer os primeiros uploads."}
-        </p>
-        {!isFiltered && (
-          <button
-            type="button"
-            className="inline-flex items-center gap-2 rounded-full bg-forest-700 px-6 py-3 font-semibold text-white shadow-lg transition-all hover:bg-forest-600 hover:shadow-xl"
-          >
-            Acessar área administrativa
-            <ChevronRight className="h-4 w-4" aria-hidden="true" />
-          </button>
-        )}
+    <div className="rounded-3xl border-2 border-dashed border-forest-200 bg-forest-50/50 p-12 sm:p-16 text-center">
+      <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-forest-100 text-forest-500">
+        <Camera className="h-10 w-10" aria-hidden="true" />
       </div>
+      <h3 className="text-xl font-bold text-forest-900 mb-2">
+        {isFiltered ? "Nenhuma imagem nesta categoria" : "A galeria está vazia"}
+      </h3>
+      <p className="text-forest-600 max-w-md mx-auto mb-6">
+        {isFiltered
+          ? "Tente selecionar outra categoria ou volte mais tarde."
+          : "As fotos dos resgates, cursos, eventos e operações aparecerão aqui automaticamente quando a equipe fizer os primeiros uploads."}
+      </p>
+      {!isFiltered && (
+        <button
+          type="button"
+          className="inline-flex items-center gap-2 rounded-full bg-forest-700 px-6 py-3 font-semibold text-white shadow-lg transition-all hover:bg-forest-600 hover:shadow-xl"
+        >
+          Acessar área administrativa
+          <ChevronRight className="h-4 w-4" aria-hidden="true" />
+        </button>
+      )}
     </div>
   );
 }
@@ -280,7 +276,6 @@ export default function Gallery() {
 
   if (loading) return <LoadingState />;
   if (error) return <ErrorState message={error} />;
-  if (visibleItems.length === 0) return <EmptyState filter={filter} />;
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
@@ -297,11 +292,15 @@ export default function Gallery() {
             pela {BRIGADE_CONFIG.name}.
           </p>
         </div>
-        {albums.length > 0 && (
-          <div className="flex items-center gap-3 text-sm text-forest-600">
+        {items.length > 0 && (
+          <div
+            className="flex items-center gap-3 text-sm text-forest-600"
+            data-testid="gallery-stats"
+          >
             <span className="flex items-center gap-1">
               <Camera className="h-4 w-4" aria-hidden="true" />
-              {items.length} {items.length === 1 ? "foto" : "fotos"}
+              {visibleItems.length}{" "}
+              {visibleItems.length === 1 ? "foto" : "fotos"}
             </span>
             <span className="text-forest-300">·</span>
             <span className="flex items-center gap-1">
@@ -334,15 +333,19 @@ export default function Gallery() {
 
       <div className="mb-10 h-px w-full bg-gradient-to-r from-forest-100 via-forest-200/60 to-transparent" />
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {albums.map((album) => (
-          <AlbumCard
-            key={album.title}
-            album={album}
-            onOpenLightbox={handleOpenLightbox}
-          />
-        ))}
-      </div>
+      {visibleItems.length === 0 ? (
+        <EmptyState filter={filter} />
+      ) : (
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {albums.map((album) => (
+            <AlbumCard
+              key={album.title}
+              album={album}
+              onOpenLightbox={handleOpenLightbox}
+            />
+          ))}
+        </div>
+      )}
 
       <Lightbox
         open={open}
