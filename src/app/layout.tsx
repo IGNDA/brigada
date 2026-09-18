@@ -14,7 +14,7 @@ const geistSans = Geist({
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
-const OG_IMAGE = `${SITE_URL}/assets/images/compartilhar.jpg`;
+const OG_IMAGE = `${SITE_URL}/assets/images/compartilhar-og.jpg`;
 
 export const metadata: Metadata = {
   title: {
@@ -54,8 +54,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: OG_IMAGE,
-        width: 1672,
-        height: 941,
+        width: 1200,
+        height: 675,
         alt: BRIGADE_CONFIG.name,
       },
     ],
