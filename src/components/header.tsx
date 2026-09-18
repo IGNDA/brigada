@@ -17,7 +17,7 @@ export default function Header() {
             className="h-12 w-12 flex-shrink-0 object-contain"
             priority
           />
-          <span className="hidden min-w-0 flex-col leading-tight md:flex">
+          <span className="min-w-0 flex-col leading-tight flex">
             <span className="truncate text-sm font-bold text-forest-900">
               {BRIGADE_CONFIG.name}
             </span>
