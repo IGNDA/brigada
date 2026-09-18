@@ -25,11 +25,11 @@ const games = [
       "Encontre os pares de animais da Mata Atlântica e conheça as espécies que protegemos.",
   },
   {
-    href: urls.jogosReciclagem(),
-    emoji: "♻️",
-    title: "Coleta Seletiva",
+    href: urls.jogosCacaPalavras(),
+    emoji: "🔍",
+    title: "Caça-Palavras",
     description:
-      "Separe os resíduos na lixeira correta e aprenda a destinar cada material do jeito certo.",
+      "Encontre palavras sobre meio ambiente escondidas na grade de letras.",
   },
   {
     href: urls.jogosIncendio(),

@@ -36,7 +36,7 @@ describe("Footer", () => {
       "Jogos",
       "Quiz Ambiental",
       "Jogo da Memória",
-      "Coleta Seletiva",
+      "Caça-Palavras",
       "Apague o Incêndio",
     ]) {
       expect(screen.getByText(label)).toBeInTheDocument();

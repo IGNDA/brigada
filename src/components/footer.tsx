@@ -5,7 +5,7 @@ const entertainmentLinks = [
   { label: "Jogos", href: urlsFull.jogos() },
   { label: "Quiz Ambiental", href: urlsFull.jogosQuiz() },
   { label: "Jogo da Memória", href: urlsFull.jogosMemoria() },
-  { label: "Coleta Seletiva", href: urlsFull.jogosReciclagem() },
+  { label: "Caça-Palavras", href: urlsFull.jogosCacaPalavras() },
   { label: "Apague o Incêndio", href: urlsFull.jogosIncendio() },
 ];
 
