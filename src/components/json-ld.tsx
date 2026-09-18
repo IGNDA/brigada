@@ -1,7 +1,6 @@
 import { BRIGADE_CONFIG } from "@/config/brigade";
+import { SITE_URL } from "@/lib/urls";
 import type { FAQItem } from "@/data/faq";
-
-const SITE_URL = "https://brigadaignda.org.br";
 
 export function OrganizationJsonLd() {
   const jsonLd = {

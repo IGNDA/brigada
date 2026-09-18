@@ -1,6 +1,11 @@
 const BASE_PATH = "/brigada";
 const isDev = process.env.NODE_ENV === "development";
 
+// Host de produção. Troque aqui (e no next-sitemap.config.js) quando o
+// domínio próprio estiver ativo.
+export const SITE_ORIGIN = "https://ignda.github.io";
+export const SITE_URL = `${SITE_ORIGIN}${BASE_PATH}`;
+
 export function url(path: string): string {
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
   // Next.js <Link> automatically prepends basePath from next.config.ts,

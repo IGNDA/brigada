@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: "https://brigadaignda.org.br",
+  siteUrl: "https://ignda.github.io/brigada",
   generateRobotsTxt: true,
   generateIndexSitemap: true,
   trailingSlash: true,
@@ -10,7 +10,7 @@ module.exports = {
       { userAgent: "*", allow: "/" },
       { userAgent: "*", disallow: "/admin/" },
     ],
-    additionalSitemaps: ["https://brigadaignda.org.br/sitemap.xml"],
+    additionalSitemaps: ["https://ignda.github.io/brigada/sitemap.xml"],
   },
   transform: async (config, path) => {
     const priorityMap = {
