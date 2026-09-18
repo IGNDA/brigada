@@ -27,4 +27,28 @@ describe("Footer", () => {
       screen.getByText("Instituto Guarda Nacional de Defesa Ambiental")
     ).toBeInTheDocument();
   });
+
+  it("exibe o menu de Entretenimento com o link de jogos e cada jogo", () => {
+    render(<Footer />);
+    const nav = screen.getByRole("navigation", { name: "Entretenimento" });
+    expect(nav).toBeInTheDocument();
+    for (const label of [
+      "Jogos",
+      "Quiz Ambiental",
+      "Jogo da Memória",
+      "Coleta Seletiva",
+      "Apague o Incêndio",
+    ]) {
+      expect(screen.getByText(label)).toBeInTheDocument();
+    }
+  });
+
+  it("exibe o menu de Administração com o link da área administrativa", () => {
+    render(<Footer />);
+    const nav = screen.getByRole("navigation", { name: "Administração" });
+    expect(nav).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "Área administrativa" })
+    ).toBeInTheDocument();
+  });
 });
