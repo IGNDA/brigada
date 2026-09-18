@@ -86,7 +86,7 @@ export default function QuemSomos() {
 
           <div className="relative aspect-square sm:aspect-[4/5] overflow-hidden rounded-2xl border-4 border-forest-50/20 bg-white shadow-lg">
             <Image
-              src={asset("/assets/global/logo.png")}
+              src={asset("/assets/global/logo.svg")}
               alt={`Logotipo da ${BRIGADE_CONFIG.name}`}
               fill
               priority

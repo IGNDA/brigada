@@ -29,7 +29,7 @@ export default function Home() {
         <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-2">
           <div>
             <h1 className="max-w-2xl text-4xl font-bold leading-tight sm:text-5xl">
-              {BRIGADE_CONFIG.name} — Proteção ambiental no Rio de Janeiro
+              Brigada voluntária de proteção ambiental no Rio de Janeiro
             </h1>
             <p className="mt-4 text-lg font-medium text-forest-100">
               {BRIGADE_CONFIG.instituteName}
