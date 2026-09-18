@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const GRID_SIZE = 5;
 const TOTAL_CELLS = GRID_SIZE * GRID_SIZE;
@@ -95,16 +95,19 @@ export default function IncendioGame() {
   const bucketsRef = useRef(START_BUCKETS);
   const seqTimeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
-  function finish() {
-    setStatus("finished");
-  }
-
   function clearSeqTimeouts() {
     for (const id of seqTimeoutsRef.current) {
       clearTimeout(id);
     }
     seqTimeoutsRef.current = [];
     setLit(null);
+  }
+
+  function finish() {
+    clearSeqTimeouts();
+    setSeqStatus("idle");
+    setSeqStep(0);
+    setStatus("finished");
   }
 
   function step(prev: Cell[]): Cell[] {
@@ -136,20 +139,6 @@ export default function IncendioGame() {
     return next;
   }
 
-  function extinguish(id: number) {
-    const cell = grid[id];
-    if (cell.state !== "fire" || status !== "playing") return;
-    if (bucketsRef.current <= 0) return;
-    bucketsRef.current -= 1;
-    setBuckets(bucketsRef.current);
-    setScore((s) => s + 1);
-    setGrid((prev) =>
-      prev.map((c) =>
-        c.id === id && c.state === "fire" ? { ...c, state: "safe" as const } : c
-      )
-    );
-  }
-
   function flashSequence(newSeq: number[]) {
     setSeqStatus("flashing");
     const ids: ReturnType<typeof setTimeout>[] = [];
@@ -175,7 +164,8 @@ export default function IncendioGame() {
       status !== "playing" ||
       seqStatus === "flashing" ||
       seqStatus === "awaiting" ||
-      bucketsRef.current >= MAX_BUCKETS
+      seqStatus === "congrats" ||
+      bucketsRef.current > 0
     ) {
       return;
     }
@@ -195,7 +185,7 @@ export default function IncendioGame() {
       const id = setTimeout(() => {
         setSeqStep(0);
         setLit(null);
-        setSeqStatus("idle");
+        flashSequence(sequence);
       }, 700);
       seqTimeoutsRef.current.push(id);
       return;
@@ -208,18 +198,31 @@ export default function IncendioGame() {
         MAX_BUCKETS,
         bucketsRef.current + BUCKETS_PER_SOLVE
       );
-      const gained = nextBuckets - bucketsRef.current;
       bucketsRef.current = nextBuckets;
       setBuckets(nextBuckets);
       setRound((r) => r + 1);
       const id = setTimeout(() => {
-        if (gained > 0) {
-          startChallenge();
-        } else {
-          setSeqStatus("idle");
-        }
+        setSeqStatus("idle");
+        setSeqStep(0);
       }, 900);
       seqTimeoutsRef.current.push(id);
+    }
+  }
+
+  function extinguish(id: number) {
+    const cell = grid[id];
+    if (cell.state !== "fire" || status !== "playing") return;
+    if (bucketsRef.current <= 0) return;
+    bucketsRef.current -= 1;
+    setBuckets(bucketsRef.current);
+    setScore((s) => s + 1);
+    setGrid((prev) =>
+      prev.map((c) =>
+        c.id === id && c.state === "fire" ? { ...c, state: "safe" as const } : c
+      )
+    );
+    if (bucketsRef.current === 0) {
+      startChallenge();
     }
   }
 
@@ -272,6 +275,10 @@ export default function IncendioGame() {
     };
   }, []);
 
+  const challengeActive =
+    status === "playing" && (buckets === 0 || seqStatus === "congrats");
+  const isLocked = challengeActive && buckets === 0 && seqStatus !== "idle";
+
   return (
     <div className="mx-auto max-w-2xl rounded-2xl border border-forest-100 bg-white p-6 shadow-sm sm:p-8">
       <div className="flex flex-wrap items-center justify-between gap-2 text-sm font-semibold text-forest-700">
@@ -291,9 +298,10 @@ export default function IncendioGame() {
             Apague o Incêndio
           </h2>
           <p className="mt-2 text-sm text-forest-700">
-            A floresta está em chamas! Abra o hidrante repetindo as sequências
-            de válvulas para encher baldes de água e clique nos focos 🔥 para
-            apagá-los. Você tem {GAME_SECONDS} segundos!
+            A floresta está em chamas! Clique nos focos 🔥 para apagá-los com os
+            baldes de água. Quando a água acabar, o hidrante se abre e você
+            precisa repetir a sequência das válvulas para encher os baldes de
+            novo. Você tem {GAME_SECONDS} segundos!
           </p>
           <button
             type="button"
@@ -308,7 +316,7 @@ export default function IncendioGame() {
       {(status === "playing" || status === "finished") && (
         <div className="mt-6">
           <div
-            className="grid grid-cols-5 gap-1"
+            className={`grid grid-cols-5 gap-1 ${isLocked ? "opacity-40" : ""}`}
             role="group"
             aria-label="Mapa da floresta"
           >
@@ -356,39 +364,35 @@ export default function IncendioGame() {
             })}
           </div>
 
-          {status === "playing" && (
-            <p className="mt-3 text-center text-sm text-forest-600">
-              {buckets > 0
-                ? "Clique nos 🔥 para apagar com água."
-                : "Sem baldes! Abra o hidrante para conseguir água."}
-            </p>
-          )}
+          {status === "playing" &&
+            (challengeActive && buckets === 0 ? (
+              <p
+                className="mt-3 rounded-lg border border-emergency-200 bg-emergency-50 p-2 text-center text-sm font-semibold text-emergency-700"
+                aria-live="polite"
+              >
+                🔒 A água acabou! Abra o hidrante repetindo a sequência das
+                válvulas para conseguir mais baldes.
+              </p>
+            ) : (
+              <p className="mt-3 text-center text-sm text-forest-600">
+                Clique nos 🔥 para apagar com água. ({buckets}{" "}
+                {buckets === 1 ? "balde" : "baldes"})
+              </p>
+            ))}
 
-          {status === "playing" && (
+          {status === "playing" && challengeActive && (
             <div
-              className="mt-5 rounded-xl border border-forest-100 bg-forest-50 p-4"
+              className="mt-5 rounded-xl border border-emergency-200 bg-emergency-50 p-4"
               role="group"
               aria-label="Hidrante"
             >
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <h3 className="font-bold text-forest-900">
-                  Hidrante
-                  <span className="ml-2 text-xs font-normal text-forest-600">
-                    Sequência de {sequenceLength(round).toString()} válvulas
-                  </span>
+              <div className="flex items-center justify-between gap-2">
+                <h3 className="font-bold text-emergency-900">
+                  🔑 Hidrante bloqueado
                 </h3>
-                <button
-                  type="button"
-                  onClick={startChallenge}
-                  disabled={buckets >= MAX_BUCKETS || seqStatus === "flashing"}
-                  className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
-                    buckets >= MAX_BUCKETS || seqStatus === "flashing"
-                      ? "cursor-not-allowed bg-forest-100 text-forest-400"
-                      : "bg-forest-700 text-white hover:bg-forest-800"
-                  }`}
-                >
-                  Pedir água
-                </button>
+                <span className="text-xs font-semibold text-emergency-700">
+                  Sequência de {sequenceLength(round).toString()} válvulas
+                </span>
               </div>
 
               <div className="mt-3 flex items-center justify-center gap-3">
@@ -404,7 +408,7 @@ export default function IncendioGame() {
                       aria-pressed={isLit}
                       className={`h-12 w-12 rounded-full border-4 transition-all sm:h-14 sm:w-14 ${
                         isLit
-                          ? "scale-110 border-white shadow-lg ring-2 ring-forest-400"
+                          ? "scale-110 border-white shadow-lg ring-2 ring-emergency-400"
                           : "border-forest-100"
                       } ${lever.className}`}
                     />
@@ -413,25 +417,18 @@ export default function IncendioGame() {
               </div>
 
               <div className="mt-3 text-center text-sm" aria-live="polite">
-                {seqStatus === "idle" && (
-                  <p className="text-forest-600">
-                    {buckets >= MAX_BUCKETS
-                      ? "Baldes cheios!"
-                      : "Aperte “Pedir água” para abrir o hidrante."}
-                  </p>
-                )}
                 {seqStatus === "flashing" && (
-                  <p className="font-medium text-forest-800">
+                  <p className="font-medium text-emergency-800">
                     Memorize a sequência…
                   </p>
                 )}
                 {seqStatus === "awaiting" && (
-                  <p className="font-medium text-forest-800">
+                  <p className="font-medium text-emergency-800">
                     Repita a sequência agora!
                   </p>
                 )}
                 {seqStatus === "congrats" && (
-                  <p className="font-medium text-forest-800">
+                  <p className="font-medium text-emergency-800">
                     Hidrante aberto! 📢 +{BUCKETS_PER_SOLVE} baldes de água
                   </p>
                 )}

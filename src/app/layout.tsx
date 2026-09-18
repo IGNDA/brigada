@@ -4,6 +4,7 @@ import Script from "next/script";
 import "@/styles/globals.css";
 import FloatingWhatsApp from "@/components/floating-whatsapp";
 import { OrganizationJsonLd, WebSiteJsonLd } from "@/components/json-ld";
+import { asset } from "@/lib/urls";
 import { BRIGADE_CONFIG } from "@/config/brigade";
 
 const geistSans = Geist({
@@ -14,7 +15,7 @@ const geistSans = Geist({
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 const SITE_URL = "https://brigadaignda.org.br";
-const OG_IMAGE = `${SITE_URL}/assets/images/hero.jpg`;
+const OG_IMAGE = `${SITE_URL}${asset("/assets/images/compartilhar.jpg")}`;
 
 export const metadata: Metadata = {
   title: {
@@ -54,8 +55,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: OG_IMAGE,
-        width: 1200,
-        height: 630,
+        width: 1672,
+        height: 941,
         alt: BRIGADE_CONFIG.name,
       },
     ],
@@ -89,12 +90,12 @@ export default function RootLayout({
         <link
           rel="preload"
           as="image"
-          href={`${SITE_URL}/assets/global/logo.png`}
+          href={`${SITE_URL}${asset("/assets/global/logo.png")}`}
         />
         <link
           rel="preload"
           as="image"
-          href={`${SITE_URL}/assets/images/hero.jpg`}
+          href={`${SITE_URL}${asset("/assets/images/hero.jpg")}`}
         />
       </head>
       <body className="flex min-h-screen flex-col antialiased">
