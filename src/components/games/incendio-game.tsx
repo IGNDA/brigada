@@ -43,6 +43,7 @@ export default function IncendioGame() {
   const [seqStep, setSeqStep] = useState(0);
   const [seqStatus, setSeqStatus] = useState<SeqStatus>("idle");
   const [lit, setLit] = useState<number | null>(null);
+  const [pressed, setPressed] = useState<number | null>(null);
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const fireRef = useRef(START_FIRE);
@@ -54,6 +55,7 @@ export default function IncendioGame() {
     }
     seqTimeoutsRef.current = [];
     setLit(null);
+    setPressed(null);
   }, []);
 
   const finish = useCallback(() => {
@@ -98,6 +100,10 @@ export default function IncendioGame() {
   function pressLever(index: number) {
     if (status !== "playing" || seqStatus !== "awaiting" || lit !== null)
       return;
+
+    setPressed(index);
+    const pressedId = setTimeout(() => setPressed(null), 180);
+    seqTimeoutsRef.current.push(pressedId);
 
     if (sequence[seqStep] !== index) {
       fireRef.current = clampFire(fireRef.current + FIRE_PENALTY);
@@ -256,6 +262,7 @@ export default function IncendioGame() {
               <div className="mt-4 flex items-center justify-center gap-4">
                 {LEVERS.map((lever, index) => {
                   const isLit = lit === index;
+                  const isPressed = pressed === index;
                   return (
                     <button
                       key={lever.label}
@@ -263,11 +270,13 @@ export default function IncendioGame() {
                       onClick={() => pressLever(index)}
                       disabled={seqStatus !== "awaiting" || lit !== null}
                       aria-label={lever.label}
-                      aria-pressed={isLit}
-                      className={`h-14 w-14 rounded-full border-4 transition-all sm:h-16 sm:w-16 ${
+                      aria-pressed={isLit || isPressed}
+                      className={`h-14 w-14 cursor-pointer rounded-full border-4 transition-all duration-150 active:scale-90 sm:h-16 sm:w-16 ${
                         isLit
                           ? "scale-110 border-white shadow-lg ring-2 ring-emergency-400"
-                          : "border-forest-100"
+                          : isPressed
+                            ? "scale-90 border-white ring-2 ring-white brightness-150"
+                            : "border-forest-100"
                       } ${lever.className}`}
                     />
                   );
