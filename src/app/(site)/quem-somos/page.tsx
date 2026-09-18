@@ -25,7 +25,7 @@ export default function QuemSomos() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+      <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-16">
         <div className="grid gap-12 lg:grid-cols-2">
           <div className="space-y-6 text-forest-800">
             <h2 className="text-2xl font-bold text-forest-900">
@@ -97,7 +97,7 @@ export default function QuemSomos() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-10 sm:py-16 sm:px-6">
-        <div className="mt-8 sm:mt-16 grid gap-8 sm:grid-cols-3">
+        <div className="mt-4 grid gap-8 sm:mt-16 sm:grid-cols-3">
           <article className="rounded-xl border border-forest-100 bg-white p-6 shadow-sm">
             <h3 className="text-lg font-bold text-forest-900">Missão</h3>
             <p className="mt-2 text-forest-700">
