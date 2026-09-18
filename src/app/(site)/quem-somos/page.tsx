@@ -84,20 +84,20 @@ export default function QuemSomos() {
             </ul>
           </div>
 
-          <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border-4 border-forest-50/20 bg-forest-900 shadow-lg">
+          <div className="relative aspect-square sm:aspect-[4/5] overflow-hidden rounded-2xl border-4 border-forest-50/20 bg-white shadow-lg">
             <Image
-              src={asset("/assets/images/hero.jpg")}
-              alt={`Equipe da ${BRIGADE_CONFIG.name} em ação de proteção ambiental no Rio de Janeiro`}
+              src={asset("/assets/global/logo.png")}
+              alt={`Logotipo da ${BRIGADE_CONFIG.name}`}
               fill
               priority
-              className="object-cover"
+              className="object-contain p-4 sm:p-8"
             />
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-        <div className="mt-16 grid gap-8 sm:grid-cols-3">
+      <section className="mx-auto max-w-6xl px-4 py-10 sm:py-16 sm:px-6">
+        <div className="mt-8 sm:mt-16 grid gap-8 sm:grid-cols-3">
           <article className="rounded-xl border border-forest-100 bg-white p-6 shadow-sm">
             <h3 className="text-lg font-bold text-forest-900">Missão</h3>
             <p className="mt-2 text-forest-700">
