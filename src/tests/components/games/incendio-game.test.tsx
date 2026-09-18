@@ -18,4 +18,24 @@ describe("IncendioGame", () => {
     expect(map).toBeInTheDocument();
     expect(map.children).toHaveLength(25);
   });
+
+  it("exibe o hidrante com as válvulas e a pontuação de baldes", async () => {
+    const user = userEvent.setup();
+    render(<IncendioGame />);
+    await user.click(screen.getByRole("button", { name: "Começar" }));
+    const hydrant = screen.getByRole("group", { name: "Hidrante" });
+    expect(hydrant).toBeInTheDocument();
+    for (const label of [
+      "Válvula azul",
+      "Válvula verde",
+      "Válvula amarela",
+      "Válvula vermelha",
+    ]) {
+      expect(screen.getByRole("button", { name: label })).toBeInTheDocument();
+    }
+    expect(
+      screen.getByRole("button", { name: "Pedir água" })
+    ).toBeInTheDocument();
+    expect(screen.getByLabelText(/baldes de água/)).toHaveTextContent("2/4");
+  });
 });
