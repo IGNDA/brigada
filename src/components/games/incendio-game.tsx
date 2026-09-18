@@ -6,9 +6,10 @@ const GRID_SIZE = 5;
 const TOTAL_CELLS = GRID_SIZE * GRID_SIZE;
 const GAME_SECONDS = 45;
 const TICK_MS = 500;
-const FIRE_DURATION = 3;
-const SPREAD_CHANCE = 0.12;
-const RANDOM_FIRE_CHANCE = 0.08;
+const FIRE_DURATION = 6;
+const INITIAL_FIRES = 3;
+const SPREAD_CHANCE = 0.18;
+const RANDOM_FIRE_CHANCE = 0.12;
 
 type CellState = "tree" | "fire" | "safe" | "ash";
 
@@ -101,7 +102,15 @@ export default function IncendioGame() {
 
   function start() {
     timeLeftRef.current = GAME_SECONDS;
-    setGrid(createGrid());
+    const initialGrid = createGrid();
+    const fires = new Set<number>();
+    while (fires.size < INITIAL_FIRES) {
+      fires.add(Math.floor(Math.random() * TOTAL_CELLS));
+    }
+    for (const index of fires) {
+      ignite(initialGrid[index]);
+    }
+    setGrid(initialGrid);
     setTimeLeft(GAME_SECONDS);
     setScore(0);
     setStatus("playing");
