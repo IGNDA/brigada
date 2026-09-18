@@ -2,31 +2,19 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
-const GRID_SIZE = 5;
-const TOTAL_CELLS = GRID_SIZE * GRID_SIZE;
-const GAME_SECONDS = 45;
 const TICK_MS = 500;
-const FIRE_DURATION = 6;
-const INITIAL_FIRES = 3;
-const SPREAD_CHANCE = 0.18;
-const RANDOM_FIRE_CHANCE = 0.12;
+const FIRE_PER_TICK = 0.7;
+const START_FIRE = 10;
+const FIRE_RELIEF = 9;
+const FIRE_PENALTY = 7;
 
 const HANDRES = 4;
-const MAX_BUCKETS = 4;
-const START_BUCKETS = 2;
-const BUCKETS_PER_SOLVE = 2;
+const MIN_SEQ_LENGTH = 2;
+const MAX_SEQ_LENGTH = 8;
 const FLASH_ON_MS = 320;
 const FLASH_GAP_MS = 180;
-const MIN_SEQ_LENGTH = 2;
-const MAX_SEQ_LENGTH = 6;
 
-type CellState = "tree" | "fire" | "safe" | "ash";
-
-interface Cell {
-  id: number;
-  state: CellState;
-  burnTime: number;
-}
+const ILLUSTRATED_TREES = 12;
 
 type GameStatus = "idle" | "playing" | "finished";
 type SeqStatus = "idle" | "flashing" | "awaiting" | "congrats" | "wrong";
@@ -38,52 +26,18 @@ const LEVERS = [
   { label: "Válvula vermelha", className: "bg-emergency-500" },
 ];
 
-function createGrid(): Cell[] {
-  return Array.from({ length: TOTAL_CELLS }, (_, i) => ({
-    id: i,
-    state: "tree" as const,
-    burnTime: 0,
-  }));
-}
-
-function ignite(target: Cell) {
-  target.state = "fire";
-  target.burnTime = FIRE_DURATION;
-}
-
-function neighborsOf(id: number): number[] {
-  const row = Math.floor(id / GRID_SIZE);
-  const col = id % GRID_SIZE;
-  const result: number[] = [];
-  if (row > 0) result.push(id - GRID_SIZE);
-  if (row < GRID_SIZE - 1) result.push(id + GRID_SIZE);
-  if (col > 0) result.push(id - 1);
-  if (col < GRID_SIZE - 1) result.push(id + 1);
-  return result;
-}
-
 function sequenceLength(round: number): number {
-  return Math.max(MIN_SEQ_LENGTH, Math.min(round + 1, MAX_SEQ_LENGTH));
+  return Math.min(MIN_SEQ_LENGTH + round - 1, MAX_SEQ_LENGTH);
 }
 
-function createInitialGridWithFires(): Cell[] {
-  const initialGrid = createGrid();
-  const fires = new Set<number>();
-  while (fires.size < INITIAL_FIRES) {
-    fires.add(Math.floor(Math.random() * TOTAL_CELLS));
-  }
-  for (const index of fires) {
-    ignite(initialGrid[index]);
-  }
-  return initialGrid;
+function clampFire(value: number): number {
+  return Math.max(0, Math.min(100, value));
 }
 
 export default function IncendioGame() {
-  const [grid, setGrid] = useState<Cell[]>(createGrid);
   const [status, setStatus] = useState<GameStatus>("idle");
-  const [timeLeft, setTimeLeft] = useState(GAME_SECONDS);
+  const [fire, setFire] = useState(START_FIRE);
   const [score, setScore] = useState(0);
-  const [buckets, setBuckets] = useState(START_BUCKETS);
   const [round, setRound] = useState(1);
   const [sequence, setSequence] = useState<number[]>([]);
   const [seqStep, setSeqStep] = useState(0);
@@ -91,55 +45,25 @@ export default function IncendioGame() {
   const [lit, setLit] = useState<number | null>(null);
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const timeLeftRef = useRef(GAME_SECONDS);
-  const bucketsRef = useRef(START_BUCKETS);
+  const fireRef = useRef(START_FIRE);
   const seqTimeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
-  function clearSeqTimeouts() {
+  const clearSeqTimeouts = useCallback(() => {
     for (const id of seqTimeoutsRef.current) {
       clearTimeout(id);
     }
     seqTimeoutsRef.current = [];
     setLit(null);
-  }
+  }, []);
 
-  function finish() {
+  const finish = useCallback(() => {
     clearSeqTimeouts();
     setSeqStatus("idle");
     setSeqStep(0);
     setStatus("finished");
-  }
+  }, [clearSeqTimeouts]);
 
-  function step(prev: Cell[]): Cell[] {
-    const next = prev.map((cell) => ({ ...cell }));
-
-    const burning = next.filter((c) => c.state === "fire");
-    for (const cell of burning) {
-      cell.burnTime -= 1;
-      if (cell.burnTime <= 0) {
-        cell.state = "ash";
-      }
-    }
-
-    for (const cell of next.filter((c) => c.state === "fire")) {
-      for (const n of neighborsOf(cell.id)) {
-        if (next[n].state === "tree" && Math.random() < SPREAD_CHANCE) {
-          ignite(next[n]);
-        }
-      }
-    }
-
-    if (Math.random() < RANDOM_FIRE_CHANCE) {
-      const trees = next.filter((c) => c.state === "tree");
-      if (trees.length > 0) {
-        ignite(trees[Math.floor(Math.random() * trees.length)]);
-      }
-    }
-
-    return next;
-  }
-
-  function flashSequence(newSeq: number[]) {
+  const flashSequence = useCallback((newSeq: number[]) => {
     setSeqStatus("flashing");
     const ids: ReturnType<typeof setTimeout>[] = [];
     let delay = 0;
@@ -157,97 +81,72 @@ export default function IncendioGame() {
       }, delay)
     );
     seqTimeoutsRef.current = ids;
-  }
+  }, []);
 
-  function startChallenge() {
-    if (
-      status !== "playing" ||
-      seqStatus === "flashing" ||
-      seqStatus === "awaiting" ||
-      seqStatus === "congrats" ||
-      bucketsRef.current > 0
-    ) {
-      return;
-    }
-    clearSeqTimeouts();
-    const newSequence = Array.from({ length: sequenceLength(round) }, () =>
-      Math.floor(Math.random() * HANDRES)
-    );
-    setSequence(newSequence);
-    flashSequence(newSequence);
-  }
+  const beginSequence = useCallback(
+    (length: number) => {
+      clearSeqTimeouts();
+      const newSequence = Array.from({ length }, () =>
+        Math.floor(Math.random() * HANDRES)
+      );
+      setSequence(newSequence);
+      flashSequence(newSequence);
+    },
+    [clearSeqTimeouts, flashSequence]
+  );
 
   function pressLever(index: number) {
     if (status !== "playing" || seqStatus !== "awaiting" || lit !== null)
       return;
+
     if (sequence[seqStep] !== index) {
+      fireRef.current = clampFire(fireRef.current + FIRE_PENALTY);
+      setFire(fireRef.current);
       setSeqStatus("wrong");
       const id = setTimeout(() => {
         setSeqStep(0);
-        setLit(null);
         flashSequence(sequence);
-      }, 700);
+      }, 800);
       seqTimeoutsRef.current.push(id);
       return;
     }
+
     const nextStep = seqStep + 1;
     setSeqStep(nextStep);
     if (nextStep >= sequence.length) {
+      fireRef.current = clampFire(fireRef.current - FIRE_RELIEF);
+      setFire(fireRef.current);
       setSeqStatus("congrats");
-      const nextBuckets = Math.min(
-        MAX_BUCKETS,
-        bucketsRef.current + BUCKETS_PER_SOLVE
-      );
-      bucketsRef.current = nextBuckets;
-      setBuckets(nextBuckets);
-      setRound((r) => r + 1);
+      setScore((s) => s + 1);
+      const nextRound = round + 1;
+      setRound(nextRound);
       const id = setTimeout(() => {
-        setSeqStatus("idle");
-        setSeqStep(0);
+        beginSequence(sequenceLength(nextRound));
       }, 900);
       seqTimeoutsRef.current.push(id);
     }
   }
 
-  function extinguish(id: number) {
-    const cell = grid[id];
-    if (cell.state !== "fire" || status !== "playing") return;
-    if (bucketsRef.current <= 0) return;
-    bucketsRef.current -= 1;
-    setBuckets(bucketsRef.current);
-    setScore((s) => s + 1);
-    setGrid((prev) =>
-      prev.map((c) =>
-        c.id === id && c.state === "fire" ? { ...c, state: "safe" as const } : c
-      )
-    );
-    if (bucketsRef.current === 0) {
-      startChallenge();
-    }
-  }
-
   function start() {
     clearSeqTimeouts();
-    timeLeftRef.current = GAME_SECONDS;
-    setGrid(createInitialGridWithFires());
-    setTimeLeft(GAME_SECONDS);
+    fireRef.current = START_FIRE;
+    setFire(START_FIRE);
     setScore(0);
-    bucketsRef.current = START_BUCKETS;
-    setBuckets(START_BUCKETS);
     setRound(1);
     setSequence([]);
     setSeqStep(0);
     setSeqStatus("idle");
     setLit(null);
     setStatus("playing");
+    beginSequence(sequenceLength(1));
   }
 
   function tip() {
-    if (score >= 12) {
+    if (score >= 15) {
       return "Incrível! Você é um verdadeiro bombeiro da floresta. 🔥💧";
     }
-    if (score >= 6) {
-      return "Muito bem! Regiões secas precisam de atenção redobrada. 🌿";
+    if (score >= 8) {
+      return "Muito bem! Sua memória está afiada. 🌿";
     }
     return "Lembre-se: nunca faça fogueiras em áreas de mata e denuncie queimadas pelo 193. 🚨";
   }
@@ -255,10 +154,9 @@ export default function IncendioGame() {
   useEffect(() => {
     if (status !== "playing") return;
     intervalRef.current = setInterval(() => {
-      setGrid((prev) => step(prev));
-      timeLeftRef.current -= 1;
-      setTimeLeft(timeLeftRef.current);
-      if (timeLeftRef.current <= 0) {
+      fireRef.current = clampFire(fireRef.current + FIRE_PER_TICK);
+      setFire(fireRef.current);
+      if (fireRef.current >= 100) {
         finish();
       }
     }, TICK_MS);
@@ -266,27 +164,24 @@ export default function IncendioGame() {
       if (intervalRef.current) clearInterval(intervalRef.current);
       intervalRef.current = null;
     };
-  }, [status]);
+  }, [status, finish]);
 
   useEffect(() => {
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
       clearSeqTimeouts();
     };
-  }, []);
+  }, [clearSeqTimeouts]);
 
-  const challengeActive =
-    status === "playing" && (buckets === 0 || seqStatus === "congrats");
-  const isLocked = challengeActive && buckets === 0 && seqStatus !== "idle";
+  const burningTrees = Math.round((fire / 100) * ILLUSTRATED_TREES);
+  const water = 100 - fire;
 
   return (
-    <div className="mx-auto max-w-2xl rounded-2xl border border-forest-100 bg-white p-6 shadow-sm sm:p-8">
+    <div className="mx-auto max-w-xl rounded-2xl border border-forest-100 bg-white p-6 shadow-sm sm:p-8">
       <div className="flex flex-wrap items-center justify-between gap-2 text-sm font-semibold text-forest-700">
-        <span>⏱️ {timeLeft}s</span>
-        <span>🔥 Apagados: {score}</span>
-        <span aria-label={`${buckets} de ${MAX_BUCKETS} baldes de água`}>
-          💧 {buckets}/{MAX_BUCKETS}
-        </span>
+        <span>✅ Sequências: {score}</span>
+        <span>🏆 Nível {round}</span>
+        <span>🔥 {Math.round(fire)}% em chamas</span>
       </div>
 
       {status === "idle" && (
@@ -298,10 +193,9 @@ export default function IncendioGame() {
             Apague o Incêndio
           </h2>
           <p className="mt-2 text-sm text-forest-700">
-            A floresta está em chamas! Clique nos focos 🔥 para apagá-los com os
-            baldes de água. Quando a água acabar, o hidrante se abre e você
-            precisa repetir a sequência das válvulas para encher os baldes de
-            novo. Você tem {GAME_SECONDS} segundos!
+            Abra o hidrante acompanhando a sequência das válvulas coloridas:
+            memorize e repita a ordem. A cada acerto a sequência cresce e você
+            joga água na floresta. Não deixe ela queimar por completo!
           </p>
           <button
             type="button"
@@ -313,89 +207,53 @@ export default function IncendioGame() {
         </div>
       )}
 
-      {(status === "playing" || status === "finished") && (
+      {status !== "idle" && (
         <div className="mt-6">
           <div
-            className={`grid grid-cols-5 gap-1 ${isLocked ? "opacity-40" : ""}`}
-            role="group"
-            aria-label="Mapa da floresta"
+            className="flex items-end justify-center gap-0.5 text-lg sm:text-xl"
+            role="img"
+            aria-label={`Floresta ${Math.round(fire)}% em chamas`}
           >
-            {grid.map((cell) => {
-              const row = Math.floor(cell.id / GRID_SIZE);
-              const col = cell.id % GRID_SIZE;
-              const label =
-                cell.state === "fire"
-                  ? `Foco de incêndio no bloco ${row + 1}, ${col + 1}`
-                  : `Bloco ${row + 1}, ${col + 1} (${
-                      cell.state === "safe"
-                        ? "área apagada"
-                        : cell.state === "ash"
-                          ? "área queimada"
-                          : "árvore"
-                    })`;
-              const canExtinguish =
-                status === "playing" && cell.state === "fire" && buckets > 0;
-              return (
-                <button
-                  key={cell.id}
-                  type="button"
-                  onClick={() => extinguish(cell.id)}
-                  disabled={!canExtinguish}
-                  aria-label={label}
-                  className={`flex aspect-square items-center justify-center rounded-md border text-lg transition-colors sm:text-xl ${
-                    cell.state === "fire"
-                      ? "border-emergency-600 bg-emergency-500 hover:bg-emergency-600"
-                      : cell.state === "safe"
-                        ? "border-forest-300 bg-forest-100"
-                        : cell.state === "ash"
-                          ? "border-forest-800 bg-forest-900 text-forest-500"
-                          : "border-forest-700 bg-forest-600"
-                  }`}
-                >
-                  {cell.state === "fire"
-                    ? "🔥"
-                    : cell.state === "safe"
-                      ? "💧"
-                      : cell.state === "ash"
-                        ? "·"
-                        : "🌳"}
-                </button>
-              );
-            })}
+            {Array.from({ length: ILLUSTRATED_TREES }, (_, i) => (
+              <span key={i} aria-hidden="true">
+                {i < burningTrees ? "🔥" : "🌳"}
+              </span>
+            ))}
           </div>
 
-          {status === "playing" &&
-            (challengeActive && buckets === 0 ? (
-              <p
-                className="mt-3 rounded-lg border border-emergency-200 bg-emergency-50 p-2 text-center text-sm font-semibold text-emergency-700"
-                aria-live="polite"
-              >
-                🔒 A água acabou! Abra o hidrante repetindo a sequência das
-                válvulas para conseguir mais baldes.
-              </p>
-            ) : (
-              <p className="mt-3 text-center text-sm text-forest-600">
-                Clique nos 🔥 para apagar com água. ({buckets}{" "}
-                {buckets === 1 ? "balde" : "baldes"})
-              </p>
-            ))}
+          <div className="mt-3 flex items-center gap-2 text-xs font-medium text-forest-600">
+            <span className="w-14 shrink-0 text-right">💧 Água</span>
+            <div className="h-2 flex-1 overflow-hidden rounded-full bg-forest-100">
+              <div
+                className="h-full rounded-full bg-blue-500 transition-all duration-500"
+                style={{ width: `${water}%` }}
+              />
+            </div>
+          </div>
+          <div className="mt-1 flex items-center gap-2 text-xs font-medium text-forest-600">
+            <span className="w-14 shrink-0 text-right">🔥 Fogo</span>
+            <div className="h-2 flex-1 overflow-hidden rounded-full bg-forest-100">
+              <div
+                className="h-full rounded-full bg-emergency-500 transition-all duration-500"
+                style={{ width: `${fire}%` }}
+              />
+            </div>
+          </div>
 
-          {status === "playing" && challengeActive && (
+          {status === "playing" && (
             <div
-              className="mt-5 rounded-xl border border-emergency-200 bg-emergency-50 p-4"
+              className="mt-6 rounded-xl border border-forest-100 bg-forest-50 p-4"
               role="group"
               aria-label="Hidrante"
             >
               <div className="flex items-center justify-between gap-2">
-                <h3 className="font-bold text-emergency-900">
-                  🔑 Hidrante bloqueado
-                </h3>
-                <span className="text-xs font-semibold text-emergency-700">
+                <h3 className="font-bold text-forest-900">🔑 Hidrante</h3>
+                <span className="text-xs font-semibold text-forest-600">
                   Sequência de {sequenceLength(round).toString()} válvulas
                 </span>
               </div>
 
-              <div className="mt-3 flex items-center justify-center gap-3">
+              <div className="mt-4 flex items-center justify-center gap-4">
                 {LEVERS.map((lever, index) => {
                   const isLit = lit === index;
                   return (
@@ -406,7 +264,7 @@ export default function IncendioGame() {
                       disabled={seqStatus !== "awaiting" || lit !== null}
                       aria-label={lever.label}
                       aria-pressed={isLit}
-                      className={`h-12 w-12 rounded-full border-4 transition-all sm:h-14 sm:w-14 ${
+                      className={`h-14 w-14 rounded-full border-4 transition-all sm:h-16 sm:w-16 ${
                         isLit
                           ? "scale-110 border-white shadow-lg ring-2 ring-emergency-400"
                           : "border-forest-100"
@@ -416,25 +274,25 @@ export default function IncendioGame() {
                 })}
               </div>
 
-              <div className="mt-3 text-center text-sm" aria-live="polite">
+              <div className="mt-4 text-center text-sm" aria-live="polite">
                 {seqStatus === "flashing" && (
-                  <p className="font-medium text-emergency-800">
+                  <p className="font-medium text-forest-800">
                     Memorize a sequência…
                   </p>
                 )}
                 {seqStatus === "awaiting" && (
-                  <p className="font-medium text-emergency-800">
-                    Repita a sequência agora!
+                  <p className="font-medium text-forest-800">
+                    Repita a sequência!
                   </p>
                 )}
                 {seqStatus === "congrats" && (
-                  <p className="font-medium text-emergency-800">
-                    Hidrante aberto! 📢 +{BUCKETS_PER_SOLVE} baldes de água
+                  <p className="font-medium text-forest-800">
+                    Ótimo! Água na floresta 💧 (−{FIRE_RELIEF}% de fogo)
                   </p>
                 )}
                 {seqStatus === "wrong" && (
                   <p className="font-semibold text-emergency-600">
-                    Sequência errada. Tente de novo!
+                    Sequência errada! +{FIRE_PENALTY}% de fogo.
                   </p>
                 )}
               </div>
@@ -447,10 +305,11 @@ export default function IncendioGame() {
                 🚒
               </span>
               <h2 className="mt-4 text-xl font-bold text-forest-900">
-                Tempo esgotado!
+                A floresta queimou!
               </h2>
               <p className="mt-2 text-sm font-semibold text-forest-800">
-                Você apagou {score} focos de incêndio.
+                Você completou {score}{" "}
+                {score === 1 ? "sequência" : "sequências"}.
               </p>
               <p className="mt-1 text-sm text-forest-700">{tip()}</p>
               <button

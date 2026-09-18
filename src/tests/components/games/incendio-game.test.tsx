@@ -1,10 +1,11 @@
-import { render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import IncendioGame from "@/components/games/incendio-game";
 
 describe("IncendioGame", () => {
   afterEach(() => {
+    vi.useRealTimers();
     vi.restoreAllMocks();
   });
 
@@ -14,39 +15,43 @@ describe("IncendioGame", () => {
     expect(screen.getByRole("button", { name: "Começar" })).toBeInTheDocument();
   });
 
-  it("inicia o jogo ao clicar em Começar", async () => {
+  it("mostra a floresta ilustrativa e o hidrante com as válvulas", async () => {
     const user = userEvent.setup();
     render(<IncendioGame />);
     await user.click(screen.getByRole("button", { name: "Começar" }));
-    const map = screen.getByRole("group", { name: "Mapa da floresta" });
-    expect(map).toBeInTheDocument();
-    expect(map.children).toHaveLength(25);
+
     expect(
-      screen.queryByRole("group", { name: "Hidrante" })
-    ).not.toBeInTheDocument();
+      screen.getByRole("img", { name: /Floresta .* em chamas/ })
+    ).toBeInTheDocument();
+    expect(screen.getByRole("group", { name: "Hidrante" })).toBeInTheDocument();
+    for (const label of [
+      "Válvula azul",
+      "Válvula verde",
+      "Válvula amarela",
+      "Válvula vermelha",
+    ]) {
+      expect(screen.getByRole("button", { name: label })).toBeInTheDocument();
+    }
+    expect(screen.getByText("Memorize a sequência…")).toBeInTheDocument();
   });
 
-  it("abre o hidrante quando os baldes de água acabam", async () => {
-    const values = [0.01, 0.05, 0.09, 0.5];
-    vi.spyOn(Math, "random").mockImplementation(() => {
-      return values.shift() ?? 0.5;
-    });
-    const user = userEvent.setup();
+  it("completa a sequência correta e avança o nível", async () => {
+    const values = [0, 0.5];
+    vi.spyOn(Math, "random").mockImplementation(() => values.shift() ?? 0.5);
+    vi.useFakeTimers();
     render(<IncendioGame />);
-    await user.click(screen.getByRole("button", { name: "Começar" }));
-    expect(screen.getByLabelText(/baldes de água/)).toHaveTextContent("2/4");
 
-    const fireA = screen.getByRole("button", {
-      name: "Foco de incêndio no bloco 1, 1",
+    fireEvent.click(screen.getByRole("button", { name: "Começar" }));
+    await act(async () => {
+      vi.advanceTimersByTime(1100);
     });
-    const fireB = screen.getByRole("button", {
-      name: "Foco de incêndio no bloco 1, 2",
-    });
-    await user.click(fireA);
-    await user.click(fireB);
+    expect(screen.getByText("Repita a sequência!")).toBeInTheDocument();
 
-    expect(screen.getByLabelText(/baldes de água/)).toHaveTextContent("0/4");
-    expect(screen.getByRole("group", { name: "Hidrante" })).toBeInTheDocument();
-    expect(screen.getByText("Memorize a sequência…")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Válvula azul" }));
+    fireEvent.click(screen.getByRole("button", { name: "Válvula amarela" }));
+
+    expect(screen.getByText(/Água na floresta/)).toBeInTheDocument();
+    expect(screen.getByText("✅ Sequências: 1")).toBeInTheDocument();
+    expect(screen.getByText("🏆 Nível 2")).toBeInTheDocument();
   });
 });
