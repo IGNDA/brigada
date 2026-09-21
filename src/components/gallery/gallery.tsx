@@ -152,7 +152,7 @@ function AlbumCard({
           {album.items.length} {album.items.length === 1 ? "foto" : "fotos"}
         </p>
         {album.description && (
-          <p className="mt-2 text-sm text-forest-600 line-clamp-2">
+          <p className="mt-2 text-sm text-forest-600">
             {album.description}
           </p>
         )}
