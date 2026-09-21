@@ -144,7 +144,7 @@ function AlbumCard({
       </div>
 
       <div className="p-5 sm:p-6">
-        <h2 className="text-lg sm:text-xl font-bold text-forest-900 truncate group-hover:text-forest-700 transition-colors">
+        <h2 className="text-lg sm:text-xl font-bold text-forest-900 group-hover:text-forest-700 transition-colors">
           {album.title}
         </h2>
         <p className="mt-2 text-sm text-forest-600 flex items-center gap-1">
