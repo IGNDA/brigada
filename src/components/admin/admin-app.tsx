@@ -2,7 +2,13 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { deleteItem, fetchGallery, updateItem, uploadImage } from "@/lib/api";
+import {
+  deleteItem,
+  fetchGallery,
+  updateAlbum,
+  updateItem,
+  uploadImage,
+} from "@/lib/api";
 import {
   CATEGORIES,
   type GalleryCategory,
@@ -265,14 +271,13 @@ export default function AdminApp({
     setEditSaving(true);
     setEditMessage(null);
     try {
-      for (const item of editingAlbum.items) {
-        await updateItem(token, item.id, {
-          title: editTitle,
-          description: editDescription,
-          category: editCategory,
-          date: editDate || undefined,
-        });
-      }
+      await updateAlbum(token, {
+        title: editingAlbum.title,
+        newTitle: editTitle,
+        description: editDescription,
+        category: editCategory,
+        date: editDate || undefined,
+      });
       await load();
       setEditSaving(false);
       setEditingAlbum(null);

@@ -347,6 +347,76 @@ async function handleUpdate(
   return json({ ok: true, item });
 }
 
+async function handleUpdateAlbum(
+  request: Request,
+  env: Env
+): Promise<Response> {
+  const auth = request.headers.get("Authorization");
+  if (
+    !(await verifyToken(
+      env.ADMIN_SECRET,
+      auth?.replace(/^Bearer\s+/i, "") ?? null
+    ))
+  ) {
+    return unauthorized();
+  }
+
+  let body: {
+    title: string;
+    newTitle?: string;
+    description?: string;
+    category?: string;
+    date?: string;
+  };
+  try {
+    body = (await request.json()) as typeof body;
+  } catch {
+    return badRequest("Corpo inválido.");
+  }
+
+  if (!body?.title) {
+    return badRequest("Informe o título do álbum.");
+  }
+
+  const manifest = await readManifest(env);
+  const items = manifest.items.filter((i) => i.title === body.title);
+  if (items.length === 0) {
+    return notFound("Álbum não encontrado.");
+  }
+
+  const newTitle = body.newTitle?.trim().slice(0, 120) || body.title;
+  const desc =
+    typeof body.description === "string"
+      ? body.description.trim().slice(0, 200) || undefined
+      : undefined;
+  const cat =
+    body.category && CATEGORIES.includes(body.category)
+      ? body.category
+      : undefined;
+  const date =
+    typeof body.date === "string" &&
+    /^\d{4}-\d{2}-\d{2}$/.test(body.date.trim())
+      ? body.date.trim()
+      : undefined;
+
+  for (const item of items) {
+    if (newTitle !== body.title) item.title = newTitle;
+    if (desc !== undefined) item.description = desc;
+    if (cat) item.category = cat;
+    if (date !== undefined) item.date = date;
+  }
+
+  if (newTitle !== body.title && manifest.covers?.[body.title]) {
+    if (!manifest.covers) manifest.covers = {};
+    manifest.covers[newTitle] = manifest.covers[body.title];
+    delete manifest.covers[body.title];
+  }
+
+  await writeManifest(env, manifest);
+
+  return json({ ok: true, updated: items.length });
+}
+
 const worker = {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
@@ -390,6 +460,10 @@ const worker = {
 
     if (path === "/api/upload" && request.method === "POST") {
       return handleUpload(request, env);
+    }
+
+    if (path === "/api/album" && request.method === "PATCH") {
+      return handleUpdateAlbum(request, env);
     }
 
     const deleteMatch = path.match(/^\/api\/item\/(.+)$/);

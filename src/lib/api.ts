@@ -83,3 +83,20 @@ export async function updateItem(
     body: JSON.stringify(fields),
   });
 }
+
+export async function updateAlbum(
+  token: string,
+  fields: {
+    title: string;
+    newTitle?: string;
+    description?: string;
+    category?: string;
+    date?: string;
+  }
+): Promise<void> {
+  await request<{ ok: boolean }>("/api/album", {
+    method: "PATCH",
+    headers: { Authorization: `Bearer ${token}` },
+    body: JSON.stringify(fields),
+  });
+}
