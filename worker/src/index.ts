@@ -11,11 +11,17 @@ interface GalleryItem {
   url: string;
   createdAt: string;
   size?: number;
+  date?: string;
+}
+
+interface AlbumCover {
+  coverId?: string;
 }
 
 interface GalleryManifest {
   updatedAt: string;
   items: GalleryItem[];
+  covers?: Record<string, AlbumCover>;
 }
 
 const MANIFEST_KEY = "manifest.json";
@@ -137,16 +143,18 @@ function sanitizeFilename(name: string, ext: string): string {
 async function readManifest(env: Env): Promise<GalleryManifest> {
   const obj = await env.GALLERY_BUCKET.get(MANIFEST_KEY);
   if (!obj) {
-    return { updatedAt: new Date().toISOString(), items: [] };
+    return { updatedAt: new Date().toISOString(), items: [], covers: {} };
   }
   try {
     const parsed = (await obj.json()) as GalleryManifest;
     return {
       updatedAt: parsed.updatedAt ?? new Date().toISOString(),
       items: Array.isArray(parsed.items) ? parsed.items : [],
+      covers:
+        parsed.covers && typeof parsed.covers === "object" ? parsed.covers : {},
     };
   } catch {
-    return { updatedAt: new Date().toISOString(), items: [] };
+    return { updatedAt: new Date().toISOString(), items: [], covers: {} };
   }
 }
 
@@ -234,15 +242,20 @@ async function handleUpload(request: Request, env: Env): Promise<Response> {
     httpMetadata: { contentType: `image/${ext === "jpg" ? "jpeg" : ext}` },
   });
 
+  const dateField = (parsed.fields.date ?? "").trim();
+  const date = /^\d{4}-\d{2}-\d{2}$/.test(dateField) ? dateField : undefined;
+
   const manifest = await readManifest(env);
   manifest.items.push({
     id: crypto.randomUUID(),
     title,
-    description: (parsed.fields.description ?? "").trim() || undefined,
+    description:
+      (parsed.fields.description ?? "").trim().slice(0, 200) || undefined,
     category,
     url,
     createdAt: new Date().toISOString(),
     size: parsed.buffer.byteLength,
+    ...(date ? { date } : {}),
   });
   manifest.items.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
   await writeManifest(env, manifest);
@@ -292,7 +305,13 @@ async function handleUpdate(
     return unauthorized();
   }
 
-  let body: { title?: string; description?: string; category?: string };
+  let body: {
+    title?: string;
+    description?: string;
+    category?: string;
+    date?: string;
+    coverId?: string;
+  };
   try {
     body = (await request.json()) as typeof body;
   } catch {
@@ -312,7 +331,15 @@ async function handleUpdate(
     item.title = body.title.trim().slice(0, 120) || "Sem título";
   }
   if (typeof body?.description === "string") {
-    item.description = body.description.trim() || undefined;
+    item.description = body.description.trim().slice(0, 200) || undefined;
+  }
+  if (typeof body?.date === "string") {
+    const d = body.date.trim();
+    item.date = /^\d{4}-\d{2}-\d{2}$/.test(d) ? d : undefined;
+  }
+  if (typeof body?.coverId === "string") {
+    if (!manifest.covers) manifest.covers = {};
+    manifest.covers[item.title] = { coverId: body.coverId };
   }
 
   await writeManifest(env, manifest);

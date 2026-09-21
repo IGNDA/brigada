@@ -44,13 +44,14 @@ export async function login(password: string): Promise<string> {
 export async function uploadImage(
   token: string,
   file: File,
-  meta: { title: string; description?: string; category: string }
+  meta: { title: string; description?: string; category: string; date?: string }
 ): Promise<void> {
   const form = new FormData();
   form.append("file", file);
   form.append("title", meta.title);
   if (meta.description) form.append("description", meta.description);
   form.append("category", meta.category);
+  if (meta.date) form.append("date", meta.date);
   await request<{ ok: boolean }>("/api/upload", {
     method: "POST",
     headers: { Authorization: `Bearer ${token}` },
@@ -68,7 +69,13 @@ export async function deleteItem(token: string, id: string): Promise<void> {
 export async function updateItem(
   token: string,
   id: string,
-  fields: { title?: string; description?: string; category?: string }
+  fields: {
+    title?: string;
+    description?: string;
+    category?: string;
+    date?: string;
+    coverId?: string;
+  }
 ): Promise<void> {
   await request<{ ok: boolean }>(`/api/item/${encodeURIComponent(id)}`, {
     method: "PATCH",

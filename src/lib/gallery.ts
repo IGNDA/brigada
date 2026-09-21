@@ -9,11 +9,17 @@ export interface GalleryItem {
   url: string;
   createdAt: string;
   size?: number;
+  date?: string;
+}
+
+export interface AlbumCover {
+  coverId?: string;
 }
 
 export interface GalleryManifest {
   updatedAt: string;
   items: GalleryItem[];
+  covers?: Record<string, AlbumCover>;
 }
 
 export const CATEGORIES: Record<GalleryCategory, { label: string }> = {

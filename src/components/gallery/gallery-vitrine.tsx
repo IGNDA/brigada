@@ -1,30 +1,49 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { fetchGallery } from "@/lib/api";
 import { itemImageUrl } from "@/lib/gallery";
-import type { GalleryItem } from "@/lib/gallery";
+import type { GalleryItem, AlbumCover } from "@/lib/gallery";
 import { urls } from "@/lib/urls";
 
 const VITRINE_LIMIT = 4;
 
-function getFirstPhotoPerAlbum(items: GalleryItem[]): GalleryItem[] {
-  const albumMap = new Map<string, GalleryItem>();
+function getFirstPhotoPerAlbum(
+  items: GalleryItem[],
+  covers?: Record<string, AlbumCover>
+): GalleryItem[] {
+  const albumMap = new Map<string, GalleryItem[]>();
   for (const item of items) {
     const key = item.title || "Sem título";
-    if (!albumMap.has(key) || item.createdAt > albumMap.get(key)!.createdAt) {
-      albumMap.set(key, item);
-    }
+    const list = albumMap.get(key) ?? [];
+    list.push(item);
+    albumMap.set(key, list);
   }
-  return Array.from(albumMap.values())
-    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+  const result: GalleryItem[] = [];
+  for (const [title, list] of albumMap) {
+    const sortedList = [...list].sort((a, b) =>
+      b.createdAt.localeCompare(a.createdAt)
+    );
+    const coverEntry = covers?.[title];
+    const coverItem = coverEntry?.coverId
+      ? (sortedList.find((i) => i.id === coverEntry.coverId) ?? sortedList[0])
+      : sortedList[0];
+    result.push(coverItem);
+  }
+  return result
+    .sort((a, b) => {
+      const dateA = a.date ?? a.createdAt;
+      const dateB = b.date ?? b.createdAt;
+      return dateB.localeCompare(dateA);
+    })
     .slice(0, VITRINE_LIMIT);
 }
 
 export default function GalleryVitrine() {
   const [items, setItems] = useState<GalleryItem[]>([]);
+  const [covers, setCovers] = useState<Record<string, AlbumCover>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -34,8 +53,8 @@ export default function GalleryVitrine() {
       try {
         const manifest = await fetchGallery();
         if (!cancelled) {
-          const firstPerAlbum = getFirstPhotoPerAlbum(manifest.items);
-          setItems(firstPerAlbum);
+          setItems(manifest.items);
+          setCovers(manifest.covers ?? {});
           setError(null);
         }
       } catch (err) {
@@ -51,6 +70,11 @@ export default function GalleryVitrine() {
       cancelled = true;
     };
   }, []);
+
+  const displayItems = useMemo(
+    () => getFirstPhotoPerAlbum(items, covers),
+    [items, covers]
+  );
 
   if (loading) {
     return (
@@ -99,7 +123,7 @@ export default function GalleryVitrine() {
     );
   }
 
-  if (items.length === 0) {
+  if (displayItems.length === 0) {
     return (
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <p className="text-sm font-semibold uppercase tracking-wide text-forest-600">
@@ -154,7 +178,7 @@ export default function GalleryVitrine() {
       </p>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {items.map((item, index) => (
+        {displayItems.map((item, index) => (
           <Link
             key={item.id}
             href={urls.gallery()}
@@ -176,7 +200,9 @@ export default function GalleryVitrine() {
               <p className="font-semibold truncate">{item.title}</p>
               <p className="text-xs text-forest-100 capitalize">
                 {item.category} ·{" "}
-                {new Date(item.createdAt).toLocaleDateString("pt-BR")}
+                {new Date(
+                  (item.date ?? item.createdAt) + (item.date ? "T00:00:00" : "")
+                ).toLocaleDateString("pt-BR")}
               </p>
             </div>
           </Link>

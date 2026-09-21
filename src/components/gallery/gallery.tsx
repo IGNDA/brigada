@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { fetchGallery } from "@/lib/api";
@@ -8,6 +9,7 @@ import {
   CATEGORIES,
   type GalleryCategory,
   type GalleryItem,
+  type AlbumCover,
   itemImageUrl,
 } from "@/lib/gallery";
 import { ChevronRight, Camera, Tag, Calendar } from "lucide-react";
@@ -22,11 +24,17 @@ interface Album {
   src: string;
   width: number;
   height: number;
+  description?: string;
+  date?: string;
+  coverId?: string;
 }
 
 const PHOTO_RATIO = { width: 4, height: 3 };
 
-function groupByTitle(items: GalleryItem[]): Album[] {
+function groupByTitle(
+  items: GalleryItem[],
+  covers?: Record<string, AlbumCover>
+): Album[] {
   const map = new Map<string, GalleryItem[]>();
   for (const item of items) {
     const key = item.title || "Sem título";
@@ -37,18 +45,26 @@ function groupByTitle(items: GalleryItem[]): Album[] {
     const sortedList = [...list].sort((a, b) =>
       b.createdAt.localeCompare(a.createdAt)
     );
-    const first = sortedList[0];
+    const coverEntry = covers?.[title];
+    const coverItem = coverEntry?.coverId
+      ? (sortedList.find((i) => i.id === coverEntry.coverId) ?? sortedList[0])
+      : sortedList[0];
     albums.push({
       title,
-      category: first.category,
+      category: coverItem.category,
       items: sortedList,
-      src: itemImageUrl(first),
+      src: itemImageUrl(coverItem),
       width: PHOTO_RATIO.width,
       height: PHOTO_RATIO.height,
+      description: coverItem.description,
+      date: coverItem.date,
+      coverId: coverEntry?.coverId,
     });
   }
   albums.sort((a, b) =>
-    b.items[0].createdAt.localeCompare(a.items[0].createdAt)
+    (b.date ?? b.items[0].createdAt).localeCompare(
+      a.date ?? a.items[0].createdAt
+    )
   );
   return albums;
 }
@@ -86,8 +102,10 @@ function AlbumCard({
   album: Album;
   onOpenLightbox: (album: Album, startIndex?: number) => void;
 }) {
-  const coverImage = album.items[0];
-  const date = new Date(coverImage.createdAt).toLocaleDateString("pt-BR", {
+  const displayDate = album.date ?? album.items[0].createdAt;
+  const date = new Date(
+    displayDate + (album.date ? "T00:00:00" : "")
+  ).toLocaleDateString("pt-BR", {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
@@ -96,11 +114,14 @@ function AlbumCard({
   return (
     <article className="group overflow-hidden rounded-2xl bg-white shadow-sm border border-forest-100 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
       <div className="relative aspect-[4/3] overflow-hidden">
-        <img
-          src={itemImageUrl(coverImage)}
+        <Image
+          src={album.src}
           alt={`Capa do álbum ${album.title}`}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
           loading="lazy"
+          unoptimized
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
@@ -130,6 +151,11 @@ function AlbumCard({
           <Tag className="h-3.5 w-3.5" aria-hidden="true" />
           {album.items.length} {album.items.length === 1 ? "foto" : "fotos"}
         </p>
+        {album.description && (
+          <p className="mt-2 text-sm text-forest-600 line-clamp-2">
+            {album.description}
+          </p>
+        )}
 
         {album.items.length > 0 && (
           <div className="mt-4 pt-4 border-t border-forest-100">
@@ -224,6 +250,7 @@ function ErrorState({ message }: { message: string }) {
 
 export default function Gallery() {
   const [items, setItems] = useState<GalleryItem[]>([]);
+  const [covers, setCovers] = useState<Record<string, AlbumCover>>({});
   const [filter, setFilter] = useState<Filter>("todas");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -236,6 +263,7 @@ export default function Gallery() {
     try {
       const manifest = await fetchGallery();
       setItems(manifest.items);
+      setCovers(manifest.covers ?? {});
       setError(null);
     } catch (err) {
       setError(
@@ -265,7 +293,10 @@ export default function Gallery() {
   const visibleItems =
     filter === "todas" ? items : items.filter((i) => i.category === filter);
 
-  const albums = useMemo(() => groupByTitle(visibleItems), [visibleItems]);
+  const albums = useMemo(
+    () => groupByTitle(visibleItems, covers),
+    [visibleItems, covers]
+  );
 
   const handleOpenLightbox = useCallback((album: Album, startIndex = 0) => {
     const slides = album.items.map((i) => itemImageUrl(i));
