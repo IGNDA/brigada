@@ -535,6 +535,8 @@ export default function AdminApp({
                         e.stopPropagation();
                         setTitle(album.title);
                         setCategory(album.category);
+                        setDescription(album.items[0].description ?? "");
+                        setDate(album.date ?? "");
                         if (uploadRef.current)
                           uploadRef.current.scrollIntoView({
                             behavior: "smooth",
