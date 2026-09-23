@@ -194,9 +194,9 @@ export default function GalleryVitrine() {
                 loading={index === 0 ? "eager" : "lazy"}
                 className="object-cover transition-transform duration-300 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
-            <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/75 via-black/50 to-transparent p-4 pt-10 text-white">
               <p className="font-semibold truncate">{item.title}</p>
               <p className="text-xs text-forest-100 capitalize">
                 {item.category} ·{" "}
