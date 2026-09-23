@@ -15,12 +15,46 @@ import {
   ArrowRight,
 } from "lucide-react";
 
+function YoutubeIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z" />
+    </svg>
+  );
+}
+
+function InstagramIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" y1="6.5" x2="17.52" y2="6.5" />
+    </svg>
+  );
+}
+
 const whatsappUrl = BRIGADE_CONFIG.whatsappText.startsWith("http")
   ? BRIGADE_CONFIG.whatsappText
   : `https://api.whatsapp.com/send/?phone=5521966956140&text=${encodeURIComponent(BRIGADE_CONFIG.whatsappText)}&type=phone_number&app_absent=0`;
 
 const instagramUrl =
   "https://www.instagram.com/1_brigada_de_operacoes_florest/";
+
+const youtubeUrl = "https://www.youtube.com/@ignda1brigada";
 
 export default function Home() {
   return (
@@ -68,6 +102,92 @@ export default function Home() {
                 className="absolute inset-0 h-full w-full object-cover"
               />
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-forest-50">
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-sm font-semibold uppercase tracking-wide text-forest-600">
+              Siga e compartilhe
+            </p>
+            <h2 className="mt-2 text-2xl font-bold text-forest-900 sm:text-3xl">
+              Acompanhe a Brigada nas redes
+            </h2>
+            <p className="mt-3 text-forest-700">
+              Vídeos, bastidores e resgates em primeira mão. Assista no YouTube
+              e siga o Instagram para apoiar o trabalho voluntário no Rio de
+              Janeiro.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
+            <a
+              href={youtubeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Abrir o canal da Brigada no YouTube"
+              className="social-banner"
+            >
+              <Image
+                src={asset("/assets/social/youtube.png")}
+                alt=""
+                fill
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="social-banner__image"
+              />
+              <span
+                className="social-banner__overlay social-banner__overlay--youtube"
+                aria-hidden="true"
+              >
+                <span className="social-banner__icon">
+                  <YoutubeIcon className="h-6 w-6" />
+                </span>
+                <span className="social-banner__content">
+                  <span className="social-banner__brand">YouTube</span>
+                  <span className="social-banner__handle">@ignda1brigada</span>
+                  <span className="social-banner__cta">
+                    Inscreva-se
+                    <ArrowRight className="h-4 w-4" />
+                  </span>
+                </span>
+              </span>
+            </a>
+
+            <a
+              href={instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Abrir o perfil da Brigada no Instagram"
+              className="social-banner"
+            >
+              <Image
+                src={asset("/assets/social/instagram.png")}
+                alt=""
+                fill
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="social-banner__image"
+              />
+              <span
+                className="social-banner__overlay social-banner__overlay--instagram"
+                aria-hidden="true"
+              >
+                <span className="social-banner__icon">
+                  <InstagramIcon className="h-6 w-6" />
+                </span>
+                <span className="social-banner__content">
+                  <span className="social-banner__brand">Instagram</span>
+                  <span className="social-banner__handle">
+                    @1_brigada_de_operacoes_florest
+                  </span>
+                  <span className="social-banner__cta">
+                    Seguir
+                    <ArrowRight className="h-4 w-4" />
+                  </span>
+                </span>
+              </span>
+            </a>
           </div>
         </div>
       </section>

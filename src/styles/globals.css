@@ -70,3 +70,122 @@ section[id] {
 .react-photo-album--button:hover .react-photo-album--image {
   transform: scale(1.04);
 }
+
+/* Seção redes sociais — banners YouTube e Instagram */
+.social-banner {
+  position: relative;
+  display: block;
+  isolation: isolate;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 1rem;
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.05),
+    0 4px 16px rgb(0 0 0 / 0.1);
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+
+.social-banner:hover {
+  box-shadow:
+    0 4px 8px rgb(0 0 0 / 0.08),
+    0 16px 32px rgb(0 0 0 / 0.18);
+  transform: translateY(-3px);
+}
+
+.social-banner__image {
+  transition: transform 0.5s ease;
+}
+
+.social-banner:hover .social-banner__image {
+  transform: scale(1.06);
+}
+
+.social-banner__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1.5rem;
+  color: #fff;
+}
+
+.social-banner__overlay--youtube {
+  background: linear-gradient(
+    180deg,
+    rgb(0 0 0 / 0.06) 0%,
+    rgb(0 0 0 / 0.22) 42%,
+    rgb(204 0 0 / 0.8) 72%,
+    rgb(102 0 0 / 0.94) 100%
+  );
+}
+
+.social-banner__overlay--instagram {
+  background: linear-gradient(
+    180deg,
+    rgb(0 0 0 / 0.04) 0%,
+    rgb(0 0 0 / 0.16) 40%,
+    rgb(131 58 180 / 0.68) 66%,
+    rgb(225 48 108 / 0.82) 82%,
+    rgb(253 29 29 / 0.88) 92%,
+    rgb(252 176 69 / 0.92) 100%
+  );
+}
+
+.social-banner__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgb(255 255 255 / 0.35);
+  background: rgb(255 255 255 / 0.16);
+  backdrop-filter: blur(4px);
+}
+
+.social-banner__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+}
+
+.social-banner__brand {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.35);
+}
+
+.social-banner__handle {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgb(255 255 255 / 0.95);
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.35);
+}
+
+.social-banner__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  background: #fff;
+  color: #111;
+  font-size: 0.875rem;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.25);
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease;
+}
+
+.social-banner:hover .social-banner__cta {
+  transform: translateX(4px);
+}
