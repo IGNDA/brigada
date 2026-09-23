@@ -15,7 +15,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-forest-100 bg-forest-50 pb-16 sm:pb-20">
+    <footer className="border-t border-forest-100 bg-forest-50">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-3 sm:px-6">
         <div className="text-center sm:text-left">
           <p className="font-semibold text-forest-900">{BRIGADE_CONFIG.name}</p>
@@ -66,10 +66,18 @@ export default function Footer() {
         </nav>
       </div>
 
-      <div className="mx-auto max-w-6xl px-4 text-center text-sm text-forest-600 sm:px-6">
-        <p>
+      <div className="mt-6 border-t border-forest-100 bg-forest-100/60 px-4 py-4 text-center sm:px-6">
+        <p className="text-sm text-forest-600">
           © {year} {BRIGADE_CONFIG.name}
         </p>
+        <a
+          href="https://github.com/ui2code"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-1 inline-block text-xs text-forest-400 transition-colors hover:text-forest-700"
+        >
+          Desenvolvido por @ui2code
+        </a>
       </div>
     </footer>
   );
