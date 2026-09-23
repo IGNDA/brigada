@@ -11,13 +11,24 @@ const entertainmentLinks = [
 
 const adminLinks = [{ label: "Área administrativa", href: urlsFull.admin() }];
 
+const socialLinks = [
+  {
+    label: "YouTube",
+    href: "https://www.youtube.com/@ignda1brigada",
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/1_brigada_de_operacoes_florest/",
+  },
+];
+
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
     <footer className="border-t border-forest-100 bg-forest-50">
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-3 sm:px-6">
-        <div className="text-center sm:text-left">
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 text-center sm:px-6 sm:text-left lg:grid-cols-[minmax(0,2fr)_repeat(3,minmax(0,1fr))] lg:gap-10">
+        <div>
           <p className="font-semibold text-forest-900">{BRIGADE_CONFIG.name}</p>
           <p className="mt-1 text-sm text-forest-600">
             {BRIGADE_CONFIG.instituteName}
@@ -25,7 +36,7 @@ export default function Footer() {
           <p className="text-sm text-forest-600">Rio de Janeiro · Brasil</p>
         </div>
 
-        <nav aria-label="Entretenimento" className="text-center sm:text-left">
+        <nav aria-label="Entretenimento">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-forest-800">
             Entretenimento
           </h2>
@@ -43,10 +54,27 @@ export default function Footer() {
           </ul>
         </nav>
 
-        <nav
-          aria-label="Administração"
-          className="text-center sm:text-left sm:justify-self-end"
-        >
+        <nav aria-label="Redes sociais">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-forest-800">
+            Redes sociais
+          </h2>
+          <ul className="mt-3 space-y-2">
+            {socialLinks.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-forest-600 transition-colors hover:text-forest-900"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <nav aria-label="Administração">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-forest-800">
             Administração
           </h2>

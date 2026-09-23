@@ -51,4 +51,15 @@ describe("Footer", () => {
       screen.getByRole("link", { name: "Área administrativa" })
     ).toBeInTheDocument();
   });
+
+  it("exibe o menu de Redes sociais com os links de YouTube e Instagram", () => {
+    render(<Footer />);
+    const nav = screen.getByRole("navigation", { name: "Redes sociais" });
+    expect(nav).toBeInTheDocument();
+    for (const label of ["YouTube", "Instagram"]) {
+      const link = screen.getByRole("link", { name: label });
+      expect(link).toHaveAttribute("target", "_blank");
+      expect(link).toHaveAttribute("rel", "noopener noreferrer");
+    }
+  });
 });
