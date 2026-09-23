@@ -5,7 +5,8 @@ export const BRIGADE_CONFIG = {
   shortName: "Brigada Ivan Moraes",
   instituteName: "Instituto Guarda Nacional de Defesa Ambiental",
   description: "Brigada voluntária de proteção ambiental no Rio de Janeiro",
-  whatsappText: "Olá! Vi o site da Brigada Ivan Moraes e quero saber mais.",
+  whatsappText:
+    "Olá! Vim pelo site da Brigada Ivan Moraes e gostaria de falar com a equipe.",
   seo: {
     defaultTitle: "Brigada Ivan Moraes — Proteção ambiental no Rio de Janeiro",
     template: "%s | Brigada Ivan Moraes",

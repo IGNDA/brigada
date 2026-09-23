@@ -19,8 +19,8 @@ describe("FloatingWhatsApp", () => {
     ).toBeInTheDocument();
   });
 
-  it("exibe o texto 'Fale conosco' em telas grandes", () => {
+  it("exibe o texto 'Fale com a brigada' em todas as telas", () => {
     render(<FloatingWhatsApp />);
-    expect(screen.getByText("Fale conosco")).toBeInTheDocument();
+    expect(screen.getByText("Fale com a brigada")).toBeInTheDocument();
   });
 });
