@@ -7,7 +7,7 @@ User-agent: *
 Disallow: /admin/
 
 # Host
-Host: https://ignda.github.io/brigada
+Host: https://brigadaignda.org.br
 
 # Sitemaps
-Sitemap: https://ignda.github.io/brigada/sitemap.xml
+Sitemap: https://brigadaignda.org.br/sitemap.xml

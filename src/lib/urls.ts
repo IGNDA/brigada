@@ -1,9 +1,9 @@
-const BASE_PATH = "/brigada";
+const BASE_PATH = "";
 const isDev = process.env.NODE_ENV === "development";
 
-// Host de produção. Troque aqui (e no next-sitemap.config.js) quando o
-// domínio próprio estiver ativo.
-export const SITE_ORIGIN = "https://ignda.github.io";
+// Domínio próprio do site. Ajuste junto com o registro DNS quando o domínio
+// personalizado estiver ativo.
+export const SITE_ORIGIN = "https://brigadaignda.org.br";
 export const SITE_URL = `${SITE_ORIGIN}${BASE_PATH}`;
 
 export function url(path: string): string {

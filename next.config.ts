@@ -5,8 +5,8 @@ const isDev = process.env.NODE_ENV === "development";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   output: "export",
-  basePath: isDev ? "" : "/brigada",
-  assetPrefix: isDev ? "" : "/brigada",
+  basePath: "",
+  assetPrefix: "",
   trailingSlash: !isDev,
   images: {
     unoptimized: true,
