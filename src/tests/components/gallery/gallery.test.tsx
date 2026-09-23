@@ -87,3 +87,60 @@ describe("Gallery", () => {
     });
   });
 });
+
+describe("Gallery paginação", () => {
+  const manyItems: GalleryItem[] = Array.from({ length: 10 }, (_, i) => ({
+    id: `page-${i}`,
+    title: `Álbum ${i + 1}`,
+    category: "cursos",
+    url: `/page-${i}.jpg`,
+    createdAt: new Date(2026, 0, 20 - i).toISOString(),
+  }));
+
+  beforeEach(() => {
+    vi.mocked(fetchGallery).mockResolvedValue({
+      updatedAt: "2026-01-20T00:00:00.000Z",
+      items: manyItems,
+    });
+  });
+
+  it("mostra apenas 9 álbuns por página e navega entre páginas", async () => {
+    const user = userEvent.setup();
+    render(<Gallery />);
+    await screen.findByRole("heading", { name: "Álbum 1" });
+
+    expect(
+      screen.getByRole("heading", { name: "Álbum 9" })
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("heading", { name: "Álbum 10" })
+    ).not.toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "Página 2 de 2" }));
+
+    expect(
+      await screen.findByRole("heading", { name: "Álbum 10" })
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("heading", { name: "Álbum 1" })
+    ).not.toBeInTheDocument();
+  });
+
+  it("volta para a primeira página ao mudar o filtro", async () => {
+    const user = userEvent.setup();
+    render(<Gallery />);
+    await screen.findByRole("heading", { name: "Álbum 1" });
+
+    await user.click(screen.getByRole("button", { name: "Página 2 de 2" }));
+    await screen.findByRole("heading", { name: "Álbum 10" });
+
+    await user.click(screen.getByRole("button", { name: "Eventos" }));
+    await screen.findByText("Nenhuma imagem nesta categoria");
+
+    await user.click(screen.getByRole("button", { name: "Todas" }));
+    await screen.findByRole("heading", { name: "Álbum 1" });
+    expect(
+      screen.getByRole("button", { name: "Página 1 de 2" })
+    ).toHaveAttribute("aria-current", "page");
+  });
+});

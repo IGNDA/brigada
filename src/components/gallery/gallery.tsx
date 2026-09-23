@@ -12,7 +12,7 @@ import {
   type AlbumCover,
   itemImageUrl,
 } from "@/lib/gallery";
-import { ChevronRight, Camera, Tag, Calendar } from "lucide-react";
+import { ChevronLeft, ChevronRight, Camera, Tag, Calendar } from "lucide-react";
 import { BRIGADE_CONFIG } from "@/config/brigade";
 
 type Filter = "todas" | GalleryCategory;
@@ -30,6 +30,22 @@ interface Album {
 }
 
 const PHOTO_RATIO = { width: 4, height: 3 };
+
+const PAGE_SIZE = 9;
+
+function getPageList(current: number, total: number): (number | "…")[] {
+  if (total <= 7) {
+    return Array.from({ length: total }, (_, i) => i + 1);
+  }
+  const pages: (number | "…")[] = [1];
+  const start = Math.max(2, current - 1);
+  const end = Math.min(total - 1, current + 1);
+  if (start > 2) pages.push("…");
+  for (let i = start; i <= end; i += 1) pages.push(i);
+  if (end < total - 1) pages.push("…");
+  pages.push(total);
+  return pages;
+}
 
 function groupByTitle(
   items: GalleryItem[],
@@ -176,6 +192,74 @@ function AlbumCard({
   );
 }
 
+function Pagination({
+  page,
+  totalPages,
+  onPageChange,
+}: {
+  page: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
+}) {
+  if (totalPages <= 1) return null;
+
+  const pageItems = getPageList(page, totalPages);
+
+  return (
+    <nav
+      aria-label="Paginação da galeria"
+      className="mt-10 flex flex-wrap items-center justify-center gap-2"
+    >
+      <button
+        type="button"
+        onClick={() => onPageChange(page - 1)}
+        disabled={page === 1}
+        aria-label="Página anterior"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-forest-200 bg-white text-forest-700 shadow-sm transition-all hover:border-forest-300 hover:bg-forest-50 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-forest-200 disabled:hover:bg-white"
+      >
+        <ChevronLeft className="h-5 w-5" aria-hidden="true" />
+      </button>
+
+      {pageItems.map((item, index) =>
+        item === "…" ? (
+          <span
+            key={`ellipsis-${index}`}
+            aria-hidden="true"
+            className="px-1 text-forest-400"
+          >
+            …
+          </span>
+        ) : (
+          <button
+            key={item}
+            type="button"
+            onClick={() => onPageChange(item)}
+            aria-current={item === page ? "page" : undefined}
+            aria-label={`Página ${item} de ${totalPages}`}
+            className={`h-10 min-w-10 rounded-full px-3 text-sm font-semibold shadow-sm transition-all ${
+              item === page
+                ? "bg-forest-700 text-white shadow-forest-700/20"
+                : "border border-forest-200 bg-white text-forest-700 hover:border-forest-300 hover:bg-forest-50"
+            }`}
+          >
+            {item}
+          </button>
+        )
+      )}
+
+      <button
+        type="button"
+        onClick={() => onPageChange(page + 1)}
+        disabled={page === totalPages}
+        aria-label="Próxima página"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-forest-200 bg-white text-forest-700 shadow-sm transition-all hover:border-forest-300 hover:bg-forest-50 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-forest-200 disabled:hover:bg-white"
+      >
+        <ChevronRight className="h-5 w-5" aria-hidden="true" />
+      </button>
+    </nav>
+  );
+}
+
 function EmptyState({ filter }: { filter: Filter }) {
   const isFiltered = filter !== "todas";
   return (
@@ -250,12 +334,14 @@ export default function Gallery() {
   const [items, setItems] = useState<GalleryItem[]>([]);
   const [covers, setCovers] = useState<Record<string, AlbumCover>>({});
   const [filter, setFilter] = useState<Filter>("todas");
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const [open, setOpen] = useState(false);
   const [lightboxSlides, setLightboxSlides] = useState<string[]>([]);
   const [photoIndex, setPhotoIndex] = useState(0);
+  const gridRef = useRef<HTMLDivElement>(null);
 
   const load = useCallback(async () => {
     try {
@@ -295,6 +381,22 @@ export default function Gallery() {
     () => groupByTitle(visibleItems, covers),
     [visibleItems, covers]
   );
+
+  const totalPages = Math.max(1, Math.ceil(albums.length / PAGE_SIZE));
+  const safePage = Math.min(page, totalPages);
+
+  const paginatedAlbums = useMemo(() => {
+    const start = (safePage - 1) * PAGE_SIZE;
+    return albums.slice(start, start + PAGE_SIZE);
+  }, [albums, safePage]);
+
+  const goToPage = useCallback((nextPage: number) => {
+    setPage(nextPage);
+    gridRef.current?.scrollIntoView?.({
+      behavior: "smooth",
+      block: "start",
+    });
+  }, []);
 
   const handleOpenLightbox = useCallback((album: Album, startIndex = 0) => {
     const slides = album.items.map((i) => itemImageUrl(i));
@@ -348,14 +450,20 @@ export default function Gallery() {
         <CategoryBadge
           category="todas"
           isActive={filter === "todas"}
-          onClick={() => setFilter("todas")}
+          onClick={() => {
+            setFilter("todas");
+            setPage(1);
+          }}
         />
         {Object.entries(CATEGORIES).map(([value]) => (
           <CategoryBadge
             key={value}
             category={value as GalleryCategory}
             isActive={filter === value}
-            onClick={() => setFilter(value as GalleryCategory)}
+            onClick={() => {
+              setFilter(value as GalleryCategory);
+              setPage(1);
+            }}
           />
         ))}
       </div>
@@ -365,15 +473,25 @@ export default function Gallery() {
       {visibleItems.length === 0 ? (
         <EmptyState filter={filter} />
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {albums.map((album) => (
-            <AlbumCard
-              key={album.title}
-              album={album}
-              onOpenLightbox={handleOpenLightbox}
-            />
-          ))}
-        </div>
+        <>
+          <div
+            ref={gridRef}
+            className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+          >
+            {paginatedAlbums.map((album) => (
+              <AlbumCard
+                key={album.title}
+                album={album}
+                onOpenLightbox={handleOpenLightbox}
+              />
+            ))}
+          </div>
+          <Pagination
+            page={safePage}
+            totalPages={totalPages}
+            onPageChange={goToPage}
+          />
+        </>
       )}
 
       <Lightbox
