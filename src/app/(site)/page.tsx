@@ -56,6 +56,44 @@ const instagramUrl =
 
 const youtubeUrl = "https://www.youtube.com/@ignda1brigada";
 
+const games = [
+  {
+    href: urls.jogosQuiz(),
+    emoji: "🌱",
+    level: "Nível I",
+    tag: "Conhecimento",
+    title: "Quiz Ambiental",
+    description:
+      "Responda perguntas sobre natureza e descubra seu nível de proteção ao planeta.",
+  },
+  {
+    href: urls.jogosMemoria(),
+    emoji: "🦜",
+    level: "Nível II",
+    tag: "Foco",
+    title: "Jogo da Memória",
+    description:
+      "Encontre os pares de animais da Mata Atlântica que protegemos.",
+  },
+  {
+    href: urls.jogosCacaPalavras(),
+    emoji: "🔍",
+    level: "Nível III",
+    tag: "Agilidade",
+    title: "Caça-Palavras",
+    description: "Descubra palavras sobre meio ambiente escondidas na grade.",
+  },
+  {
+    href: urls.jogosIncendio(),
+    emoji: "🔥",
+    level: "Nível IV",
+    tag: "Ação",
+    title: "Apague o Incêndio",
+    description:
+      "Corra contra o tempo e combata os focos antes que a floresta se perca.",
+  },
+];
+
 export default function Home() {
   return (
     <>
@@ -312,6 +350,61 @@ export default function Home() {
 
       <section id="nossa-gente" className="scroll-mt-24">
         <GalleryVitrine />
+      </section>
+
+      <section className="games-area bg-forest-900 py-16 text-white sm:py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-xs font-black uppercase tracking-[0.25em] text-forest-400">
+              Área de jogos
+            </p>
+            <h2 className="mt-2 text-2xl font-bold sm:text-3xl">
+              Escolha sua missão
+            </h2>
+            <p className="mt-3 text-forest-200">
+              Treine seus reflexos, teste seu conhecimento e proteja a natureza
+              — tudo isso jogando.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {games.map((game) => (
+              <Link
+                key={game.href}
+                href={game.href}
+                className="games-card group"
+                aria-label={`Jogar ${game.title}`}
+              >
+                <span className="games-card__emoji" aria-hidden="true">
+                  {game.emoji}
+                </span>
+                <span className="games-card__level">
+                  {game.level} · {game.tag}
+                </span>
+                <h3 className="mt-1 text-lg font-black text-white">
+                  {game.title}
+                </h3>
+                <p className="mt-2 flex-1 text-sm text-forest-200/85">
+                  {game.description}
+                </p>
+                <span className="games-card__cta">
+                  Jogar agora
+                  <ArrowRight className="h-4 w-4" />
+                </span>
+              </Link>
+            ))}
+          </div>
+
+          <div className="mt-8 text-center">
+            <Link
+              href={urls.jogos()}
+              className="inline-flex items-center gap-2 rounded-full border border-forest-400/40 bg-white/5 px-6 py-3 text-sm font-bold text-forest-100 backdrop-blur-sm transition-all hover:border-forest-400 hover:bg-forest-400/10"
+            >
+              Ver todos os jogos
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
       </section>
 
       <section className="bg-forest-800 py-16 text-white sm:py-20">

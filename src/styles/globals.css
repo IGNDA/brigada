@@ -217,3 +217,114 @@ section[id] {
     opacity: 0;
   }
 }
+
+/* Seção de jogos — cards estilo gamer */
+.games-area {
+  background-image:
+    radial-gradient(rgb(34 197 94 / 0.1) 1px, transparent 1px),
+    radial-gradient(rgb(34 197 94 / 0.06), transparent 70%);
+  background-size:
+    28px 28px,
+    100% 100%;
+  background-position:
+    0 0,
+    0 0;
+}
+
+.games-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  border: 1px solid rgb(34 197 94 / 0.25);
+  background:
+    linear-gradient(160deg, rgb(34 197 94 / 0.1), transparent 45%),
+    linear-gradient(180deg, #0d341f, #07210f);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.07);
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.games-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgb(34 197 94 / 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(34 197 94 / 0.07) 1px, transparent 1px);
+  background-size: 26px 26px;
+  mask-image: linear-gradient(180deg, rgb(0 0 0 / 0.55), transparent 75%);
+}
+
+.games-card:hover {
+  transform: translateY(-4px);
+  border-color: rgb(34 197 94 / 0.55);
+  box-shadow:
+    0 12px 32px rgb(0 0 0 / 0.45),
+    0 0 28px rgb(34 197 94 / 0.22);
+}
+
+.games-card__emoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 0.875rem;
+  font-size: 1.75rem;
+  border: 1px solid rgb(34 197 94 / 0.35);
+  background: linear-gradient(
+    180deg,
+    rgb(34 197 94 / 0.22),
+    rgb(34 197 94 / 0.06)
+  );
+  box-shadow: 0 0 22px rgb(34 197 94 / 0.28);
+  transition: transform 0.25s ease;
+}
+
+.games-card:hover .games-card__emoji {
+  transform: scale(1.08);
+}
+
+.games-card__level {
+  margin-top: 1.25rem;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgb(134 239 172 / 0.8);
+}
+
+.games-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: flex-start;
+  margin-top: 1.25rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgb(34 197 94 / 0.45);
+  background: rgb(34 197 94 / 0.14);
+  color: #bbf7d0;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+.games-card:hover .games-card__cta {
+  background: #22c55e;
+  color: #052e16;
+  box-shadow: 0 0 24px rgb(34 197 94 / 0.5);
+  transform: translateX(4px);
+}
