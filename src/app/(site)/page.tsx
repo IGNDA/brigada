@@ -192,7 +192,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
         <div className="grid gap-12 lg:grid-cols-2 items-start">
           <div className="space-y-8 text-forest-800">
             <h2 className="text-2xl font-bold text-forest-900">
@@ -314,7 +314,7 @@ export default function Home() {
         <GalleryVitrine />
       </section>
 
-      <section className="bg-forest-800 py-16 text-white">
+      <section className="bg-forest-800 py-16 text-white sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 text-center">
           <p className="text-sm font-semibold uppercase tracking-wide text-forest-200">
             Entre em contato

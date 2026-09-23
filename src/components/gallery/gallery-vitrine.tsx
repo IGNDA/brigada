@@ -164,7 +164,7 @@ export default function GalleryVitrine() {
   }
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+    <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
       <p className="text-sm font-semibold uppercase tracking-wide text-forest-600">
         Nossa gente
       </p>
